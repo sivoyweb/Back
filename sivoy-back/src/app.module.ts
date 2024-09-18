@@ -8,9 +8,19 @@ import { DonationsModule } from './modules/donations/donations.module';
 import { SuggestionsModule } from './modules/suggestions/suggestions.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PromotionsModule } from './modules/promotions/promotions.module';
+import { DatabaseModule } from './modules/database/database.module';
 
 @Module({
-  imports: [UsersModule, TravelsModule, ProvidersModule, DonationsModule, SuggestionsModule, AuthModule, PromotionsModule],
+  imports: [
+    DatabaseModule,
+    UsersModule,
+    TravelsModule,
+    ProvidersModule,
+    DonationsModule,
+    SuggestionsModule,
+    AuthModule,
+    PromotionsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
