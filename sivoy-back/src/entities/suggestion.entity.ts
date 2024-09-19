@@ -19,10 +19,13 @@ export class Suggestion {
   user: User;
 
   @Column({ type: 'varchar', length: 255 })
-  destiny: string;
+  name: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 255 })
   country: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  city: string;
 
   @Column({ type: 'date' })
   date: Date;
