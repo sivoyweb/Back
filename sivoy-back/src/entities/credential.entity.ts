@@ -1,6 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
+import { Image } from './images.entity';
 
 @Entity('credentials')
 export class Credential {
@@ -13,8 +20,8 @@ export class Credential {
   @Column({ type: 'varchar', length: 255 })
   password: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  avatar: string;
+  @OneToMany(() => Image, (image) => image)
+  avatar: Image;
 
   @OneToOne(() => User, (user) => user.credential)
   user: User;
