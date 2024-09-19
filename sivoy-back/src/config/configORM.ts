@@ -39,6 +39,7 @@ const typeORMconfig = {
   logging: ['query', 'error'],
   dropSchema: true,
   migrations: ['dist/.migrations/*{.ts,.js}'],
+  //! Quitar cuando la aplicación pase a producción
   ssl: { rejectUnauthorized: false },
 };
 
