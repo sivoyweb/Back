@@ -30,6 +30,9 @@ export class User {
   @JoinTable()
   disabilities: Disability[];
 
+  @Column()
+  Phone: number;
+
   @Column({ type: 'date' })
   createdAt: Date;
 

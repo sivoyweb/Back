@@ -4,10 +4,12 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinTable,
 } from 'typeorm';
 import { Review } from './review.entity';
 import { TravelProvider } from './travelProvider.entity';
 import { v4 as uuid } from 'uuid';
+import { Image } from './images.entity';
 
 @Entity('travels')
 export class Travel {
@@ -15,7 +17,13 @@ export class Travel {
   id: string = uuid();
 
   @Column({ type: 'varchar', length: 255 })
-  destiny: string;
+  name: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  country: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  city: string;
 
   @Column({ type: 'timestamp' })
   date: Date;
@@ -27,7 +35,7 @@ export class Travel {
   description: string;
 
   @Column({ type: 'varchar', length: 255 })
-  typeService: string;
+  serviceType: string;
 
   @Column({ type: 'varchar', length: 255 })
   accesibilitySeal: string;
@@ -35,8 +43,9 @@ export class Travel {
   @OneToMany(() => Review, (review) => review.travel)
   reviews: Review[];
 
-  @Column({ type: 'simple-array', nullable: true })
-  imagesUrl: string[];
+  @OneToMany(() => Image, (image) => image.travel)
+  @JoinTable()
+  images: Image[];
 
   @Column({ type: 'int' })
   stars: number;
