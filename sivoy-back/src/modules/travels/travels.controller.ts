@@ -14,7 +14,7 @@ export class TravelsController {
         return this.travelsService.getAllTravels(page, limit);
     }
 
-    @Get('/search') 
+    @Get('search') 
     getTravelByName(@Query(`name`) name: string) {
         return this.travelsService.getTravelByName(name)
     }
