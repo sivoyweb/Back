@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.4.2",
     "@nestjs/typeorm": "^10.0.2",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.0",

@@ -10,6 +10,8 @@ import { Review } from './review.entity';
 import { TravelProvider } from './travelProvider.entity';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
+import { User } from './user.entity';
+import { Promotion } from './promotion.entity';
 
 @Entity('travels')
 export class Travel {
@@ -50,6 +52,12 @@ export class Travel {
   @Column({ type: 'int' })
   stars: number;
 
+  @OneToMany(() => Promotion, (promo) => promo.travel)
+  promotions: Promotion[];
+
   @ManyToOne(() => TravelProvider, (travelProvider) => travelProvider.provider)
   provider: TravelProvider;
+
+  @OneToMany(() => User, (user) => user.history)
+  userHistory: User;
 }
