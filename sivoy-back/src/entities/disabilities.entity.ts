@@ -10,9 +10,6 @@ export class Disability {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  description: string;
-
   @ManyToOne(() => User, (user) => user)
   users: User[];
 }

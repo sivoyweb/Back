@@ -37,8 +37,10 @@ const typeORMconfig = {
   ],
   synchronize: true,
   logging: ['query', 'error'],
-  dropSchema: false,
+  dropSchema: true,
   migrations: ['dist/.migrations/*{.ts,.js}'],
+  //! Quitar cuando la aplicación pase a producción
+  ssl: { rejectUnauthorized: false },
 };
 
 export default registerAs('typeorm', () => typeORMconfig);

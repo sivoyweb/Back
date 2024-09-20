@@ -30,10 +30,14 @@ export class User {
   @JoinTable()
   disabilities: Disability[];
 
+  @Column()
+  Phone: number;
+
   @Column({ type: 'date' })
   createdAt: Date;
 
-  @ManyToOne(() => Credential, (credential) => credential.user)
+  @ManyToOne(() => Credential, (credential) => credential.id)
+  @JoinTable()
   credential: Credential;
 
   @OneToMany(() => Review, (review) => review.user)
