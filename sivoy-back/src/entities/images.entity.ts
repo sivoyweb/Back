@@ -9,10 +9,10 @@ export class Image {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, default: 'URL default' })
   url: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, default: 'public id default' })
   publicId: string;
 
   @ManyToOne(() => Suggestion, (suggestion) => suggestion.imagesUrl)

@@ -1,36 +1,100 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { User } from 'src/entities/user.entity';
+import { CreateUserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
-    constructor(private readonly UsersRepository: UsersRepository) {}
-    
-    getAllUsers() {
-        return this.UsersRepository.getAllUsers()
-    }
+  constructor(private readonly UsersRepository: UsersRepository) {}
 
-    getUserById(id: string) {
-        return this.UsersRepository.getUserById(id)
-    }
+  async getAllUsers() {
+    try {
+      const users = await this.UsersRepository.getAllUsers();
+      const usersWithoutPassword = [];
+      users.forEach((user) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...credentialWithoutPassword } = user.credential;
+        const userWithoutPassword = {
+          ...user,
+          credential: {
+            ...credentialWithoutPassword,
+          },
+        };
+        usersWithoutPassword.push(userWithoutPassword);
+      });
 
-    updateUser(id: string, user: User) {
-        return this.UsersRepository.updateUser(id, user)
+      return usersWithoutPassword;
+    } catch (err) {
+      throw new HttpException(
+        { status: 500, error: 'internal server error getting users' },
+        500,
+      );
     }
+  }
 
-    createUSer(user: User) {
-        return this.UsersRepository.createUSer(user)
-    }
+  async getUserById(id: string) {
+    try {
+      const user = await this.UsersRepository.getUserById(id);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...credentialWithoutPassword } = user.credential;
+      const userWithoutPassword = {
+        ...user,
+        credential: {
+          ...credentialWithoutPassword,
+        },
+      };
 
-    deleteUser(id: string) {
-        return this.UsersRepository.deleteUser(id)
+      return userWithoutPassword;
+    } catch (err) {
+      return err;
     }
+  }
 
-    blockUser(id: string) {
-        return this.UsersRepository.blockUser(id)
+  async updateUser(id: string, user: User) {
+    try {
+      return await this.UsersRepository.updateUser(id, user);
+    } catch (err) {
+      return err;
     }
+  }
 
-    unblockUser(id: string) {
-        return this.UsersRepository.unblockUser(id)
+  async createUSer(user: CreateUserDto) {
+    try {
+      return await this.UsersRepository.createUser(user);
+    } catch (err) {
+      console.log(err);
+      throw new HttpException(
+        { status: 500, error: 'internal server error creating users' },
+        500,
+      );
     }
+  }
+
+  async isEmailInUse(email: string) {
+    return this.UsersRepository.isEmailUsed(email);
+  }
+
+  async deleteUser(id: string) {
+    try {
+      return await this.UsersRepository.deleteUser(id);
+    } catch (err) {
+      return err;
+    }
+  }
+
+  async blockUser(id: string) {
+    try {
+      return await this.UsersRepository.blockUser(id);
+    } catch (err) {
+      return err;
+    }
+  }
+
+  async unblockUser(id: string) {
+    try {
+      return await this.UsersRepository.unblockUser(id);
+    } catch (err) {
+      return err;
+    }
+  }
 }

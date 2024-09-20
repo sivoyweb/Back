@@ -7,7 +7,7 @@ export class Promotion {
   @PrimaryGeneratedColumn()
   id: string = uuid();
 
-  @ManyToOne(() => Travel, (travel) => travel.id)
+  @ManyToOne(() => Travel, (travel) => travel.promotions)
   travel: Travel;
 
   @Column({ type: 'int' })
