@@ -2,6 +2,7 @@ import {
   ArrayMinSize,
   IsArray,
   IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -17,13 +18,22 @@ export class CreateTravelDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(3)
-  @MaxLength(20)
-  destination: string;
+  @MaxLength(255)
+  name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  @IsDate()
-  date: string;
+  @MaxLength(255)
+  country: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  city: string;
+
+  @IsDateString()
+  @IsOptional()
+  date?: string;
 
   @IsNumber()
   @IsPositive()
@@ -37,7 +47,12 @@ export class CreateTravelDto {
 
   @IsString()
   @IsOptional()
-  servicetype: string;
+  serviceType: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(255)
+  accesibilitySeal: string;
 
   @IsOptional()
   @IsArray()
@@ -49,7 +64,7 @@ export class CreateTravelDto {
   @ArrayMinSize(1)
   images: Partial<Image[]>;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   stars: number;
 }
