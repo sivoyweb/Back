@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TravelsRepository } from './travels.repository';
 import { Review } from 'src/entities/review.entity';
 import { Travel } from 'src/entities/travel.entity';
+import { CreateTravelDto } from './travels.dto';
 
 @Injectable()
 export class TravelsService {
@@ -15,8 +16,12 @@ export class TravelsService {
         return this.travelsRepository.getTravelByName(name)
     }
 
-    createTravel(Travel: Travel) {
-        return this.travelsRepository.createTravel(Travel)
+    async createTravel(travel: CreateTravelDto) {
+        try {
+            return await this.travelsRepository.createTravel(travel);
+        } catch (error) {
+            throw new Error(`Error creating travel: ${error.message}`);
+        }
     }
 
     updateTravel(id: string, Review: Review) {

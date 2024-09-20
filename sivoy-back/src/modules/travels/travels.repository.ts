@@ -3,21 +3,26 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Review } from "src/entities/review.entity";
 import { Travel } from "src/entities/travel.entity";
 import { Repository } from "typeorm";
+import { CreateTravelDto } from "./travels.dto";
 
 @Injectable()
     export class TravelsRepository {
         constructor(@InjectRepository(Travel) private readonly travelsRepository: Repository<Travel>) {}
         
-        getAllTravels(page: number, limit: number) {
-            return "Travels List"
+        getAllTravels(page: number, limit: number): Promise<Travel[]> {
+            return this.travelsRepository.find({ skip: (page - 1) * limit, take: limit })
         }
 
         getTravelByName(name: string) {
             return "Travel by Name"
         }
  
-        createTravel(Travel: Travel) {
-            return "Travel Created"
+        async createTravel(travel: CreateTravelDto){
+            try {
+                return await this.travelsRepository.save(travel);
+            } catch (error) {
+                throw new Error(`Database error: ${error.message}`);
+            }
         }
 
         updateTravel(id: string, Review: Review) {
