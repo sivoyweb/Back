@@ -1,4 +1,3 @@
-import { config } from 'dotenv';
 import { registerAs } from '@nestjs/config';
 import { Credential } from 'src/entities/credential.entity';
 import { Donation } from 'src/entities/donation.entity';
@@ -12,16 +11,21 @@ import { User } from 'src/entities/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Image } from 'src/entities/images.entity';
 import { Disability } from 'src/entities/disabilities.entity';
-
-config({ path: '.env' });
+import {
+  DB_HOST,
+  DB_NAME,
+  DB_PORT,
+  POSTGRES_DB,
+  POSTGRES_PASSWORD,
+} from './envConfig';
 
 const typeORMconfig = {
   type: 'postgres',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT),
-  username: process.env.POSTGRES_DB,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.DB_NAME,
+  host: DB_HOST,
+  port: parseInt(DB_PORT),
+  username: POSTGRES_DB,
+  password: POSTGRES_PASSWORD,
+  database: DB_NAME,
   entities: [
     User,
     Credential,

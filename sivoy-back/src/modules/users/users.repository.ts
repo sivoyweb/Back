@@ -56,7 +56,6 @@ export class UsersRepository {
   async createUser(userDto: CreateUserDto) {
     const { name, email, password } = userDto;
 
-    // Crea las credenciales
     const credential = this.credentialsRepository.create({
       email,
       password,
@@ -64,10 +63,9 @@ export class UsersRepository {
 
     await this.credentialsRepository.update(credential.id, credential);
 
-    // Crea el usuario
     const user = this.usersRepository.create({
       name,
-      role: Role.User, // Asignar 'user' como rol por defecto
+      role: Role.User,
       createdAt: new Date(),
       credential,
     });
