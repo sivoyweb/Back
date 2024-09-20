@@ -2,8 +2,10 @@ import { PickType } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEmpty,
+  IsEnum,
   IsIn,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsStrongPassword,
@@ -12,6 +14,7 @@ import {
   Validate,
 } from 'class-validator';
 import { MatchPassword } from 'src/decorators/matchPassword';
+import { Role } from 'src/helpers/roles.enum.';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -20,10 +23,13 @@ export class CreateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsEmpty()
-  @IsString()
-  @IsIn([`admin`, `user`])
-  role?: string;
+  @IsEnum(Role)
+  @IsOptional()
+  role?: Role;
+
+  @IsNumber()
+  @IsNotEmpty()
+  phone: number;
 
   @IsString()
   @IsOptional()

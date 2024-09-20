@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, ValidationPipe } from '@nestjs/common';
 import { TravelsService } from './travels.service';
 import { Review } from 'src/entities/review.entity';
 import { Travel } from 'src/entities/travel.entity';
 import { CreateTravelDto } from './travels.dto';
 import { create } from 'domain';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/helpers/roles.enum.';
 
 @Controller('travels')
 export class TravelsController {
@@ -19,6 +22,8 @@ export class TravelsController {
         return this.travelsService.getTravelByName(name)
     }
 
+    @Roles(Role.Admin)
+    @UseGuards(RolesGuard)
     @Post()
     async createTravel(@Body() travel: CreateTravelDto) {
         travel.date = new Date().toISOString()
