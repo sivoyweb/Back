@@ -3,26 +3,25 @@ import { PromotionsRepository } from './promotions.repository';
 
 @Injectable()
 export class PromotionsService {
-    constructor(private readonly PromotionsRepository: PromotionsRepository) {}
+  constructor(private readonly PromotionsRepository: PromotionsRepository) {}
 
-    getAllPromotions() {
-        return this.PromotionsRepository.getAllPromotions();
-    }
+  getAllPromotions() {
+    return this.PromotionsRepository.getAllPromotions();
+  }
 
-    getPromotionById(id: string) {
-        return this.PromotionsRepository.getPromotionById(id);
-    }
+  getPromotionById(id: string) {
+    return this.PromotionsRepository.getPromotionById(id);
+  }
 
-    createPromotion() {
-        return this.PromotionsRepository.createPromotion();
-    }
+  createPromotion() {
+    return this.PromotionsRepository.createPromotion();
+  }
 
-    updatePromotion(id: string) {
-        return this.PromotionsRepository.updatePromotion(id);
-    }
+  updatePromotion(id: string) {
+    return this.PromotionsRepository.updatePromotion(id);
+  }
 
-    deletePromotion(id: string) {
-        return this.PromotionsRepository.deletePromotion(id);
-    }
-
+  deletePromotion(id: string) {
+    return this.PromotionsRepository.deletePromotion(id);
+  }
 }

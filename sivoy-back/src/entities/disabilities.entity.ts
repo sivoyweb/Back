@@ -10,6 +10,6 @@ export class Disability {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @ManyToOne(() => User, (user) => user)
-  users: User[];
+  @ManyToOne(() => User, (user) => user.disabilities)
+  user: User;
 }

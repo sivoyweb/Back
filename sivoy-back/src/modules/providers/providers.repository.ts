@@ -1,26 +1,29 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Provider } from "src/entities/provider.entity";
+import { Provider } from 'src/entities/provider.entity';
 
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProvidersRepository {
-    constructor(@InjectRepository(Provider) private readonly providersRepository: Repository<Provider>) {}
-    
-    getAllProviders() {
-        return "All Providers"
-    }
+  constructor(
+    @InjectRepository(Provider)
+    private readonly providersRepository: Repository<Provider>,
+  ) {}
 
-    getProviderById(id: string) {
-        return "Provider by id"
-    }
+  getAllProviders() {
+    return 'All Providers';
+  }
 
-    createProvider() {
-        return "Provider Created"
-    }
+  getProviderById(id: string) {
+    return 'Provider by id';
+  }
 
-    updateProvider(id: string) {
-        return "Provider updated"
-    }
+  createProvider() {
+    return 'Provider Created';
+  }
+
+  updateProvider(id: string) {
+    return 'Provider updated';
+  }
 }
