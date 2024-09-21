@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Credential } from 'src/entities/credential.entity';
 import * as bcrypt from 'bcrypt';
+import { startWith } from 'rxjs';
 
 @Injectable()
 export class UsersRepository {
@@ -19,6 +20,7 @@ export class UsersRepository {
     const users = await this.usersRepository.find({
       relations: ['credential'],
     });
+
     return users;
   }
 

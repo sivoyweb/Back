@@ -11,6 +11,7 @@ import { PromotionsModule } from './modules/promotions/promotions.module';
 import { DatabaseModule } from './modules/database/database.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from './config/envConfig';
+import { DataSeederModule } from './modules/data/dataSeeder.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JWT_SECRET } from './config/envConfig';
     SuggestionsModule,
     AuthModule,
     PromotionsModule,
+    DataSeederModule,
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },

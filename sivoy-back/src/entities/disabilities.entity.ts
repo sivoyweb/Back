@@ -7,8 +7,11 @@ export class Disability {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'varchar', length: 100, unique: true })
   name: string;
+
+  @Column()
+  category: string;
 
   @ManyToOne(() => User, (user) => user.disabilities)
   user: User;
