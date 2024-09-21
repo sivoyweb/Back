@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TravelsService } from './travels.service';
 import { Review } from 'src/entities/review.entity';
 import { CreateReviewDto, CreateTravelDto, UpdateTravelDto } from './travels.dto';
@@ -62,4 +73,3 @@ export class TravelsController {
         return this.travelsService.deleteReview(id)
     }
 
-}

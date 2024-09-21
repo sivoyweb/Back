@@ -9,7 +9,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: false,
       transform: true,
-    })
+    }),
   );
   await app.listen(3000);
 }
