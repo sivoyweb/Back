@@ -32,7 +32,7 @@ export class User {
   disabilities: Disability[];
 
   @Column({ nullable: true })
-  Phone: number;
+  phone: number;
 
   @Column({ type: 'date' })
   createdAt: Date;

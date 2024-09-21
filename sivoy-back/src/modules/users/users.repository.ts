@@ -3,8 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Role } from 'src/helpers/roles.enum.';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Credential } from 'src/entities/credential.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersRepository {
@@ -32,17 +33,20 @@ export class UsersRepository {
     return userFound;
   }
 
-  async isEmailUsed(email: string) {
+  async isEmailUsed(email: string): Promise<boolean | string> {
     const credentialsFound = await this.credentialsRepository.findOne({
       where: { email },
     });
     if (!credentialsFound) {
       return false;
     }
-    return true;
+    const user = await this.usersRepository.findOne({
+      where: { credential: credentialsFound },
+    });
+    return user.id;
   }
 
-  async updateUser(id: string, user: User) {
+  async updateUser(id: string, user: UpdateUserDto) {
     const userFound = await this.usersRepository.findOne({ where: { id } });
     if (!userFound) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
@@ -54,25 +58,30 @@ export class UsersRepository {
   }
 
   async createUser(userDto: CreateUserDto) {
-    const { name, email, password } = userDto;
+    const { name, email, password, phone, disabilities } = userDto;
+
+    const hashedPassword = await bcrypt.hash(password, 11);
 
     const credential = this.credentialsRepository.create({
       email,
-      password,
+      password: hashedPassword,
     });
 
     await this.credentialsRepository.update(credential.id, credential);
 
-    const user = this.usersRepository.create({
+    const user: Partial<User> = {
       name,
+      phone,
+      disabilities,
       role: Role.User,
       createdAt: new Date(),
       credential,
-    });
+    };
+    this.usersRepository.create(user);
 
     await this.usersRepository.save(user);
 
-    return 'User created successfully';
+    return user;
   }
 
   async deleteUser(id: string) {

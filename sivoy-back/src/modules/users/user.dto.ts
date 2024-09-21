@@ -14,7 +14,7 @@ import {
   Validate,
 } from 'class-validator';
 import { MatchPassword } from 'src/decorators/matchPassword';
-import { Role } from 'src/helpers/roles.enum.';
+import { Disability } from 'src/entities/disabilities.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -23,17 +23,12 @@ export class CreateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsEnum(Role)
-  @IsOptional()
-  role?: Role;
-
   @IsNumber()
   @IsNotEmpty()
   phone: number;
 
-  @IsString()
   @IsOptional()
-  disabilities?: string;
+  disabilities?: Disability[];
 
   @IsNotEmpty()
   @IsEmail()
@@ -62,14 +57,12 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsOptional()
-  @IsString()
-  @IsIn([`admin`, `user`])
-  role: string;
+  @IsNumber()
+  @IsNotEmpty()
+  phone: number;
 
-  @IsString()
   @IsOptional()
-  disabilities?: string;
+  disabilities?: Disability[];
 
   @IsOptional()
   @IsEmail()

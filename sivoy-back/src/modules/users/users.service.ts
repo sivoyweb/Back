@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { User } from 'src/entities/user.entity';
-import { CreateUserDto } from './user.dto';
+import { CreateUserDto, UpdateUserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,13 +44,13 @@ export class UsersService {
         },
       };
 
-      return userWithoutPassword;
+      return { userWithoutPassword, password };
     } catch (err) {
       return err;
     }
   }
 
-  async updateUser(id: string, user: User) {
+  async updateUser(id: string, user: UpdateUserDto) {
     try {
       return await this.UsersRepository.updateUser(id, user);
     } catch (err) {
@@ -60,7 +60,16 @@ export class UsersService {
 
   async createUSer(user: CreateUserDto) {
     try {
-      return await this.UsersRepository.createUser(user);
+      const newUser = await this.UsersRepository.createUser(user);
+      const { password, ...credentialWithoutPassword } = newUser.credential;
+      const userWithoutPassword = {
+        ...newUser,
+        credential: {
+          ...credentialWithoutPassword,
+        },
+      };
+
+      return userWithoutPassword;
     } catch (err) {
       console.log(err);
       throw new HttpException(
