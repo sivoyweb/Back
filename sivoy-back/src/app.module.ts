@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from './config/envConfig';
 import { DataSeederModule } from './modules/data/dataSeeder.module';
 
+
 @Module({
   imports: [
     DatabaseModule,
