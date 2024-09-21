@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PromotionsModule } from './modules/promotions/promotions.module';
 import { DatabaseModule } from './modules/database/database.module';
 
+
 @Module({
   imports: [
     DatabaseModule,
@@ -20,6 +21,7 @@ import { DatabaseModule } from './modules/database/database.module';
     SuggestionsModule,
     AuthModule,
     PromotionsModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],
