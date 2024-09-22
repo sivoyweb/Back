@@ -74,12 +74,4 @@ export class TravelsController {
   updateReview(@Param('id') id: string, @Body() Review: Review) {
     return this.travelsService.updateReview(id, Review);
   }
-
-<<<<<<< HEAD
-  @Delete('/reviews/:id')
-  deleteReview(@Param('id') id: string) {
-    return this.travelsService.deleteReview(id);
-  }
-=======
->>>>>>> 9d2710ee8b5c1c3e633215912646786b62180267
 }

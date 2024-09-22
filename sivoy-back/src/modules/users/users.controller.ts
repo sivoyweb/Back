@@ -16,7 +16,7 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @UseGuards(TokenGuard)
-  @Get()
+  @Get('/')
   async getAllUsers() {
     return await this.userService.getAllUsers();
   }
