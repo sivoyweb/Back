@@ -34,7 +34,7 @@ export class AuthController {
 
   @Post('signin')
   async signIn(@Body() userData: LoginUserDto) {
-    const response = this.authService.signin(userData);
+    const response = await this.authService.signin(userData);
     return response;
   }
 

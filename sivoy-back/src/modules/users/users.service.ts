@@ -1,9 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { User } from 'src/entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from './user.dto';
-import sendEmailService from 'src/helpers/email.service';
-import { getStructureforWelcome } from 'src/utils/mail.structure';
+import { UpdateUserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
