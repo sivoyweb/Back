@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
@@ -12,7 +19,16 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() user: CreateUserDto) {
-    const newUser = await this.userService.createUSer(user);
+    const valid = await this.userService.isEmailInUse(user.email);
+
+    if (valid !== false) {
+      throw new HttpException(
+        { status: 400, error: 'email already in use' },
+        400,
+      );
+    }
+
+    const newUser = await this.authService.signup(user);
     return newUser;
   }
 
@@ -20,5 +36,10 @@ export class AuthController {
   async signIn(@Body() userData: LoginUserDto) {
     const response = this.authService.signin(userData);
     return response;
+  }
+
+  @Get('verify-email')
+  async verifyEmail(@Query('token') token: string) {
+    return await this.authService.verifyToken(token);
   }
 }

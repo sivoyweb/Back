@@ -54,7 +54,7 @@ export class UsersRepository {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
     }
 
-    await this.usersRepository.update(id, user);
+    await this.usersRepository.update(id, { ...user, auth: false });
 
     return 'User Updated';
   }
@@ -111,5 +111,15 @@ export class UsersRepository {
     }
     await this.usersRepository.update(id, { block: false });
     return 'User Unblocked';
+  }
+
+  async verifyUser(id: string) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new HttpException({ status: 404, error: 'user not found' }, 404);
+    }
+
+    await this.usersRepository.update(id, { auth: true });
   }
 }
