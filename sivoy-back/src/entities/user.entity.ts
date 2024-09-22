@@ -37,6 +37,9 @@ export class User {
   @Column({ type: 'date' })
   createdAt: Date;
 
+  @Column({ type: 'boolean', default: false })
+  auth: boolean;
+
   @OneToOne(() => Credential, (credential) => credential.id, {
     cascade: true,
   })
