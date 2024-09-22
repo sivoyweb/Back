@@ -24,7 +24,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
-  
+
   @Get()
   getTravelsAvailable(
     @Query(page) page: number = 1,
@@ -40,12 +40,11 @@ export class TravelsController {
   ) {
     return this.travelsService.getAllTravels(page, limit);
   }
-  
+
   @Get(':id')
-  getTravelById(@Param(id) id: string) {
+  getTravelById(@Param(`id`) id: string) {
     return this.travelsService.getTravelById(id);
   }
-
 
   @ApiBearerAuth()
   @Roles(Role.Admin)
@@ -70,7 +69,7 @@ export class TravelsController {
   getReviews() {
     return this.travelsService.getReviews();
   }
-  
+
   @Get('/:id/reviews')
   getReviewsByTravel(@Param('id') id: string) {
     return this.travelsService.getReviewsByTravel(id);
@@ -78,12 +77,11 @@ export class TravelsController {
 
   @Post('/reviews/:id')
   createReview(@Param('id') id: string, @Body() Review: Review) {
-    return this.travelsService.createReview(id, Review);
+    return this.travelsService.createReview(Review);
   }
 
   @Put('/reviews/:id')
   updateReview(@Param('id') id: string, @Body() Review: Review) {
     return this.travelsService.updateReview(id, Review);
   }
-
 }
