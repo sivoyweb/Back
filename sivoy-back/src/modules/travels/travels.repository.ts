@@ -103,11 +103,11 @@ import { User } from "src/entities/user.entity";
         const travel = await this.travelsRepository.findOne({ where: { id: Review.travelId } });
 
         if (!user) {
-            throw new NotFoundException('Usuario no encontrado');
+            throw new NotFoundException(`user whit ${user.id} not found`);
         }
 
         if (!travel) {
-            throw new NotFoundException('Viaje no encontrado');
+            throw new NotFoundException(`travel whit ${travel.id} not found`);
         }
 
         review.user = user;
