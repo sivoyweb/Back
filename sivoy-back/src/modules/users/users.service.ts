@@ -1,7 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { User } from 'src/entities/user.entity';
-import { CreateUserDto } from './user.dto';
+import { UpdateUserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
@@ -44,29 +43,17 @@ export class UsersService {
         },
       };
 
-      return userWithoutPassword;
+      return { userWithoutPassword, password };
     } catch (err) {
       return err;
     }
   }
 
-  async updateUser(id: string, user: User) {
+  async updateUser(id: string, user: UpdateUserDto) {
     try {
       return await this.UsersRepository.updateUser(id, user);
     } catch (err) {
       return err;
-    }
-  }
-
-  async createUSer(user: CreateUserDto) {
-    try {
-      return await this.UsersRepository.createUser(user);
-    } catch (err) {
-      console.log(err);
-      throw new HttpException(
-        { status: 500, error: 'internal server error creating users' },
-        500,
-      );
     }
   }
 

@@ -15,7 +15,7 @@ import { Promotion } from './promotion.entity';
 
 @Entity('travels')
 export class Travel {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @Column({ type: 'varchar', length: 255 })
@@ -60,4 +60,7 @@ export class Travel {
 
   @OneToMany(() => User, (user) => user.history)
   userHistory: User;
+
+  @Column({ type: 'boolean', default: true })
+  available: boolean;
 }

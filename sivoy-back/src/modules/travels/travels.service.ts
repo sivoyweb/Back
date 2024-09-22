@@ -2,18 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { TravelsRepository } from './travels.repository';
 import { Review } from 'src/entities/review.entity';
 import { Travel } from 'src/entities/travel.entity';
-import { CreateTravelDto } from './travels.dto';
+import { CreateReviewDto, CreateTravelDto, UpdateTravelDto } from './travels.dto';
 
 @Injectable()
 export class TravelsService {
     constructor(private readonly travelsRepository: TravelsRepository) {}
     
+    getTravelsAvailable(page: number, limit: number) {
+        return this.travelsRepository.getTravelsAvailable(page, limit)
+    }
+
     getAllTravels(page: number, limit: number) {
         return this.travelsRepository.getAllTravels(page, limit)
     }
 
-    getTravelByName(name: string) {
-        return this.travelsRepository.getTravelByName(name)
+    getTravelById(id: string) {
+        return this.travelsRepository.getTravelById(id)
     }
 
     async createTravel(travel: CreateTravelDto) {
@@ -24,20 +28,20 @@ export class TravelsService {
         }
     }
 
-    updateTravel(id: string, Review: Review) {
-        return this.travelsRepository.updateTravel(id, Review)
+    updateTravel(id: string, travel: UpdateTravelDto) {
+        return this.travelsRepository.updateTravel(id, travel)
     }
 
     deleteTravel(id: string) {
         return this.travelsRepository.deleteTravel(id)
     }
 
-    getReviews() {
-        return this.travelsRepository.getReviews()
+    getReviewsByTravel(id: string) {
+        return this.travelsRepository.getReviewsByTravel(id)
     }
 
-    createReview(id: string, Review: Review) {
-        return this.travelsRepository.createReview(id, Review)
+    createReview( Review: CreateReviewDto) {
+        return this.travelsRepository.createReview( Review)
     }
     
     updateReview(id: string, Review: Review) {

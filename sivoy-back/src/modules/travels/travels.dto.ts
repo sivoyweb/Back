@@ -115,3 +115,4 @@ export class CreateTravelDto {
   @IsNumber()
   stars: number;
 }
+

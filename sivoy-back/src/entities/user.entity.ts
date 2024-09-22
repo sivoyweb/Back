@@ -32,10 +32,13 @@ export class User {
   disabilities: Disability[];
 
   @Column({ nullable: true })
-  Phone: number;
+  phone: number;
 
   @Column({ type: 'date' })
   createdAt: Date;
+
+  @Column({ type: 'boolean', default: false })
+  auth: boolean;
 
   @OneToOne(() => Credential, (credential) => credential.id, {
     cascade: true,

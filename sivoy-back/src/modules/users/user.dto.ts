@@ -130,3 +130,4 @@ export class UpdateUserDto {
   @Validate(MatchPassword, [`password`])
   confirmPassword: string;
 }
+
