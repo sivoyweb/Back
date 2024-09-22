@@ -15,7 +15,7 @@ export class Suggestion {
   @PrimaryGeneratedColumn()
   id: string = uuid();
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.suggestions)
   user: User;
 
   @Column({ type: 'varchar', length: 255 })
@@ -42,7 +42,7 @@ export class Suggestion {
   @Column({ type: 'varchar', length: 255 })
   accesibilitySeal: string;
 
-  @OneToMany(() => Image, (image) => image)
+  @OneToMany(() => Image, (image) => image.suggestion)
   @JoinTable()
   imagesUrl: Image[];
 

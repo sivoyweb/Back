@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('reviews')
 export class Review {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @ManyToOne(() => User, (user) => user.reviews)

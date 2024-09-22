@@ -2,9 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   OneToMany,
   JoinTable,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Credential } from './credential.entity';
@@ -26,18 +27,23 @@ export class User {
   @Column({ default: Role.User })
   role: Role;
 
-  @OneToMany(() => Disability, (disability) => disability)
+  @OneToMany(() => Disability, (disability) => disability.user)
   @JoinTable()
   disabilities: Disability[];
 
-  @Column()
-  Phone: number;
+  @Column({ nullable: true })
+  phone: number;
 
   @Column({ type: 'date' })
   createdAt: Date;
 
-  @ManyToOne(() => Credential, (credential) => credential.id)
-  @JoinTable()
+  @Column({ type: 'boolean', default: false })
+  auth: boolean;
+
+  @OneToOne(() => Credential, (credential) => credential.id, {
+    cascade: true,
+  })
+  @JoinColumn()
   credential: Credential;
 
   @OneToMany(() => Review, (review) => review.user)
@@ -46,10 +52,10 @@ export class User {
   @OneToMany(() => Donation, (donation) => donation.user)
   donations: Donation[];
 
-  @OneToMany(() => Suggestion, (suggestion) => suggestion.id)
+  @OneToMany(() => Suggestion, (suggestion) => suggestion.user)
   suggestions: Suggestion[];
 
-  @OneToMany(() => Travel, (travel) => travel.id)
+  @OneToMany(() => Travel, (travel) => travel.userHistory)
   history: Travel[];
 
   @Column({ type: 'boolean', default: false })
