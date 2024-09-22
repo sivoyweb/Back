@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Post } from '@nestjs/common';
 import { DonationsService } from './donations.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(`Donations`)
 @Controller('donations')
 export class DonationsController {
   constructor(private readonly donationService: DonationsService) {}
