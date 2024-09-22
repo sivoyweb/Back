@@ -73,3 +73,4 @@ export class TravelsController {
         return this.travelsService.deleteReview(id)
     }
 
+}
