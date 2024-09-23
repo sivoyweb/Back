@@ -3,20 +3,23 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   Param,
+  Post,
   Put,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UpdateUserDto } from './user.dto';
-import { TokenGuard } from 'src/guards/token.guard';
+import { User } from 'src/entities/user.entity';
+import { CreateUserDto } from './user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(`Users`)
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @Get()
   @UseGuards(TokenGuard)
-  @Get('/')
   async getAllUsers() {
     return await this.userService.getAllUsers();
   }
@@ -27,8 +30,21 @@ export class UsersController {
   }
 
   @Put(':id')
-  async updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
+  async updateUser(@Param('id') id: string, @Body() user: User) {
     return await this.userService.updateUser(id, user);
+  }
+
+  @Post()
+  async createUSer(@Body() user: CreateUserDto) {
+    const emailUsed = await this.userService.isEmailInUse(user.email);
+
+    if (emailUsed) {
+      throw new HttpException(
+        { status: 400, error: 'email already in use' },
+        400,
+      );
+    }
+    return await this.userService.createUSer(user);
   }
 
   @Delete(':id')
@@ -46,3 +62,4 @@ export class UsersController {
     return await this.userService.unblockUser(id);
   }
 }
+
