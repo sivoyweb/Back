@@ -12,6 +12,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.enableCors();
+
   const swaggerConfig = new DocumentBuilder()
     .setTitle(`Si, voy`)
     .setDescription(
@@ -28,4 +31,3 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
-
