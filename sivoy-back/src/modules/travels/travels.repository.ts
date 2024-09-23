@@ -13,7 +13,7 @@ import { User } from "src/entities/user.entity";
             @InjectRepository(Review) private readonly reviewsRepository: Repository<Review>,
             @InjectRepository (User) private readonly userRepository: Repository<User> ) {}
         
-        async getTravelsAvailable(page: number, limit: number): Promise<Travel[]> {
+        async getTravelsAvailable(): Promise<Travel[]> {
             let travels = await this.travelsRepository.find({
                 relations: {
                     reviews: true,
@@ -23,13 +23,10 @@ import { User } from "src/entities/user.entity";
                 }
             });
             travels = travels.filter(travel => travel.available);
-            const start = (page - 1) * limit;
-            const end = start + limit;
-            travels = travels.slice(start, end);
             return travels;
         }
 
-        async getAllTravels(page: number, limit: number): Promise<Travel[]> {
+        async getAllTravels(): Promise<Travel[]> {
             let travels = await this.travelsRepository.find({
                 relations: {
                     reviews: true,
@@ -38,9 +35,6 @@ import { User } from "src/entities/user.entity";
                     provider: true
                 }
             });
-            const start = (page - 1) * limit;
-            const end = start + limit;
-            travels = travels.slice(start, end);
             return travels;
         }
 
