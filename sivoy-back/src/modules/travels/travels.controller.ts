@@ -85,5 +85,4 @@ export class TravelsController {
   updateReview(@Param('id') id: string, @Body() Review: Review) {
     return this.travelsService.updateReview(id, Review);
   }
-
 }
