@@ -18,7 +18,9 @@ import {
   UpdateTravelDto,
 } from './travels.dto';
 import { create } from 'domain';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(`Travels`)
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
