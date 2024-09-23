@@ -8,12 +8,12 @@ import { CreateReviewDto, CreateTravelDto, UpdateTravelDto } from './travels.dto
 export class TravelsService {
     constructor(private readonly travelsRepository: TravelsRepository) {}
     
-    getTravelsAvailable(page: number, limit: number) {
-        return this.travelsRepository.getTravelsAvailable(page, limit)
+    getTravelsAvailable() {
+        return this.travelsRepository.getTravelsAvailable()
     }
 
-    getAllTravels(page: number, limit: number) {
-        return this.travelsRepository.getAllTravels(page, limit)
+    getAllTravels() {
+        return this.travelsRepository.getAllTravels()
     }
 
     getTravelById(id: string) {

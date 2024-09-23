@@ -23,18 +23,18 @@ import { create } from 'domain';
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
-  @Get()
+@Get()
   getTravelsAvailable(
-    @Query(`page`) page: number = 1,
-    @Query(`limit`) limit: number = 2,
+    @Query(page) page: number = 1,
+    @Query(limit) limit: number = 2,
   ) {
     return this.travelsService.getTravelsAvailable(page, limit);
   }
 
   @Get('/all')
   getAllTravels(
-    @Query(`page`) page: number = 1,
-    @Query(`limit`) limit: number = 2,
+    @Query(page) page: number = 1,
+    @Query(limit) limit: number = 2,
   ) {
     return this.travelsService.getAllTravels(page, limit);
   }
