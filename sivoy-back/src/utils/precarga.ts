@@ -50,7 +50,9 @@ export const travelsMock = [
     price: 1500,
     description:
       'Explora las hermosas playas de Río y la vibrante cultura de Brasil.',
+
     serviceType: 'Alojamiento',
+
     accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
@@ -69,7 +71,9 @@ export const travelsMock = [
     price: 2500,
     description:
       'Esquía por los picos nevados de los Alpes en esta exclusiva experiencia de viaje.',
+
     serviceType: 'Ayudas Técnicas y Atención de Personas',
+
     accesibilitySeal: 'No Accesible',
     images: [
       {
@@ -88,7 +92,9 @@ export const travelsMock = [
     price: 3500,
     description:
       'Observa la majestuosa vida salvaje en su hábitat natural con nuestros safaris guiados.',
+
     serviceType: 'Balnearios',
+
     accesibilitySeal: 'Accesibilidad Limitada',
     images: [
       {
@@ -107,7 +113,9 @@ export const travelsMock = [
     price: 1800,
     description:
       'Descubre la rica historia y los tesoros culturales de Japón en este tour inmersivo.',
+
     serviceType: 'Experiencias',
+
     accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
@@ -222,6 +230,7 @@ export const travelsMock = [
     description:
       'Navega por el Mediterráneo y visita ciudades icónicas como Venecia y Barcelona.',
     serviceType: 'Transporte',
+
     accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
