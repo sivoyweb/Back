@@ -25,14 +25,20 @@ import { ApiTags } from '@nestjs/swagger';
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
-  @Get()
-  getTravelsAvailable() {
-    return this.travelsService.getTravelsAvailable();
+@Get()
+  getTravelsAvailable(
+    @Query(page) page: number = 1,
+    @Query(limit) limit: number = 2,
+  ) {
+    return this.travelsService.getTravelsAvailable(page, limit);
   }
 
   @Get('/all')
-  getAllTravels() {
-    return this.travelsService.getAllTravels();
+  getAllTravels(
+    @Query(page) page: number = 1,
+    @Query(limit) limit: number = 2,
+  ) {
+    return this.travelsService.getAllTravels(page, limit);
   }
 
   @Get(':id')
