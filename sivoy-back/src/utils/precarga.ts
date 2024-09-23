@@ -43,15 +43,15 @@ export const categorizedDisabilities = [
 
 export const travelsMock = [
   {
-    name: 'Tropical Paradise Adventure',
-    country: 'Brazil',
-    city: 'Rio de Janeiro',
+    name: 'Aventura en el Paraíso Tropical',
+    country: 'Brasil',
+    city: 'Río de Janeiro',
     date: new Date('2024-12-01'),
     price: 1500,
     description:
-      'Explore the beautiful beaches of Rio and the vibrant culture of Brazil.',
-    serviceType: 'Vacation Package',
-    accesibilitySeal: 'Wheelchair Accessible',
+      'Explora las hermosas playas de Río y la vibrante cultura de Brasil.',
+    serviceType: 'Alojamiento',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
@@ -62,15 +62,15 @@ export const travelsMock = [
     available: true,
   },
   {
-    name: 'Alpine Skiing Experience',
-    country: 'Switzerland',
+    name: 'Experiencia de Esquí Alpino',
+    country: 'Suiza',
     city: 'Zermatt',
     date: new Date('2025-01-15'),
     price: 2500,
     description:
-      'Ski through the snowy peaks of the Alps in this exclusive travel experience.',
-    serviceType: 'Adventure Package',
-    accesibilitySeal: 'Not Accessible',
+      'Esquía por los picos nevados de los Alpes en esta exclusiva experiencia de viaje.',
+    serviceType: 'Ayudas Técnicas y Atención de Personas',
+    accesibilitySeal: 'No Accesible',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
@@ -81,15 +81,15 @@ export const travelsMock = [
     available: true,
   },
   {
-    name: 'Safari in the Serengeti',
+    name: 'Safari en el Serengeti',
     country: 'Tanzania',
     city: 'Serengeti',
     date: new Date('2024-11-20'),
     price: 3500,
     description:
-      'Witness the majestic wildlife in its natural habitat with our guided safaris.',
-    serviceType: 'Wildlife Tour',
-    accesibilitySeal: 'Limited Accessibility',
+      'Observa la majestuosa vida salvaje en su hábitat natural con nuestros safaris guiados.',
+    serviceType: 'Balnearios',
+    accesibilitySeal: 'Accesibilidad Limitada',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
@@ -100,15 +100,15 @@ export const travelsMock = [
     available: true,
   },
   {
-    name: 'Cultural Journey through Japan',
-    country: 'Japan',
-    city: 'Kyoto',
+    name: 'Viaje Cultural por Japón',
+    country: 'Japón',
+    city: 'Kioto',
     date: new Date('2025-03-05'),
     price: 1800,
     description:
-      'Discover the rich history and cultural treasures of Japan in this immersive tour.',
-    serviceType: 'Cultural Tour',
-    accesibilitySeal: 'Wheelchair Accessible',
+      'Descubre la rica historia y los tesoros culturales de Japón en este tour inmersivo.',
+    serviceType: 'Experiencias',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
@@ -119,15 +119,110 @@ export const travelsMock = [
     available: true,
   },
   {
-    name: 'Mediterranean Cruise',
-    country: 'Italy',
-    city: 'Venice',
+    name: 'Crucero por el Mediterráneo',
+    country: 'Italia',
+    city: 'Venecia',
     date: new Date('2024-09-10'),
     price: 2200,
     description:
-      'Sail through the Mediterranean and visit iconic cities like Venice and Barcelona.',
-    serviceType: 'Cruise',
-    accesibilitySeal: 'Wheelchair Accessible',
+      'Navega por el Mediterráneo y visita ciudades icónicas como Venecia y Barcelona.',
+    serviceType: 'Gastronomía',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
+    images: [
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+    ],
+    stars: 4,
+    available: true,
+  },
+  {
+    name: 'Aventura en el Paraíso Tropical',
+    country: 'Brasil',
+    city: 'Río de Janeiro',
+    date: new Date('2024-12-01'),
+    price: 1500,
+    description:
+      'Explora las hermosas playas de Río y la vibrante cultura de Brasil.',
+    serviceType: 'Lugar de Interés',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
+    images: [
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+    ],
+    stars: 5,
+    available: true,
+  },
+  {
+    name: 'Experiencia de Esquí Alpino',
+    country: 'Suiza',
+    city: 'Zermatt',
+    date: new Date('2025-01-15'),
+    price: 2500,
+    description:
+      'Esquía por los picos nevados de los Alpes en esta exclusiva experiencia de viaje.',
+    serviceType: 'Ocio y Recreación',
+    accesibilitySeal: 'No Accesible',
+    images: [
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+    ],
+    stars: 4,
+    available: true,
+  },
+  {
+    name: 'Safari en el Serengeti',
+    country: 'Tanzania',
+    city: 'Serengeti',
+    date: new Date('2024-11-20'),
+    price: 3500,
+    description:
+      'Observa la majestuosa vida salvaje en su hábitat natural con nuestros safaris guiados.',
+    serviceType: 'Productos',
+    accesibilitySeal: 'Accesibilidad Limitada',
+    images: [
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+    ],
+    stars: 5,
+    available: true,
+  },
+  {
+    name: 'Viaje Cultural por Japón',
+    country: 'Japón',
+    city: 'Kioto',
+    date: new Date('2025-03-05'),
+    price: 1800,
+    description:
+      'Descubre la rica historia y los tesoros culturales de Japón en este tour inmersivo.',
+    serviceType: 'Profesionales Servicios',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
+    images: [
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+    ],
+    stars: 5,
+    available: true,
+  },
+  {
+    name: 'Crucero por el Mediterráneo',
+    country: 'Italia',
+    city: 'Venecia',
+    date: new Date('2024-09-10'),
+    price: 2200,
+    description:
+      'Navega por el Mediterráneo y visita ciudades icónicas como Venecia y Barcelona.',
+    serviceType: 'Transporte',
+    accesibilitySeal: 'Accesible en Silla de Ruedas',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
