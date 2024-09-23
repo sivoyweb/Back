@@ -55,7 +55,7 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
-        publicID: 'imagen1',
+        publicId: 'imagen1',
       },
     ],
     stars: 5,
@@ -74,7 +74,7 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
-        publicID: 'imagen1',
+        publicId: 'imagen1',
       },
     ],
     stars: 4,
@@ -93,7 +93,7 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
-        publicID: 'imagen1',
+        publicId: 'imagen1',
       },
     ],
     stars: 5,
@@ -112,7 +112,7 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
-        publicID: 'imagen1',
+        publicId: 'imagen1',
       },
     ],
     stars: 5,
@@ -131,7 +131,7 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
-        publicID: 'imagen1',
+        publicId: 'imagen1',
       },
     ],
     stars: 4,
