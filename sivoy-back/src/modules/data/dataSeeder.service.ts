@@ -1,6 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Disability } from 'src/entities/disabilities.entity';
+import { Image } from 'src/entities/images.entity';
 import { Travel } from 'src/entities/travel.entity';
 import { categorizedDisabilities, travelsMock } from 'src/utils/precarga';
 import { Repository } from 'typeorm';
@@ -12,6 +13,8 @@ export class DataSeederService implements OnModuleInit {
     private readonly disabilityRepository: Repository<Disability>,
     @InjectRepository(Travel)
     private readonly travelRepository: Repository<Travel>,
+    @InjectRepository(Image)
+    private readonly imageRepository: Repository<Image>,
   ) {}
   async onModuleInit() {
     await this.dataSeederDiscapacities();
@@ -47,8 +50,14 @@ export class DataSeederService implements OnModuleInit {
       if (travelfound) {
         continue;
       }
-      this.travelRepository.create(travel);
-      await this.travelRepository.save(travel);
+
+      const image = this.imageRepository.create(travel.images);
+      await this.imageRepository.save(image);
+
+      const newTravel: Partial<Travel> = { ...travel, images: image };
+
+      this.travelRepository.create(newTravel);
+      await this.travelRepository.save(newTravel);
     }
   }
 }
