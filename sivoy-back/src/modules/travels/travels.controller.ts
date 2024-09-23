@@ -23,6 +23,7 @@ import { create } from 'domain';
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
 
+
   @Get()
   getTravelsAvailable() {
     return this.travelsService.getTravelsAvailable();
