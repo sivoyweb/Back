@@ -1,0 +1,3 @@
+[service]
+name = "mi-backend"
+start = "npm run start"
