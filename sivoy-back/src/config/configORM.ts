@@ -18,6 +18,7 @@ import {
   POSTGRES_DB,
   POSTGRES_PASSWORD,
 } from './envConfig';
+import { Blog } from 'src/entities/blogs.entity';
 
 const typeORMconfig = {
   type: 'postgres',
@@ -38,6 +39,7 @@ const typeORMconfig = {
     TravelProvider,
     Image,
     Disability,
+    Blog
   ],
   synchronize: true,
   logging: ['query', 'error'],
