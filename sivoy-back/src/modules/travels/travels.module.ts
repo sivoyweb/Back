@@ -6,7 +6,6 @@ import { Travel } from 'src/entities/travel.entity';
 import { TravelsRepository } from './travels.repository';
 import { Review } from 'src/entities/review.entity';
 import { UsersModule } from '../users/users.module';
-import { UsersRepository } from '../users/users.repository';
 import { User } from 'src/entities/user.entity';
 
 @Module({
