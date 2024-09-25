@@ -22,17 +22,14 @@ import { Role } from 'src/helpers/roles.enum.';
 import { Roles } from 'src/decorators/roles.decorator';
 import { TokenGuard } from 'src/guards/token.guard';
 
-
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
-
 
   @Get()
   getTravelsAvailable() {
     return this.travelsService.getTravelsAvailable();
   }
-
 
   @Get('/all')
   @UseGuards(TokenGuard, RolesGuard)
