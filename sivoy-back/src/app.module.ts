@@ -14,7 +14,6 @@ import { JWT_SECRET } from './config/envConfig';
 import { DataSeederModule } from './modules/data/dataSeeder.module';
 import { BlogsModule } from './modules/blogs/blogs.module';
 
-
 @Module({
   imports: [
     DatabaseModule,

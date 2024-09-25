@@ -85,6 +85,33 @@ export class UsersRepository {
     return user;
   }
 
+  async loginGoogle(userData) {
+    const { email, name, picture } = userData;
+
+    const hashedMail = await bcrypt.hash(email, 11);
+
+    const credential = this.credentialsRepository.create({
+      email,
+      password: hashedMail,
+      avatar: picture,
+    });
+
+    await this.credentialsRepository.update(credential.id, credential);
+
+    const user: Partial<User> = {
+      name: name,
+      role: Role.User,
+      createdAt: new Date(),
+      credential,
+    };
+
+    this.usersRepository.create(user);
+
+    await this.usersRepository.save(user);
+
+    return user;
+  }
+
   async deleteUser(id: string) {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {

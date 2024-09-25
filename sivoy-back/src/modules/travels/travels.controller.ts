@@ -23,7 +23,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { TokenGuard } from 'src/guards/token.guard';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags(`Travels`)
+
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}

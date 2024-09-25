@@ -10,7 +10,11 @@ import {
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './user.dto';
 import { TokenGuard } from 'src/guards/token.guard';
-import { ApiTags } from '@nestjs/swagger';
+
+import { Roles } from '../../decorators/roles.decorator';
+import { Role } from 'src/helpers/roles.enum.';
+import { RolesGuard } from 'src/guards/roles.guard';
+
 
 @ApiTags(`Users`)
 @Controller('users')
@@ -23,6 +27,8 @@ export class UsersController {
     return await this.userService.getAllUsers();
   }
 
+  @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     return await this.userService.getUserById(id);

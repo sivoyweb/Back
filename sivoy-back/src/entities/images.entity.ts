@@ -25,6 +25,6 @@ export class Image {
   @ManyToOne(() => Credential, (credential) => credential.avatar)
   avatarUser: Credential;
 
-  @ManyToOne(() => Blog, (blog) => blog.images, { onDelete: 'CASCADE' }) 
+  @ManyToOne(() => Blog, (blog) => blog.images, { onDelete: 'CASCADE' })
   blog: Blog;
 }

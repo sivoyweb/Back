@@ -5,11 +5,14 @@ import {
   HttpException,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
-import { ApiTags } from '@nestjs/swagger';
+
+import { GoogleOauthGuard } from 'src/guards/google.guard';
+
 
 @ApiTags(`Auths`)
 @Controller('auth')
@@ -43,5 +46,21 @@ export class AuthController {
   @Get('verify-email')
   async verifyEmail(@Query('token') token: string) {
     return await this.authService.verifyToken(token);
+  }
+
+  @Get('signin/google')
+  @UseGuards(GoogleOauthGuard)
+  async googleAuthCallback(@Body('user') user) {
+    try {
+      const token = await this.authService.oAuthLogin(user);
+      return token;
+    } catch (err) {
+      throw new HttpException({ staus: 500, error: 'error in signin' }, 500);
+    }
+  }
+  @Get('auth0')
+  async tokenGoogleVerification(@Query('token') token: string) {
+    const verify = await this.authService.verifyToken(token);
+    return verify;
   }
 }
