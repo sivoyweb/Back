@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Promotion } from 'src/entities/promotion.entity';
 import { Repository } from 'typeorm';
@@ -10,20 +10,74 @@ export class PromotionsRepository {
     private readonly promotionRepostitory: Repository<Promotion>,
   ) {}
 
-  getAllPromotions() {
-    return 'All Promotions';
+  async getAllPromotions(): Promise<Promotion[]> {
+    try {
+      return await this.promotionRepostitory.find();
+    } catch (error) {
+      throw new HttpException(
+        { status: 500, error: `Internal server fetching all promotions` },
+        500,
+      );
+    }
   }
 
-  getPromotionById(id: string) {
-    return 'Promotion by id';
+  async getPromotionById(id: string): Promise<Promotion> {
+    try {
+      const promotion = await this.promotionRepostitory.findOne({
+        where: { id },
+      });
+      if (!promotion) {
+        throw new HttpException(
+          { status: 404, error: `Promotion not found` },
+          404,
+        );
+      }
+      return promotion;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: 500,
+          error: `Internal server error fetching promotion by ID`,
+        },
+        500,
+      );
+    }
   }
 
-  createPromotion() {
-    return 'Promotion created';
+  async createPromotion(promotionData: Partial<Promotion>): Promise<Promotion> {
+    try {
+      const newPromotion = this.promotionRepostitory.create(promotionData);
+      return await this.promotionRepostitory.save(newPromotion);
+    } catch (error) {
+      throw new HttpException(
+        { status: 500, error: `Internal server error creating promotion` },
+        500,
+      );
+    }
   }
 
-  updatePromotion(id: string) {
-    return 'Promotion updated';
+  async updatePromotion(
+    id: string,
+    updateData: Partial<Promotion>,
+  ): Promise<Promotion> {
+    try {
+      const promotion = await this.promotionRepostitory.findOne({
+        where: { id },
+      });
+      if (promotion!) {
+        throw new HttpException(
+          { status: 404, error: `Promotion not found` },
+          404,
+        );
+      }
+      Object.assign(promotion, updateData);
+      return await this.promotionRepostitory.save(promotion);
+    } catch (error) {
+      throw new HttpException(
+        { status: 500, error: `Internal server error updating promotion` },
+        500,
+      );
+    }
   }
 
   deletePromotion(id: string) {
