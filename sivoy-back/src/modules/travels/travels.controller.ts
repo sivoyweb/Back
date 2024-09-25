@@ -21,6 +21,8 @@ import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/helpers/roles.enum.';
 import { Roles } from 'src/decorators/roles.decorator';
 import { TokenGuard } from 'src/guards/token.guard';
+import { ApiTags } from '@nestjs/swagger';
+
 
 @Controller('travels')
 export class TravelsController {
