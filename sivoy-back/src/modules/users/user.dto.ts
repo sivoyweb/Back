@@ -27,9 +27,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   phone: number;
 
-  @IsOptional()
-  disabilities?: Disability[];
-
   @IsNotEmpty()
   @IsEmail()
   email: string;

@@ -60,7 +60,7 @@ export class UsersRepository {
   }
 
   async createUser(userDto: CreateUserDto) {
-    const { name, email, password, phone, disabilities } = userDto;
+    const { name, email, password, phone } = userDto;
 
     const hashedPassword = await bcrypt.hash(password, 11);
 
@@ -74,7 +74,6 @@ export class UsersRepository {
     const user: Partial<User> = {
       name,
       phone,
-      disabilities,
       role: Role.User,
       createdAt: new Date(),
       credential,
