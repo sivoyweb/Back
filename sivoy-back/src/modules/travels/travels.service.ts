@@ -2,54 +2,57 @@ import { Injectable } from '@nestjs/common';
 import { TravelsRepository } from './travels.repository';
 import { Review } from 'src/entities/review.entity';
 import { Travel } from 'src/entities/travel.entity';
-import { CreateReviewDto, CreateTravelDto, UpdateTravelDto } from './travels.dto';
+import {
+  CreateReviewDto,
+  CreateTravelDto,
+  UpdateTravelDto,
+} from './travels.dto';
 
 @Injectable()
 export class TravelsService {
-    constructor(private readonly travelsRepository: TravelsRepository) {}
-    
-    getTravelsAvailable() {
-        return this.travelsRepository.getTravelsAvailable()
-    }
+  constructor(private readonly travelsRepository: TravelsRepository) {}
 
-    getAllTravels() {
-        return this.travelsRepository.getAllTravels()
-    }
+  getTravelsAvailable() {
+    return this.travelsRepository.getTravelsAvailable();
+  }
 
-    getTravelById(id: string) {
-        return this.travelsRepository.getTravelById(id)
-    }
+  getAllTravels() {
+    return this.travelsRepository.getAllTravels();
+  }
 
-    async createTravel(travel: CreateTravelDto) {
-        try {
-            return await this.travelsRepository.createTravel(travel);
-        } catch (error) {
-            throw new Error(`Error creating travel: ${error.message}`);
-        }
-    }
+  getTravelById(id: string) {
+    return this.travelsRepository.getTravelById(id);
+  }
 
-    updateTravel(id: string, travel: UpdateTravelDto) {
-        return this.travelsRepository.updateTravel(id, travel)
+  async createTravel(travel: CreateTravelDto) {
+    try {
+      return await this.travelsRepository.createTravel(travel);
+    } catch (error) {
+      throw new Error(`Error creating travel: ${error.message}`);
     }
+  }
 
-    deleteTravel(id: string) {
-        return this.travelsRepository.deleteTravel(id)
-    }
+  updateTravel(id: string, travel: UpdateTravelDto) {
+    return this.travelsRepository.updateTravel(id, travel);
+  }
 
-    getReviewsByTravel(id: string) {
-        return this.travelsRepository.getReviewsByTravel(id)
-    }
+  deleteTravel(id: string) {
+    return this.travelsRepository.deleteTravel(id);
+  }
 
-    createReview( Review: CreateReviewDto) {
-        return this.travelsRepository.createReview( Review)
-    }
-    
-    updateReview(id: string, Review: Review) {
-        return this.travelsRepository.updateReview(id, Review)
-    }
+  getReviewsByTravel(id: string) {
+    return this.travelsRepository.getReviewsByTravel(id);
+  }
 
-    deleteReview(id: string) {
-        return this.travelsRepository.deleteReview(id)
-    }
+  createReview(Review: CreateReviewDto) {
+    return this.travelsRepository.createReview(Review);
+  }
 
+  updateReview(id: string, Review: Review) {
+    return this.travelsRepository.updateReview(id, Review);
+  }
+
+  deleteReview(id: string) {
+    return this.travelsRepository.deleteReview(id);
+  }
 }

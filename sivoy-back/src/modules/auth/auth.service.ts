@@ -89,4 +89,30 @@ export class AuthService {
 
     return 'authenticated user';
   }
+
+  async oAuthLogin(user) {
+    const userFound = await this.userRepository.isEmailUsed(user.email);
+
+    if (!userFound) {
+      const userData = {
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      };
+      const newUser = await this.userRepository.loginGoogle(userData);
+      return newUser;
+    }
+
+    //    .... your business logic
+
+    //   .... add whatever payload you want to have
+    const payload = {
+      email: user.email,
+      name: user.name,
+    };
+
+    const token = await this.jwtService.signAsync(payload);
+
+    return { token };
+  }
 }
