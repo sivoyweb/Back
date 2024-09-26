@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -13,6 +14,7 @@ import {
   UpdateTravelDto,
 } from './travels.dto';
 import { User } from 'src/entities/user.entity';
+import { Role } from 'src/helpers/roles.enum.';
 
 @Injectable()
 export class TravelsRepository {
@@ -37,7 +39,7 @@ export class TravelsRepository {
     return travels;
   }
 
-  async getAllTravels(): Promise<Travel[]> {
+  async getAllTravelsAdmin(): Promise<Travel[]> {
     let travels = await this.travelsRepository.find({
       relations: {
         reviews: true,
@@ -49,7 +51,7 @@ export class TravelsRepository {
     return travels;
   }
 
-  async getTravelById(id: string) {
+  async getTravelById(id: string, user) {
     const travel = await this.travelsRepository.findOne({
       where: { id },
       relations: {
@@ -59,17 +61,35 @@ export class TravelsRepository {
         provider: true,
       },
     });
-    if (!travel) throw new NotFoundException(`travel whit ${id} not found`);
-    if (travel.available === false)
-      throw new BadRequestException('This travel was no longer available');
+    if (!travel) {
+      throw new NotFoundException(`Travel with ID ${id} not found`);
+    }
+    if (travel.available === false) {
+      if (user && user.role === Role.Admin) {
+        return travel;
+      }
+      throw new BadRequestException('This travel is no longer available');
+    }
     return travel;
   }
 
-  async createTravel(travel: CreateTravelDto) {
+  async createTravel(travel: CreateTravelDto): Promise<Travel> {
+    const existingTravel = await this.travelsRepository.findOne({
+      where: { name: travel.name },
+    });
+
+    if (existingTravel) {
+      throw new BadRequestException(
+        `A travel with the name '${travel.name}' already exists.`,
+      );
+    }
+
+    const newTravel = this.travelsRepository.create(travel);
+
     try {
-      return await this.travelsRepository.save(travel);
+      return await this.travelsRepository.save(newTravel);
     } catch (error) {
-      throw new Error(`Database error: ${error.message}`);
+      throw new BadRequestException(`Error creating travel: ${error.message}`);
     }
   }
 
@@ -129,11 +149,38 @@ export class TravelsRepository {
     return this.reviewsRepository.save(review);
   }
 
-  updateReview(id: string, Review: Review) {
-    throw new Error('Method not implemented.');
+  async updateReview(id: string, review: UpdateTravelDto, userId: string) {
+    const updateReview = await this.reviewsRepository.findOne({
+      where: { id },
+      relations: ['user'], // Asegúrate de cargar la relación con el usuario
+    });
+    if (!updateReview)
+      throw new NotFoundException(`Review whit ${id} not found`);
+    if (updateReview.user.id !== userId) {
+      throw new ForbiddenException(
+        'You do not have permission to update this review',
+      );
+    }
+    Object.assign(updateReview, review);
+    await this.reviewsRepository.save(updateReview);
+    return updateReview;
   }
 
-  deleteReview(id: string) {
-    throw new Error('Method not implemented.');
+  async deleteReview(id: string, userId: string, userRole: string) {
+    const review = await this.reviewsRepository.findOne({
+      where: { id },
+      relations: ['user'], // Asegúrate de cargar la relación con el usuario
+    });
+    if (!review) throw new NotFoundException(`review whit ${id} not found`);
+    if (review.user.id !== userId && userRole !== Role.Admin) {
+      throw new ForbiddenException(
+        'You do not have permission to delete this review',
+      );
+    }
+    if (review.visible === false)
+      throw new BadRequestException('This review was no longer available');
+    review.visible = false;
+    await this.reviewsRepository.save(review);
+    return review;
   }
 }

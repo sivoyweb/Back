@@ -1,5 +1,6 @@
 import {
   IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -10,13 +11,12 @@ import {
 
 export class CreatePromotionDto {
   /**
-   * Debe ser una fecha valida
-   * @example "01/01/1991"
+   * Fecha válida para "validUntil"
+   * @example "2024-12-31"
    */
   @IsNotEmpty()
-  @IsString()
-  @IsDate()
-  date: string;
+  @IsDateString()
+  validUntil: string;
 
   /**
    * Debe ser de tipo number, un número positivo del 1 al 100

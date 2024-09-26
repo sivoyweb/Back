@@ -2,11 +2,14 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
+  Optional,
   Param,
   Post,
   Put,
   Query,
+  Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,7 +24,12 @@ import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/helpers/roles.enum.';
 import { Roles } from 'src/decorators/roles.decorator';
 import { TokenGuard } from 'src/guards/token.guard';
+import { User } from 'src/entities/user.entity';
+import { Request } from 'express';
+import { ReadGuard } from 'src/guards/read.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(`Travels`)
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
@@ -34,13 +42,20 @@ export class TravelsController {
   @Get('/all')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
-  getAllTravels() {
-    return this.travelsService.getAllTravels();
+  getAllTravelsAdmin() {
+    return this.travelsService.getAllTravelsAdmin();
   }
 
   @Get(':id')
-  getTravelById(@Param(`id`) id: string) {
-    return this.travelsService.getTravelById(id);
+  @UseGuards(ReadGuard)
+  async getTravelById(
+    @Param('id') id: string,
+    @Req() @Optional() req: Request,
+  ) {
+    const user = req.user;
+    console.log(user);
+
+    return await this.travelsService.getTravelById(id, user);
   }
 
   @Post()
@@ -71,16 +86,30 @@ export class TravelsController {
   }
 
   @Post('reviews')
-  @UseGuards(TokenGuard, RolesGuard)
-  @Roles(Role.User)
+  @UseGuards(TokenGuard)
   createReview(@Body() Review: CreateReviewDto) {
     return this.travelsService.createReview(Review);
   }
 
   @Put('/reviews/:id')
-  @UseGuards(TokenGuard, RolesGuard)
-  @Roles(Role.User)
-  updateReview(@Param('id') id: string, @Body() Review: Review) {
-    return this.travelsService.updateReview(id, Review);
+  @UseGuards(ReadGuard)
+  updateReview(
+    @Param('id') id: string,
+    @Body() review: UpdateTravelDto,
+    @Req() req: Request,
+  ) {
+    if (!req.user) {
+      throw new ForbiddenException('You must be logged in to update a review');
+    }
+    const userId = req.user.id;
+    return this.travelsService.updateReview(id, review, userId);
+  }
+
+  @Delete('/reviews/:id')
+  @UseGuards(ReadGuard)
+  deleteReview(@Param('id') id: string, @Req() req: Request) {
+    const userId = req.user.id;
+    const userRole = req.user.role;
+    return this.travelsService.deleteReview(id, userId, userRole);
   }
 }

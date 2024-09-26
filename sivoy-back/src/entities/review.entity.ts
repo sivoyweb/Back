@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { Travel } from './travel.entity';
 import { v4 as uuid } from 'uuid';
@@ -19,4 +25,10 @@ export class Review {
 
   @Column({ type: 'int' })
   stars: number;
+
+  @CreateDateColumn({ type: 'date' })
+  date: Date;
+
+  @Column({ default: true })
+  visible: boolean;
 }

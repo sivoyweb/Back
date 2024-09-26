@@ -11,7 +11,9 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { FirebaseAdminService } from 'src/utils/firebase.service';
 import { SignInGoogle } from './google.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags(`Auths`)
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -51,7 +53,13 @@ export class AuthController {
   }
 
   @Post('signin/google')
-  async googleSignin() {}
+  async googleSignin(@Body() userData: SignInGoogle) {
+    const firebaseUser = await this.firebaseService.verifyToken(userData.token);
+
+    const user = await this.authService.signinGoogle(userData, firebaseUser);
+
+    return user;
+  }
 
   @Get('verify-email')
   async verifyEmail(@Query('token') token: string) {

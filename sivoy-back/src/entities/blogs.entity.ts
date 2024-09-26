@@ -24,6 +24,9 @@ export class Blog {
   @OneToMany(() => Image, (images) => images.blog, { cascade: true })
   images: Image[];
 
-  @CreateDateColumn({ type: 'date' }) // Solo guardará la fecha sin hora
+  @CreateDateColumn({ type: 'date' })
   date: string;
+
+  @Column({ default: true })
+  visible: boolean;
 }
