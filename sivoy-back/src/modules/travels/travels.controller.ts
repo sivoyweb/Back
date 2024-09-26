@@ -27,18 +27,17 @@ import { TokenGuard } from 'src/guards/token.guard';
 import { User } from 'src/entities/user.entity';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags(`Travels`)
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
-
 
   @Get()
   getTravelsAvailable() {
     return this.travelsService.getTravelsAvailable();
   }
-
 
   @Get('/all')
   @UseGuards(TokenGuard, RolesGuard)
@@ -49,10 +48,13 @@ export class TravelsController {
 
   @Get(':id')
   @UseGuards(ReadGuard)
-  async getTravelById(@Param('id') id: string, @Req() @Optional() req: Request) {
-    const user = req.user
+  async getTravelById(
+    @Param('id') id: string,
+    @Req() @Optional() req: Request,
+  ) {
+    const user = req.user;
     console.log(user);
-    
+
     return await this.travelsService.getTravelById(id, user);
   }
 
@@ -78,8 +80,6 @@ export class TravelsController {
     return this.travelsService.deleteTravel(id);
   }
 
-
-
   @Get('/:id/reviews')
   getReviewsByTravel(@Param('id') id: string) {
     return this.travelsService.getReviewsByTravel(id);
@@ -93,19 +93,23 @@ export class TravelsController {
 
   @Put('/reviews/:id')
   @UseGuards(ReadGuard)
-  updateReview(@Param('id') id: string, @Body() review: UpdateTravelDto, @Req() req: Request) {
+  updateReview(
+    @Param('id') id: string,
+    @Body() review: UpdateTravelDto,
+    @Req() req: Request,
+  ) {
     if (!req.user) {
       throw new ForbiddenException('You must be logged in to update a review');
     }
-    const userId = req.user.id
+    const userId = req.user.id;
     return this.travelsService.updateReview(id, review, userId);
   }
 
   @Delete('/reviews/:id')
   @UseGuards(ReadGuard)
   deleteReview(@Param('id') id: string, @Req() req: Request) {
-    const userId = req.user.id
-    const userRole = req.user.role
+    const userId = req.user.id;
+    const userRole = req.user.role;
     return this.travelsService.deleteReview(id, userId, userRole);
   }
 }
