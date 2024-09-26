@@ -10,6 +10,6 @@ import { Credential } from 'src/entities/credential.entity';
   imports: [TypeOrmModule.forFeature([User, Credential])],
   controllers: [UsersController],
   providers: [UsersService, UsersRepository],
-  exports: [UsersService, UsersRepository]
+  exports: [UsersService, UsersRepository],
 })
 export class UsersModule {}

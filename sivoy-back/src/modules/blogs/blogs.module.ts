@@ -10,6 +10,6 @@ import { UsersModule } from '../users/users.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Blog, Image]), UsersModule],
   controllers: [BlogsController],
-  providers: [BlogsService, BlogsRepository]
+  providers: [BlogsService, BlogsRepository],
 })
 export class BlogsModule {}

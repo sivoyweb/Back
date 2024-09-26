@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 

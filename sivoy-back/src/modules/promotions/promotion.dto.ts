@@ -14,7 +14,6 @@ export class CreatePromotionDto {
    * @example "01/01/1991"
    */
   @IsNotEmpty()
-  @IsString()
   @IsDate()
   date: string;
 
