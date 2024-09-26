@@ -21,6 +21,9 @@ export class Credential {
   @Column({ type: 'varchar', length: 255 })
   password: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  googleId: string;
+
   @OneToMany(() => Image, (image) => image)
   @JoinColumn()
   avatar: Image;

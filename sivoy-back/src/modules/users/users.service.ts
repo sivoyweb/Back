@@ -58,7 +58,7 @@ export class UsersService {
   }
 
   async isEmailInUse(email: string) {
-    return this.UsersRepository.isEmailUsed(email);
+    return await this.UsersRepository.isEmailUsed(email);
   }
 
   async deleteUser(id: string) {

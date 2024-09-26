@@ -7,6 +7,8 @@ import { UsersRepository } from '../users/users.repository';
 import { getStructureforWelcome } from 'src/utils/mail.structure';
 import sendEmailService from 'src/helpers/email.service';
 import { JWT_SECRET } from 'src/config/envConfig';
+import { User } from 'src/entities/user.entity';
+import { Credential } from 'src/entities/credential.entity';
 
 @Injectable()
 export class AuthService {
@@ -29,13 +31,7 @@ export class AuthService {
 
       const token = await this.jwtService.signAsync(payload);
 
-      await sendEmailService(
-        user.email,
-        'welcome',
-        getStructureforWelcome(token),
-      );
-
-      return 'User created successfully';
+      return token;
     } catch (err) {
       console.log(err);
       throw new HttpException(
@@ -76,6 +72,22 @@ export class AuthService {
     return { userFinal, token };
   }
 
+  async signupGoogle(userData, firebaseUser) {
+    const credential = await this.userRepository.createCredential({
+      email: userData.email,
+      googleId: firebaseUser.user_id,
+    });
+
+    const user: Partial<User> = {
+      name: userData.name,
+      createdAt: new Date(),
+      phone: userData.phone || null,
+      credential: credential as Credential,
+    };
+
+    await this.userRepository.createGoogleUser(user);
+  }
+
   async verifyToken(token: string) {
     const verify = await this.jwtService.verifyAsync(token, {
       secret: JWT_SECRET,
@@ -88,5 +100,13 @@ export class AuthService {
     await this.userRepository.verifyUser(verify.id);
 
     return 'authenticated user';
+  }
+
+  async sendEmail(token: string, emailHtml: string) {
+    const data = await this.jwtService.verifyAsync(token, {
+      secret: JWT_SECRET,
+    });
+
+    await sendEmailService(data.email, 'Welcome', emailHtml);
   }
 }
