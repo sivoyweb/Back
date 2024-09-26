@@ -24,7 +24,7 @@ export class Blog {
   @OneToMany(() => Image, (images) => images.blog, { cascade: true })
   images: Image[];
 
-  @CreateDateColumn({ type: 'date' }) 
+  @CreateDateColumn({ type: 'date' })
   date: string;
 
   @Column({ default: true })
