@@ -3,12 +3,14 @@ import {
   IsArray,
   IsDate,
   IsDateString,
+  IsEmail,
   IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
+  IsUrl,
   IsUUID,
   Max,
   MaxLength,
@@ -71,6 +73,30 @@ export class CreateTravelDto {
   @IsNotEmpty()
   @IsNumber()
   stars: number;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsUrl()
+  website: string;
+
+  @IsNotEmpty()
+  @IsString()
+  phone: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  @MaxLength(255)
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  address: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  openingHours: string;
 }
 
 export class UpdateTravelDto {
@@ -89,11 +115,6 @@ export class UpdateTravelDto {
   @IsString()
   @MaxLength(255)
   city?: string;
-
-  @IsOptional()
-  @IsNumber()
-  @IsPositive()
-  price?: number;
 
   @IsOptional()
   @IsString()
@@ -122,6 +143,30 @@ export class UpdateTravelDto {
   @IsOptional()
   @IsNumber()
   stars?: number;
+
+  @IsOptional()
+  @IsString()
+  @IsUrl()
+  website: string;
+
+  @IsOptional()
+  @IsString()
+  phone: string;
+
+  @IsOptional()
+  @IsEmail()
+  @MaxLength(255)
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  openingHours?: string;
 }
 
 export class CreateReviewDto {
@@ -138,9 +183,22 @@ export class CreateReviewDto {
 
   @IsNotEmpty()
   @IsUUID()
-  userId: string; 
+  userId: string;
 
   @IsNotEmpty()
   @IsUUID()
   travelId: string;
+}
+
+export class UpdateReviewDto {
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  review?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  stars?: number;
 }

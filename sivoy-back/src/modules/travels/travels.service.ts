@@ -12,20 +12,16 @@ export class TravelsService {
         return this.travelsRepository.getTravelsAvailable()
     }
 
-    getAllTravels() {
-        return this.travelsRepository.getAllTravels()
+    getAllTravelsAdmin() {
+        return this.travelsRepository.getAllTravelsAdmin()
     }
 
-    getTravelById(id: string) {
-        return this.travelsRepository.getTravelById(id)
+    getTravelById(id: string, user) {
+        return this.travelsRepository.getTravelById(id, user)
     }
 
     async createTravel(travel: CreateTravelDto) {
-        try {
-            return await this.travelsRepository.createTravel(travel);
-        } catch (error) {
-            throw new Error(`Error creating travel: ${error.message}`);
-        }
+        return await this.travelsRepository.createTravel(travel);
     }
 
     updateTravel(id: string, travel: UpdateTravelDto) {
@@ -44,12 +40,12 @@ export class TravelsService {
         return this.travelsRepository.createReview( Review)
     }
     
-    updateReview(id: string, Review: Review) {
-        return this.travelsRepository.updateReview(id, Review)
+    updateReview(id: string, review: UpdateTravelDto, userId: string) {
+        return this.travelsRepository.updateReview(id, review, userId)
     }
 
-    deleteReview(id: string) {
-        return this.travelsRepository.deleteReview(id)
+    deleteReview(id: string, userId: string, userRole: string) {
+        return this.travelsRepository.deleteReview(id, userId, userRole)
     }
 
 }

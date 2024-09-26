@@ -41,7 +41,10 @@ export class TokenGuard implements CanActivate {
 
       payload.iat = new Date(payload.iat * 1000);
       payload.exp = new Date(payload.exp * 1000);
-      payload.role = userFound.id;
+      payload.role = userFound.userWithoutPassword.role;
+
+      console.log(payload);
+      
       req.user = payload;
 
       return true;

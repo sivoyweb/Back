@@ -39,7 +39,7 @@ const typeORMconfig = {
     TravelProvider,
     Image,
     Disability,
-    Blog
+    Blog,
   ],
   synchronize: true,
   logging: ['query', 'error'],

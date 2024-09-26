@@ -30,9 +30,6 @@ export class Travel {
   @Column({ type: 'timestamp' })
   date: Date;
 
-  @Column({ type: 'int' })
-  price: number;
-
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
@@ -57,6 +54,21 @@ export class Travel {
 
   @ManyToOne(() => TravelProvider, (travelProvider) => travelProvider.provider)
   provider: TravelProvider;
+
+  @Column({ type: 'varchar', length: 255 })
+  website: string;
+
+  @Column({ type: 'varchar', length: 20 })
+  phone: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  email: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  address: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  openingHours: string;
 
   @OneToMany(() => User, (user) => user.history)
   userHistory: User;

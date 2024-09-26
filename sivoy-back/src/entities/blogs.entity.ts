@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, OneToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinTable,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 
@@ -16,6 +24,9 @@ export class Blog {
   @OneToMany(() => Image, (images) => images.blog, { cascade: true })
   images: Image[];
 
-  @CreateDateColumn({ type: 'date' }) // Solo guardará la fecha sin hora
+  @CreateDateColumn({ type: 'date' }) 
   date: string;
+
+  @Column({ default: true })
+  visible: boolean;
 }
