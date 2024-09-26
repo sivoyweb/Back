@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PromotionsRepository } from './promotions.repository';
+import { Promotion } from 'src/entities/promotion.entity';
 
 @Injectable()
 export class PromotionsService {
@@ -13,12 +14,12 @@ export class PromotionsService {
     return this.PromotionsRepository.getPromotionById(id);
   }
 
-  createPromotion() {
-    return this.PromotionsRepository.createPromotion();
+  createPromotion(promotionData: Partial<Promotion>) {
+    return this.PromotionsRepository.createPromotion(promotionData);
   }
 
-  updatePromotion(id: string) {
-    return this.PromotionsRepository.updatePromotion(id);
+  updatePromotion(id: string, updateData: Partial<Promotion>) {
+    return this.PromotionsRepository.updatePromotion(id, updateData);
   }
 
   deletePromotion(id: string) {
