@@ -47,7 +47,6 @@ export const travelsMock = [
     country: 'Brasil',
     city: 'Río de Janeiro',
     date: new Date('2024-12-01'),
-    price: 1500,
     description:
       'Explora las hermosas playas de Río y la vibrante cultura de Brasil.',
 
@@ -61,6 +60,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -68,7 +72,6 @@ export const travelsMock = [
     country: 'Suiza',
     city: 'Zermatt',
     date: new Date('2025-01-15'),
-    price: 2500,
     description:
       'Esquía por los picos nevados de los Alpes en esta exclusiva experiencia de viaje.',
 
@@ -82,6 +85,11 @@ export const travelsMock = [
       },
     ],
     stars: 4,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -89,7 +97,6 @@ export const travelsMock = [
     country: 'Tanzania',
     city: 'Serengeti',
     date: new Date('2024-11-20'),
-    price: 3500,
     description:
       'Observa la majestuosa vida salvaje en su hábitat natural con nuestros safaris guiados.',
 
@@ -103,6 +110,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -110,7 +122,6 @@ export const travelsMock = [
     country: 'Japón',
     city: 'Kioto',
     date: new Date('2025-03-05'),
-    price: 1800,
     description:
       'Descubre la rica historia y los tesoros culturales de Japón en este tour inmersivo.',
 
@@ -124,6 +135,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -131,7 +147,6 @@ export const travelsMock = [
     country: 'Italia',
     city: 'Venecia',
     date: new Date('2024-09-10'),
-    price: 2200,
     description:
       'Navega por el Mediterráneo y visita ciudades icónicas como Venecia y Barcelona.',
     serviceType: 'Gastronomía',
@@ -143,6 +158,11 @@ export const travelsMock = [
       },
     ],
     stars: 4,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -150,7 +170,6 @@ export const travelsMock = [
     country: 'Brasil',
     city: 'Río de Janeiro',
     date: new Date('2024-12-01'),
-    price: 1500,
     description:
       'Explora las hermosas playas de Río y la vibrante cultura de Brasil.',
     serviceType: 'Lugar de Interés',
@@ -162,6 +181,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -169,7 +193,6 @@ export const travelsMock = [
     country: 'Suiza',
     city: 'Zermatt',
     date: new Date('2025-01-15'),
-    price: 2500,
     description:
       'Esquía por los picos nevados de los Alpes en esta exclusiva experiencia de viaje.',
     serviceType: 'Ocio y Recreación',
@@ -181,6 +204,11 @@ export const travelsMock = [
       },
     ],
     stars: 4,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -188,7 +216,6 @@ export const travelsMock = [
     country: 'Tanzania',
     city: 'Serengeti',
     date: new Date('2024-11-20'),
-    price: 3500,
     description:
       'Observa la majestuosa vida salvaje en su hábitat natural con nuestros safaris guiados.',
     serviceType: 'Productos',
@@ -200,6 +227,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -207,7 +239,6 @@ export const travelsMock = [
     country: 'Japón',
     city: 'Kioto',
     date: new Date('2025-03-05'),
-    price: 1800,
     description:
       'Descubre la rica historia y los tesoros culturales de Japón en este tour inmersivo.',
     serviceType: 'Profesionales Servicios',
@@ -219,6 +250,11 @@ export const travelsMock = [
       },
     ],
     stars: 5,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
   {
@@ -226,7 +262,6 @@ export const travelsMock = [
     country: 'Italia',
     city: 'Venecia',
     date: new Date('2024-09-10'),
-    price: 2200,
     description:
       'Navega por el Mediterráneo y visita ciudades icónicas como Venecia y Barcelona.',
     serviceType: 'Transporte',
@@ -239,6 +274,11 @@ export const travelsMock = [
       },
     ],
     stars: 4,
+    website: 'https://www.google.com',
+    phone: '+542212233344',
+    email: 'a@b.com',
+    address: 'Calle 1, 2, 3',
+    openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
   },
 ];
