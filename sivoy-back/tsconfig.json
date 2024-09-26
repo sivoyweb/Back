@@ -17,7 +17,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./@types"],
+    "types": ["node", "express"] // Si estás utilizando otros tipos como Node.js, inclúyelos aquí
     
   }
 }
