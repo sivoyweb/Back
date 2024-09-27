@@ -19,7 +19,6 @@ import { Role } from "src/helpers/roles.enum.";
                 relations: {
                     reviews: true,
                     images: true,
-                    promotions: true,
                     provider: true
                 }
             });
@@ -32,7 +31,6 @@ import { Role } from "src/helpers/roles.enum.";
                 relations: {
                     reviews: true,
                     images: true,
-                    promotions: true,
                     provider: true
                 }
             });
@@ -45,7 +43,6 @@ import { Role } from "src/helpers/roles.enum.";
               relations: {
                 reviews: true,
                 images: true,
-                promotions: true,
                 provider: true,
               },
             });

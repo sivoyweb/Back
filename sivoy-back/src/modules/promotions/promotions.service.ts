@@ -39,7 +39,7 @@ export class PromotionsService {
     return await this.promotionsRepository.deactivatePromotion(id);
   }
 
-  async deactivateExpiredPromotions(): Promise<void> {
-    return await this.promotionsRepository.deactivateExpiredPromotions();
+  async desactivateExpiredPromotions(): Promise<void> {
+    return await this.promotionsRepository.desactivateExpiredPromotions();
   }
 }
