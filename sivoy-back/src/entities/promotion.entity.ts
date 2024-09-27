@@ -1,18 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Travel } from './travel.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Image } from './images.entity';
 
 @Entity('promotions')
 export class Promotion {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @ManyToOne(() => Travel, (travel) => travel.promotions)
-  travel: Travel;
+  @Column({ type: 'varchar', length: 255 })
+  name: string;
 
-  @Column({ type: 'int' })
-  discount: number;
+  @Column({ type: 'text' })
+  description: string;
 
-  @Column()
+  @Column({ type: 'timestamp' })
+  validFrom: Date;
+
+  @Column({ type: 'timestamp' })
   validUntil: Date;
+
+  @Column({ default: true })
+  isActive: boolean;
+
+  @OneToMany(() => Image, (image) => image.promotion, { cascade: true })
+  images: Image[];
 }

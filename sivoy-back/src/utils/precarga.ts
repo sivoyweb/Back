@@ -362,3 +362,66 @@ export const travelsMock = [
     available: true,
   },
 ];
+
+export const promotionsMock = [
+  {
+    name: 'Descuento Verano',
+    description:
+      'Disfruta de un 20% de descuento en todos los destinos de playa.',
+    images: [
+      { url: 'https://example.com/verano1.jpg' },
+      { url: 'https://example.com/verano2.jpg' },
+    ],
+    startDate: new Date('2024-06-01'),
+    endDate: new Date('2024-08-31'),
+    status: 'active', // activada
+  },
+  {
+    name: 'Aventura Extrema',
+    description:
+      '30% de descuento en paquetes de aventura extrema, por tiempo limitado.',
+    images: [
+      { url: 'https://example.com/aventura1.jpg' },
+      { url: 'https://example.com/aventura2.jpg' },
+    ],
+    startDate: new Date('2024-09-15'),
+    endDate: new Date('2024-10-15'),
+    status: 'active',
+  },
+  {
+    name: 'Viajes Navideños',
+    description:
+      '¡Celebra la Navidad con un 15% de descuento en viajes navideños!',
+    images: [
+      { url: 'https://example.com/navidad1.jpg' },
+      { url: 'https://example.com/navidad2.jpg' },
+    ],
+    startDate: new Date('2024-12-01'),
+    endDate: new Date('2024-12-25'),
+    status: 'active',
+  },
+  {
+    name: 'Ofertas de Año Nuevo',
+    description:
+      'Descuento del 25% en destinos seleccionados para celebrar el Año Nuevo.',
+    images: [
+      { url: 'https://example.com/ano_nuevo1.jpg' },
+      { url: 'https://example.com/ano_nuevo2.jpg' },
+    ],
+    startDate: new Date('2024-12-26'),
+    endDate: new Date('2025-01-05'),
+    status: 'active',
+  },
+  {
+    name: 'Escapada Romántica',
+    description:
+      '10% de descuento en paquetes para parejas en destinos románticos.',
+    images: [
+      { url: 'https://example.com/romantica1.jpg' },
+      { url: 'https://example.com/romantica2.jpg' },
+    ],
+    startDate: new Date('2024-02-10'),
+    endDate: new Date('2024-02-15'),
+    status: 'inactive', // desactivada
+  },
+];
