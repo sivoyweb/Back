@@ -44,20 +44,35 @@ export class DataSeederService implements OnModuleInit {
 
   async dataSeederTravels() {
     for (const travel of travelsMock) {
+      // Busca si el viaje ya existe
       const travelfound = await this.travelRepository.findOne({
         where: { name: travel.name },
       });
+
       if (travelfound) {
         continue;
       }
 
-      const image = this.imageRepository.create(travel.images);
-      await this.imageRepository.save(image);
+      // Precargar las imágenes
+      const imagePromises = travel.images.map(async (imageData) => {
+        // Crea la entidad de imagen
+        const image = this.imageRepository.create(imageData);
+        // Guarda la imagen y retorna la entidad guardada
+        return await this.imageRepository.save(image);
+      });
 
-      const newTravel: Partial<Travel> = { ...travel, images: image };
+      // Esperar que todas las imágenes se hayan guardado
+      const savedImages = await Promise.all(imagePromises);
 
-      this.travelRepository.create(newTravel);
-      await this.travelRepository.save(newTravel);
+      // Crear el nuevo viaje con las imágenes precargadas
+      const newTravel: Partial<Travel> = {
+        ...travel,
+        images: savedImages, // Asigna las imágenes precargadas
+      };
+
+      // Crea y guarda el nuevo viaje
+      const travelEntity = this.travelRepository.create(newTravel);
+      await this.travelRepository.save(travelEntity);
     }
   }
 }
