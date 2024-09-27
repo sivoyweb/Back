@@ -21,9 +21,8 @@ export class CreateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -52,9 +51,8 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
 
   @IsOptional()
   disabilities?: Disability[];
