@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('donations')
 export class Donation {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @ManyToOne(() => User, (user) => user.donations)

@@ -9,10 +9,12 @@ import {
 import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
+import { Provider } from './provider.entity';
+import { SuggestionState } from 'src/helpers/suggestionState.enum';
 
 @Entity('suggestions')
 export class Suggestion {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @ManyToOne(() => User, (user) => user.suggestions)
@@ -30,9 +32,6 @@ export class Suggestion {
   @Column({ type: 'date' })
   date: Date;
 
-  @Column({ type: 'int' })
-  price: number;
-
   @Column({ type: 'varchar', length: 500 })
   description: string;
 
@@ -44,8 +43,29 @@ export class Suggestion {
 
   @OneToMany(() => Image, (image) => image.suggestion)
   @JoinTable()
-  imagesUrl: Image[];
+  images: Image[];
 
-  @Column({ type: 'boolean', default: false })
-  state: boolean;
+  @Column({ type: 'int' })
+  stars: number;
+
+  @Column ({ type: 'varchar', length: 255 })    
+  provider: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  website: string;
+
+  @Column({ type: 'varchar', length: 20 })
+  phone: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  email: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  address: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  openingHours: string;
+
+  @Column({ type: 'enum', enum: SuggestionState, default: SuggestionState.PENDING })
+  state: SuggestionState;
 }
