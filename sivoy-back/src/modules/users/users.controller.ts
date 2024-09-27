@@ -9,11 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './user.dto';
-import { TokenGuard } from 'src/guards/token.guard';
 
-import { Roles } from '../../decorators/roles.decorator';
-import { Role } from 'src/helpers/roles.enum.';
-import { RolesGuard } from 'src/guards/roles.guard';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags(`Users`)
@@ -21,7 +17,6 @@ import { ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  @UseGuards(TokenGuard)
   @Get('/')
   async getAllUsers() {
     return await this.userService.getAllUsers();
