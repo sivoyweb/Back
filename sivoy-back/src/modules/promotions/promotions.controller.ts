@@ -46,10 +46,7 @@ export class PromotionsController {
   async createPromotion(
     @Body() createPromotionDto: CreatePromotionDto,
   ): Promise<Promotion> {
-    return await this.promotionsService.createPromotion(
-      createPromotionDto,
-      'admin',
-    );
+    return await this.promotionsService.createPromotion(createPromotionDto);
   }
 
   @Patch(':id')
@@ -59,18 +56,14 @@ export class PromotionsController {
     @Param('id') id: string,
     @Body() updatePromotionDto: UpdatePromotionDto,
   ): Promise<Promotion> {
-    return await this.promotionsService.updatePromotion(
-      id,
-      updatePromotionDto,
-      'admin',
-    );
+    return await this.promotionsService.updatePromotion(id, updatePromotionDto);
   }
 
   @Delete(':id')
   @UseGuards(RolesGuard)
   @Roles(Role.Admin)
   async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
-    return await this.promotionsService.deactivatePromotion(id, 'admin');
+    return await this.promotionsService.deactivatePromotion(id);
   }
 
   @Post('deactivate-expired')
