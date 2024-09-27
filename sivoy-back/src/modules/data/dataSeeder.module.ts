@@ -4,9 +4,10 @@ import { Disability } from 'src/entities/disabilities.entity';
 import { DataSeederService } from './dataSeeder.service';
 import { Travel } from 'src/entities/travel.entity';
 import { Image } from 'src/entities/images.entity';
+import { Promotion } from 'src/entities/promotion.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Disability, Travel, Image])],
-  providers: [DataSeederService, Disability, Travel, Image],
+  imports: [TypeOrmModule.forFeature([Disability, Travel, Image, Promotion])],
+  providers: [DataSeederService],
 })
 export class DataSeederModule {}

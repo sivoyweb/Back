@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Travel } from './travel.entity';
 import { Credential } from './credential.entity';
 import { Blog } from './blogs.entity';
+import { Promotion } from './promotion.entity';
 
 @Entity('images')
 export class Image {
@@ -27,4 +28,7 @@ export class Image {
 
   @ManyToOne(() => Blog, (blog) => blog.images, { onDelete: 'CASCADE' })
   blog: Blog;
+
+  @ManyToOne(() => Promotion, (promotion) => promotion.images)
+  promotion: Promotion;
 }

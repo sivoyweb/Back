@@ -4,55 +4,70 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
 import { PromotionsService } from './promotions.service';
+import { Promotion } from 'src/entities/promotion.entity';
+import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
 import { ApiTags } from '@nestjs/swagger';
-import { CreatePromotionDto } from './promotion.dto';
+import { Role } from 'src/helpers/roles.enum.';
 
-@ApiTags(`Promotions`)
+@ApiTags('Promotions')
 @Controller('promotions')
 export class PromotionsController {
-  constructor(private readonly PromotionsService: PromotionsService) {}
+  constructor(private readonly promotionsService: PromotionsService) {}
 
   @Get()
-  getAllPromotions() {
-    return this.PromotionsService.getAllPromotions();
+  @UseGuards(RolesGuard)
+  async getAllPromotions(
+    @Query('role') role: 'user' | 'admin',
+  ): Promise<Promotion[]> {
+    return await this.promotionsService.getAllPromotions(role);
   }
 
   @Get(':id')
-  getPromotionById(@Param('id') id: string) {
-    return this.PromotionsService.getPromotionById(id);
+  async getPromotionById(@Param('id') id: string): Promise<Promotion> {
+    return await this.promotionsService.getPromotionById(id);
+  }
+
+  @Get('name/:name')
+  async getPromotionByName(@Param('name') name: string): Promise<Promotion[]> {
+    return await this.promotionsService.getPromotionByName(name);
   }
 
   @Post()
-  createPromotion(@Body() createPromotionDto: CreatePromotionDto) {
-    const promotionData = {
-      ...createPromotionDto,
-      validUntil: new Date(createPromotionDto.validUntil),
-    };
-
-    return this.PromotionsService.createPromotion(promotionData);
+  @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
+  async createPromotion(
+    @Body() createPromotionDto: CreatePromotionDto,
+  ): Promise<Promotion> {
+    return await this.promotionsService.createPromotion(createPromotionDto);
   }
 
-  @Put(':id')
-  updatePromotion(
+  @Patch(':id')
+  @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
+  async updatePromotion(
     @Param('id') id: string,
-    @Body() updateData: Partial<CreatePromotionDto>,
-  ) {
-    const updatedPromotionData = {
-      ...updateData,
-      ...(updateData.validUntil && {
-        validUntil: new Date(updateData.validUntil),
-      }),
-    };
-
-    return this.PromotionsService.updatePromotion(id, updatedPromotionData);
+    @Body() updatePromotionDto: UpdatePromotionDto,
+  ): Promise<Promotion> {
+    return await this.promotionsService.updatePromotion(id, updatePromotionDto);
   }
 
   @Delete(':id')
-  deletePromotion(@Param('id') id: string) {
-    return this.PromotionsService.deletePromotion(id);
+  @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
+  async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
+    return await this.promotionsService.deactivatePromotion(id);
+  }
+
+  @Post('deactivate-expired')
+  async deactivateExpiredPromotions(): Promise<void> {
+    return await this.promotionsService.deactivateExpiredPromotions();
   }
 }
