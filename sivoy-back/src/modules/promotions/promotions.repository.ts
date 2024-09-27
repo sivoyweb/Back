@@ -3,10 +3,11 @@ import { Promotion } from 'src/entities/promotion.entity';
 import { Repository } from 'typeorm';
 import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
 import { Role } from 'src/helpers/roles.enum.';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PromotionsRepository {
-  constructor(private readonly promotionsRepository: Repository<Promotion>) {}
+  constructor( @InjectRepository(Promotion) private readonly promotionsRepository: Repository<Promotion>) {}
 
   async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
     try {
@@ -141,7 +142,7 @@ export class PromotionsRepository {
     }
   }
 
-  async deactivateExpiredPromotions(): Promise<void> {
+  async desactivateExpiredPromotions(): Promise<void> {
     const promotions = await this.promotionsRepository.find();
     const now = new Date();
 

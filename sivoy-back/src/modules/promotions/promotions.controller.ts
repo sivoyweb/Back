@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -69,9 +70,10 @@ export class PromotionsController {
   async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
     return await this.promotionsService.deactivatePromotion(id);
 
-
-  @Post('deactivate-expired')
-  async deactivateExpiredPromotions(): Promise<void> {
-    return await this.promotionsService.deactivateExpiredPromotions();
   }
+  @Put('desactivate-expired')
+  async desactivateExpiredPromotions(): Promise<void> {
+    return await this.promotionsService.desactivateExpiredPromotions();
+  }
+  
 }
