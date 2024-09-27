@@ -58,6 +58,14 @@ export const travelsMock = [
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
         publicId: 'imagen1',
       },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
+        publicId: 'imagen1',
+      },
     ],
     stars: 5,
     website: 'https://www.google.com',
@@ -81,6 +89,14 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
         publicId: 'imagen1',
       },
     ],
@@ -108,6 +124,14 @@ export const travelsMock = [
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
         publicId: 'imagen1',
       },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
+        publicId: 'imagen1',
+      },
     ],
     stars: 5,
     website: 'https://www.google.com',
@@ -133,6 +157,14 @@ export const travelsMock = [
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
         publicId: 'imagen1',
       },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
+        publicId: 'imagen1',
+      },
     ],
     stars: 5,
     website: 'https://www.google.com',
@@ -154,6 +186,14 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
         publicId: 'imagen1',
       },
     ],
@@ -179,6 +219,14 @@ export const travelsMock = [
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
         publicId: 'imagen1',
       },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
+        publicId: 'imagen1',
+      },
     ],
     stars: 5,
     website: 'https://www.google.com',
@@ -200,6 +248,14 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
         publicId: 'imagen1',
       },
     ],
@@ -225,6 +281,14 @@ export const travelsMock = [
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
         publicId: 'imagen1',
       },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
+        publicId: 'imagen1',
+      },
     ],
     stars: 5,
     website: 'https://www.google.com',
@@ -246,6 +310,14 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
         publicId: 'imagen1',
       },
     ],
@@ -270,6 +342,14 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaZxAZ1pwAa_Lhf5XGcvy4Yl--cpwib67fHQ&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_yJ657m9pJ4AjSIEiR498dBMARL7EiypdTg&s',
+        publicId: 'imagen1',
+      },
+      {
+        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn4K7L7972wibd1xlxb6j4ijApNtoATZuJUw&s',
         publicId: 'imagen1',
       },
     ],
