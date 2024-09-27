@@ -7,8 +7,8 @@ import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
 export class PromotionsService {
   constructor(private readonly promotionsRepository: PromotionsRepository) {}
 
-  async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
-    return await this.promotionsRepository.getAllPromotions(role);
+  async getAllPromotions(): Promise<Promotion[]> {
+    return await this.promotionsRepository.getAllPromotions();
   }
 
   async getPromotionById(id: string): Promise<Promotion> {

@@ -9,15 +9,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class PromotionsRepository {
   constructor( @InjectRepository(Promotion) private readonly promotionsRepository: Repository<Promotion>) {}
 
-  async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
+  async getAllPromotions(): Promise<Promotion[]> {
     try {
-      if (role === 'user') {
-        return await this.promotionsRepository.find({
-          where: { isActive: true },
-        });
-      }
-      // Si el rol es 'admin', devuelve todas las promociones
-      return await this.promotionsRepository.find();
+      return await this.promotionsRepository.find({
+        where: { isActive: true }, 
+      });
     } catch (error) {
       throw new HttpException(
         { status: 500, error: `Internal server error fetching promotions` },
