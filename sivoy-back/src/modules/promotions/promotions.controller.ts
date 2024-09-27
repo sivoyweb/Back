@@ -24,11 +24,9 @@ export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
 
   @Get()
-  @UseGuards(RolesGuard)
   async getAllPromotions(
-    @Query('role') role: 'user' | 'admin',
   ): Promise<Promotion[]> {
-    return await this.promotionsService.getAllPromotions(role);
+    return await this.promotionsService.getAllPromotions();
   }
 
   @Get(':id')

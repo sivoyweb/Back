@@ -11,7 +11,6 @@ import { TravelProvider } from './travelProvider.entity';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 import { User } from './user.entity';
-import { Promotion } from './promotion.entity';
 
 @Entity('travels')
 export class Travel {
