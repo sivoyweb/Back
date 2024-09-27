@@ -16,7 +16,7 @@ export class Image {
   @Column({ type: 'varchar', length: 255, default: 'public id default' })
   publicId: string;
 
-  @ManyToOne(() => Suggestion, (suggestion) => suggestion.imagesUrl)
+  @ManyToOne(() => Suggestion, (suggestion) => suggestion.images)
   suggestion: Suggestion;
 
   @ManyToOne(() => Travel, (travel) => travel.images)

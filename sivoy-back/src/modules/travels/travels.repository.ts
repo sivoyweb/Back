@@ -132,7 +132,7 @@ import { Role } from "src/helpers/roles.enum.";
         async updateReview(id: string, review: UpdateTravelDto, userId: string) {
             const updateReview = await this.reviewsRepository.findOne({
                 where: { id },
-                relations: ['user'], // Asegúrate de cargar la relación con el usuario
+                relations: ['user']
             });
             if (!updateReview) throw new NotFoundException (`Review whit ${id} not found`)
             if (updateReview.user.id !== userId) {

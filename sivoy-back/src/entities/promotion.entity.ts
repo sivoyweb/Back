@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 @Entity('promotions')
 export class Promotion {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
   @ManyToOne(() => Travel, (travel) => travel.promotions)

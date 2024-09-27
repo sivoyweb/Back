@@ -1,15 +1,16 @@
 import { Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Suggestion } from 'src/entities/suggestion.entity';
 
 @ApiTags(`Suggestions`)
 @Controller('suggestions')
 export class SuggestionsController {
   constructor(private readonly suggestionsService: SuggestionsService) {}
 
-  @Get()
-  getAllSuggestions() {
-    return this.suggestionsService.getAllSuggestions();
+  @Get('pending')
+  getPendingSuggestions(): Promise<Suggestion[]> {
+    return this.suggestionsService.getPendingSuggestions();
   }
 
   @Get(':id')
