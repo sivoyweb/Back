@@ -15,9 +15,8 @@ export class SignInGoogle {
   @MaxLength(50)
   name: string;
 
-  @IsNumber()
   @IsOptional()
-  phone: number;
+  phone: string;
 
   @IsNotEmpty()
   @IsEmail()
