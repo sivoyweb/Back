@@ -44,7 +44,7 @@ export class TokenGuard implements CanActivate {
       payload.role = userFound.userWithoutPassword.role;
 
       console.log(payload);
-      
+
       req.user = payload;
 
       return true;

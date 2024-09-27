@@ -59,6 +59,11 @@ export class UsersRepository {
     return 'User Updated';
   }
 
+  async createGoogleUser(user: Partial<User>) {
+    this.usersRepository.create(user);
+    await this.usersRepository.save(user);
+  }
+
   async createUser(userDto: CreateUserDto) {
     const { name, email, password, phone } = userDto;
 
@@ -83,6 +88,13 @@ export class UsersRepository {
     await this.usersRepository.save(user);
 
     return user;
+  }
+
+  async createCredential(credential: Partial<Credential>) {
+    const newCredential = credential;
+    this.credentialsRepository.create(newCredential);
+    await this.credentialsRepository.save(newCredential);
+    return newCredential;
   }
 
   async deleteUser(id: string) {

@@ -35,7 +35,8 @@ export class UsersService {
     try {
       const user = await this.UsersRepository.getUserById(id);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...credentialWithoutPassword } = user.credential;
+      const { password, googleId, ...credentialWithoutPassword } =
+        user.credential;
       const userWithoutPassword = {
         ...user,
         credential: {
@@ -43,7 +44,7 @@ export class UsersService {
         },
       };
 
-      return { userWithoutPassword, password };
+      return { userWithoutPassword, password, googleId };
     } catch (err) {
       return err;
     }
@@ -58,7 +59,7 @@ export class UsersService {
   }
 
   async isEmailInUse(email: string) {
-    return this.UsersRepository.isEmailUsed(email);
+    return await this.UsersRepository.isEmailUsed(email);
   }
 
   async deleteUser(id: string) {

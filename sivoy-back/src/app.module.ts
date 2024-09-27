@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from './config/envConfig';
 import { DataSeederModule } from './modules/data/dataSeeder.module';
 import { BlogsModule } from './modules/blogs/blogs.module';
+import { DisabilitiesModule } from './modules/disabilities/disabilities.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { BlogsModule } from './modules/blogs/blogs.module';
     ProvidersModule,
     DonationsModule,
     SuggestionsModule,
+    DisabilitiesModule,
     AuthModule,
     PromotionsModule,
     DataSeederModule,

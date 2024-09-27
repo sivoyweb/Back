@@ -9,6 +9,8 @@ import {
 import { CreateUserDto, LoginUserDto } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
+import { FirebaseAdminService } from 'src/utils/firebase.service';
+import { SignInGoogle } from './google.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags(`Auths`)
@@ -17,6 +19,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
+    private readonly firebaseService: FirebaseAdminService,
   ) {}
 
   @Post('signup')
@@ -30,8 +33,8 @@ export class AuthController {
       );
     }
 
-    const newUser = await this.authService.signup(user);
-    return newUser;
+    const token = await this.authService.signup(user);
+    return { token };
   }
 
   @Post('signin')
@@ -40,8 +43,31 @@ export class AuthController {
     return response;
   }
 
+  @Post('signup/google')
+  async googleSignup(@Body() userData: SignInGoogle) {
+    const firebaseUser = await this.firebaseService.verifyToken(userData.token);
+
+    await this.authService.signupGoogle(userData, firebaseUser);
+
+    return 'User created successfully';
+  }
+
+  @Post('signin/google')
+  async googleSignin(@Body() userData: SignInGoogle) {
+    const firebaseUser = await this.firebaseService.verifyToken(userData.token);
+
+    const user = await this.authService.signinGoogle(userData, firebaseUser);
+
+    return user;
+  }
+
   @Get('verify-email')
   async verifyEmail(@Query('token') token: string) {
     return await this.authService.verifyToken(token);
+  }
+
+  @Post('email')
+  async sendEmail(@Query() data) {
+    return await this.authService.sendEmail(data.token, data.html);
   }
 }

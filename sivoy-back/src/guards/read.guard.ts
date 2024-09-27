@@ -35,7 +35,6 @@ export class ReadGuard implements CanActivate {
           const { id, role } = userFound.userWithoutPassword;
           req.user = { id, role };
           console.log(req.user);
-          
         }
       }
 
@@ -46,4 +45,3 @@ export class ReadGuard implements CanActivate {
     }
   }
 }
-  
