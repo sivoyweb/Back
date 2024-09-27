@@ -1,9 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 import {
   IsEmail,
-  IsEmpty,
-  IsEnum,
-  IsIn,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -15,6 +12,7 @@ import {
 } from 'class-validator';
 import { MatchPassword } from 'src/decorators/matchPassword';
 import { Disability } from 'src/entities/disabilities.entity';
+import { Image } from 'src/entities/images.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -23,9 +21,8 @@ export class CreateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -54,9 +51,8 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNumber()
   @IsNotEmpty()
-  phone: number;
+  phone: string;
 
   @IsOptional()
   disabilities?: Disability[];
@@ -64,6 +60,9 @@ export class UpdateUserDto {
   @IsOptional()
   @IsEmail()
   email: string;
+
+  @IsOptional()
+  avatar: Image;
 
   @IsOptional()
   @IsString()

@@ -27,8 +27,6 @@ export class UsersController {
     return await this.userService.getAllUsers();
   }
 
-  @UseGuards(RolesGuard)
-  @Roles(Role.Admin)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     return await this.userService.getUserById(id);
