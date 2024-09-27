@@ -1,21 +1,26 @@
-import { HttpException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { Promotion } from 'src/entities/promotion.entity';
 import { Repository } from 'typeorm';
+import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
+import { Role } from 'src/helpers/roles.enum.';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PromotionsRepository {
-  constructor(
-    @InjectRepository(Promotion)
-    private readonly promotionRepostitory: Repository<Promotion>,
-  ) {}
+  constructor( @InjectRepository(Promotion) private readonly promotionsRepository: Repository<Promotion>) {}
 
-  async getAllPromotions(): Promise<Promotion[]> {
+  async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
     try {
-      return await this.promotionRepostitory.find();
+      if (role === 'user') {
+        return await this.promotionsRepository.find({
+          where: { isActive: true },
+        });
+      }
+      // Si el rol es 'admin', devuelve todas las promociones
+      return await this.promotionsRepository.find();
     } catch (error) {
       throw new HttpException(
-        { status: 500, error: `Internal server fetching all promotions` },
+        { status: 500, error: `Internal server error fetching promotions` },
         500,
       );
     }
@@ -23,12 +28,12 @@ export class PromotionsRepository {
 
   async getPromotionById(id: string): Promise<Promotion> {
     try {
-      const promotion = await this.promotionRepostitory.findOne({
+      const promotion = await this.promotionsRepository.findOne({
         where: { id },
       });
       if (!promotion) {
         throw new HttpException(
-          { status: 404, error: `Promotion not found` },
+          { status: 404, error: `Promotion with ID ${id} not found` },
           404,
         );
       }
@@ -44,10 +49,45 @@ export class PromotionsRepository {
     }
   }
 
-  async createPromotion(promotionData: Partial<Promotion>): Promise<Promotion> {
+  async getPromotionByName(name: string): Promise<Promotion[]> {
     try {
-      const newPromotion = this.promotionRepostitory.create(promotionData);
-      return await this.promotionRepostitory.save(newPromotion);
+      const promotions = await this.promotionsRepository.find({
+        where: { name },
+      });
+      if (promotions.length === 0) {
+        throw new HttpException(
+          { status: 404, error: `No promotions found with the name '${name}'` },
+          404,
+        );
+      }
+      return promotions;
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: 500,
+          error: `Internal server error fetching promotions by name`,
+        },
+        500,
+      );
+    }
+  }
+
+  async createPromotion(
+    createPromotionDto: CreatePromotionDto,
+  ): Promise<Promotion> {
+    try {
+      const existingPromotion = await this.promotionsRepository.findOne({
+        where: { name: createPromotionDto.name },
+      });
+
+      if (existingPromotion) {
+        throw new BadRequestException(
+          `A promotion with the name '${createPromotionDto.name}' already exists.`,
+        );
+      }
+
+      const promotion = this.promotionsRepository.create(createPromotionDto);
+      return await this.promotionsRepository.save(promotion);
     } catch (error) {
       throw new HttpException(
         { status: 500, error: `Internal server error creating promotion` },
@@ -58,20 +98,21 @@ export class PromotionsRepository {
 
   async updatePromotion(
     id: string,
-    updateData: Partial<Promotion>,
+    updatePromotionDto: UpdatePromotionDto,
   ): Promise<Promotion> {
     try {
-      const promotion = await this.promotionRepostitory.findOne({
+      const promotion = await this.promotionsRepository.findOne({
         where: { id },
       });
-      if (promotion!) {
+      if (!promotion) {
         throw new HttpException(
-          { status: 404, error: `Promotion not found` },
+          { status: 404, error: `Promotion with ID ${id} not found` },
           404,
         );
       }
-      Object.assign(promotion, updateData);
-      return await this.promotionRepostitory.save(promotion);
+
+      Object.assign(promotion, updatePromotionDto);
+      return await this.promotionsRepository.save(promotion);
     } catch (error) {
       throw new HttpException(
         { status: 500, error: `Internal server error updating promotion` },
@@ -80,7 +121,36 @@ export class PromotionsRepository {
     }
   }
 
-  deletePromotion(id: string) {
-    return 'Promotion deleted';
+  async deactivatePromotion(id: string): Promise<Promotion> {
+    try {
+      const promotion = await this.promotionsRepository.findOne({
+        where: { id },
+      });
+      if (!promotion) {
+        throw new HttpException(
+          { status: 404, error: `Promotion with ID ${id} not found` },
+          404,
+        );
+      }
+      promotion.isActive = false;
+      return await this.promotionsRepository.save(promotion);
+    } catch (error) {
+      throw new HttpException(
+        { status: 500, error: `Internal server error deactivating promotion` },
+        500,
+      );
+    }
+  }
+
+  async desactivateExpiredPromotions(): Promise<void> {
+    const promotions = await this.promotionsRepository.find();
+    const now = new Date();
+
+    promotions.forEach(async (promotion) => {
+      if (promotion.validUntil < now) {
+        promotion.isActive = false;
+        await this.promotionsRepository.save(promotion);
+      }
+    });
   }
 }

@@ -2,8 +2,13 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
+import { Promotion } from 'src/entities/promotion.entity';
 import { Travel } from 'src/entities/travel.entity';
-import { categorizedDisabilities, travelsMock } from 'src/utils/precarga';
+import {
+  categorizedDisabilities,
+  promotionsMock,
+  travelsMock,
+} from 'src/utils/precarga';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -15,10 +20,13 @@ export class DataSeederService implements OnModuleInit {
     private readonly travelRepository: Repository<Travel>,
     @InjectRepository(Image)
     private readonly imageRepository: Repository<Image>,
+    @InjectRepository(Promotion)
+    private readonly promotionRepository: Repository<Promotion>,
   ) {}
   async onModuleInit() {
     await this.dataSeederDiscapacities();
     await this.dataSeederTravels();
+    await this.dataSeederPromotions();
   }
 
   async dataSeederDiscapacities() {
@@ -73,6 +81,37 @@ export class DataSeederService implements OnModuleInit {
       // Crea y guarda el nuevo viaje
       const travelEntity = this.travelRepository.create(newTravel);
       await this.travelRepository.save(travelEntity);
+    }
+  }
+  async dataSeederPromotions() {
+    for (const promotion of promotionsMock) {
+      try {
+        const promotionFound = await this.promotionRepository.findOne({
+          where: { name: promotion.name },
+        });
+        if (promotionFound) {
+          continue;
+        }
+
+        // Crear y guardar las imágenes si no lo has hecho ya
+        const images = promotion.images.map((image) =>
+          this.imageRepository.create(image),
+        );
+        await this.imageRepository.save(images);
+
+        // Asignar las imágenes a la promoción
+        const newPromotion = this.promotionRepository.create({
+          ...promotion,
+          images,
+        });
+
+        await this.promotionRepository.save(newPromotion);
+      } catch (error) {
+        console.error(
+          `Error precargando la promoción: ${promotion.name}`,
+          error,
+        );
+      }
     }
   }
 }

@@ -41,11 +41,6 @@ export class CreateTravelDto {
   @IsOptional()
   date?: string;
 
-  @IsNumber()
-  @IsPositive()
-  @IsOptional()
-  price: number;
-
   @IsString()
   @IsNotEmpty()
   @MaxLength(255)

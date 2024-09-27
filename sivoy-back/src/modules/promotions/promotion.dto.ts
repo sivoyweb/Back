@@ -1,30 +1,50 @@
 import {
+  IsString,
+  IsNotEmpty,
+  IsArray,
   IsDate,
   IsDateString,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
+  IsBoolean,
 } from 'class-validator';
+import { Image } from 'src/entities/images.entity';
 
 export class CreatePromotionDto {
-  /**
-   * Fecha válida para "validUntil"
-   * @example "2024-12-31"
-   */
+  @IsString()
   @IsNotEmpty()
-  @IsDateString()
-  validUntil: string;
+  name: string;
 
-  /**
-   * Debe ser de tipo number, un número positivo del 1 al 100
-   * @example 50
-   */
-  @IsOptional()
-  @IsNumber()
-  @Min(1)
-  @Max(100)
-  discound: number;
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsArray()
+  images: Image[];
+
+  @IsDate()
+  validFrom: Date;
+
+  @IsDate()
+  validUntil: Date;
+
+  isActive?: boolean;
+}
+
+export class UpdatePromotionDto {
+  @IsString()
+  name?: string;
+
+  @IsString()
+  description?: string;
+
+  @IsArray()
+  images: Image[];
+
+  @IsDateString()
+  validFrom?: Date;
+
+  @IsDateString()
+  validUntil?: Date;
+
+  @IsBoolean()
+  isActive?: boolean;
 }

@@ -5,8 +5,8 @@ import { SuggestionsRepository } from './suggestions.repository';
 export class SuggestionsService {
   constructor(private readonly SuggestionsRepository: SuggestionsRepository) {}
 
-  getAllSuggestions() {
-    return this.SuggestionsRepository.getAllSuggestions();
+  getPendingSuggestions() {
+    return this.SuggestionsRepository.getPendingSuggestions();
   }
 
   getSuggestionById(id: string) {
