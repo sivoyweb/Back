@@ -13,6 +13,9 @@ export class Disability {
   @Column()
   category: string;
 
+  @Column({ default: true })
+  active: boolean;
+
   @ManyToOne(() => User, (user) => user.disabilities)
   user: User;
 }
