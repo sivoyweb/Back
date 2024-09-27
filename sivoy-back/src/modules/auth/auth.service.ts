@@ -29,7 +29,9 @@ export class AuthService {
         role: newUser.role,
       };
 
-      const token = await this.jwtService.signAsync(payload);
+      const token = await this.jwtService.signAsync(payload, {
+        secret: JWT_SECRET,
+      });
 
       return token;
     } catch (err) {
@@ -45,11 +47,17 @@ export class AuthService {
     const exist: boolean | string = await this.userService.isEmailInUse(
       data.email,
     );
+
     if (!exist) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
     }
 
     const user = await this.userService.getUserById(exist as string);
+
+    if (!user || !user.password) {
+      throw new HttpException({ status: 404, error: 'User not found' }, 404);
+    }
+
     const passwordToConfirm = user.password;
 
     const verify = await bcrypt.compare(data.password, passwordToConfirm);
@@ -63,7 +71,7 @@ export class AuthService {
     const payload = {
       sub: user.id,
       id: user.id,
-      email: user.userWithoutPassword.credential.email,
+      email: user.credential.email,
       role: user.role,
     };
 
