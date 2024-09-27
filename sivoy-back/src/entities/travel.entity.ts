@@ -49,9 +49,6 @@ export class Travel {
   @Column({ type: 'int' })
   stars: number;
 
-  @OneToMany(() => Promotion, (promo) => promo.travel)
-  promotions: Promotion[];
-
   @ManyToOne(() => TravelProvider, (travelProvider) => travelProvider.provider)
   provider: TravelProvider;
 

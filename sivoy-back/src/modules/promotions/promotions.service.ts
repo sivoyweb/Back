@@ -1,28 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { PromotionsRepository } from './promotions.repository';
 import { Promotion } from 'src/entities/promotion.entity';
+import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
 
 @Injectable()
 export class PromotionsService {
-  constructor(private readonly PromotionsRepository: PromotionsRepository) {}
+  constructor(private readonly promotionsRepository: PromotionsRepository) {}
 
-  getAllPromotions() {
-    return this.PromotionsRepository.getAllPromotions();
+  async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
+    return await this.promotionsRepository.getAllPromotions(role);
   }
 
-  getPromotionById(id: string) {
-    return this.PromotionsRepository.getPromotionById(id);
+  async getPromotionById(id: string): Promise<Promotion> {
+    return await this.promotionsRepository.getPromotionById(id);
   }
 
-  createPromotion(promotionData: Partial<Promotion>) {
-    return this.PromotionsRepository.createPromotion(promotionData);
+  async getPromotionByName(name: string): Promise<Promotion[]> {
+    return await this.promotionsRepository.getPromotionByName(name);
   }
 
-  updatePromotion(id: string, updateData: Partial<Promotion>) {
-    return this.PromotionsRepository.updatePromotion(id, updateData);
+  async createPromotion(
+    createPromotionDto: CreatePromotionDto,
+  ): Promise<Promotion> {
+    return await this.promotionsRepository.createPromotion(createPromotionDto);
   }
 
-  deletePromotion(id: string) {
-    return this.PromotionsRepository.deletePromotion(id);
+  async updatePromotion(
+    id: string,
+    updatePromotionDto: UpdatePromotionDto,
+  ): Promise<Promotion> {
+    return await this.promotionsRepository.updatePromotion(
+      id,
+      updatePromotionDto,
+    );
+  }
+
+  async deactivatePromotion(id: string): Promise<Promotion> {
+    return await this.promotionsRepository.deactivatePromotion(id);
+  }
+
+  async deactivateExpiredPromotions(): Promise<void> {
+    return await this.promotionsRepository.deactivateExpiredPromotions();
   }
 }
