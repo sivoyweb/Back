@@ -29,7 +29,7 @@ export class Travel {
   @Column({ type: 'timestamp' })
   date: Date;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 500 })
   description: string;
 
   @Column({ type: 'varchar', length: 255 })
