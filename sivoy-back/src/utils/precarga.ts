@@ -421,4 +421,3 @@ export const promotionsMock = [
     isActive: false, // explicitamente desactivada
   },
 ];
-

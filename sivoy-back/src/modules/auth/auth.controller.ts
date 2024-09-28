@@ -6,11 +6,14 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateUserDto, LoginUserDto } from '../users/user.dto';
+import {
+  CreateUserDto,
+  LoginUserDto,
+  SendEmailDto,
+  SignInGoogleDto,
+} from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
-import { FirebaseAdminService } from 'src/utils/firebase.service';
-import { SignInGoogle } from './google.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags(`Auths`)
@@ -19,7 +22,6 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
-    private readonly firebaseService: FirebaseAdminService,
   ) {}
 
   @Post('signup')
@@ -43,20 +45,9 @@ export class AuthController {
     return response;
   }
 
-  @Post('signup/google')
-  async googleSignup(@Body() userData: SignInGoogle) {
-    const firebaseUser = await this.firebaseService.verifyToken(userData.token);
-
-    await this.authService.signupGoogle(userData, firebaseUser);
-
-    return 'User created successfully';
-  }
-
   @Post('signin/google')
-  async googleSignin(@Body() userData: SignInGoogle) {
-    const firebaseUser = await this.firebaseService.verifyToken(userData.token);
-
-    const user = await this.authService.signinGoogle(userData, firebaseUser);
+  async googleSignin(@Body() userData: SignInGoogleDto) {
+    const user = await this.authService.signinGoogle(userData.email);
 
     return user;
   }
@@ -66,8 +57,8 @@ export class AuthController {
     return await this.authService.verifyToken(token);
   }
 
-  @Post('email')
-  async sendEmail(@Query() data) {
+  @Post('send-email')
+  async sendEmail(@Body() data: SendEmailDto) {
     return await this.authService.sendEmail(data.token, data.html);
   }
 }

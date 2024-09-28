@@ -48,7 +48,7 @@ export class Suggestion {
   @Column({ type: 'int' })
   stars: number;
 
-  @Column ({ type: 'varchar', length: 255 })    
+  @Column({ type: 'varchar', length: 255 })
   provider: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -66,6 +66,10 @@ export class Suggestion {
   @Column({ type: 'varchar', length: 255 })
   openingHours: string;
 
-  @Column({ type: 'enum', enum: SuggestionState, default: SuggestionState.PENDING })
+  @Column({
+    type: 'enum',
+    enum: SuggestionState,
+    default: SuggestionState.PENDING,
+  })
   state: SuggestionState;
 }

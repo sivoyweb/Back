@@ -7,7 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PromotionsRepository {
-  constructor( @InjectRepository(Promotion) private readonly promotionsRepository: Repository<Promotion>) {}
+  constructor(
+    @InjectRepository(Promotion)
+    private readonly promotionsRepository: Repository<Promotion>,
+  ) {}
 
   async getAllPromotions(role: 'user' | 'admin'): Promise<Promotion[]> {
     try {
