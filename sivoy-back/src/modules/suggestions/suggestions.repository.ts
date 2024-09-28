@@ -18,7 +18,9 @@ export class SuggestionsRepository {
   }
 
   async getSuggestionById(id: string): Promise<Suggestion> {
-    const suggestion = await this.SuggestionsRepository.findOne({ where: { id } });
+    const suggestion = await this.SuggestionsRepository.findOne({
+      where: { id },
+    });
 
     if (!suggestion) {
       throw new NotFoundException(`Suggestion with ID ${id} not found`);
