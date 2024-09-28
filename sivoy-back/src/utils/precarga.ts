@@ -369,8 +369,12 @@ export const promotionsMock = [
     description:
       'Disfruta de un 20% de descuento en todos los destinos de playa.',
     images: [
-      { url: 'https://example.com/verano1.jpg' },
-      { url: 'https://example.com/verano2.jpg' },
+      { url: 'https://example.com/verano1.jpg',
+        publicId: 'imagen1',
+       },
+      { url: 'https://example.com/verano2.jpg',
+        publicId: 'imagen1',
+       },
     ],
     validFrom: new Date('2024-06-01'),
     validUntil: new Date('2024-08-31'),
@@ -380,8 +384,12 @@ export const promotionsMock = [
     description:
       '30% de descuento en paquetes de aventura extrema, por tiempo limitado.',
     images: [
-      { url: 'https://example.com/aventura1.jpg' },
-      { url: 'https://example.com/aventura2.jpg' },
+      { url: 'https://example.com/aventura1.jpg',
+        publicId: 'imagen1',
+       },
+      { url: 'https://example.com/aventura2.jpg',
+        publicId: 'imagen1',
+       },
     ],
     validFrom: new Date('2024-09-15'),
     validUntil: new Date('2024-10-15'),
@@ -391,8 +399,12 @@ export const promotionsMock = [
     description:
       '¡Celebra la Navidad con un 15% de descuento en viajes navideños!',
     images: [
-      { url: 'https://example.com/navidad1.jpg' },
-      { url: 'https://example.com/navidad2.jpg' },
+      { url: 'https://example.com/navidad1.jpg',
+        publicId: 'imagen1',
+       },
+      { url: 'https://example.com/navidad2.jpg',
+        publicId: 'imagen1',
+       },
     ],
     validFrom: new Date('2024-12-01'),
     validUntil: new Date('2024-12-25'),
@@ -402,8 +414,12 @@ export const promotionsMock = [
     description:
       'Descuento del 25% en destinos seleccionados para celebrar el Año Nuevo.',
     images: [
-      { url: 'https://example.com/ano_nuevo1.jpg' },
-      { url: 'https://example.com/ano_nuevo2.jpg' },
+      { url: 'https://example.com/ano_nuevo1.jpg',
+        publicId: 'imagen1',
+       },
+      { url: 'https://example.com/ano_nuevo2.jpg',
+        publicId: 'imagen1',
+       },
     ],
     validFrom: new Date('2024-12-26'),
     validUntil: new Date('2025-01-05'),
@@ -413,8 +429,12 @@ export const promotionsMock = [
     description:
       '10% de descuento en paquetes para parejas en destinos románticos.',
     images: [
-      { url: 'https://example.com/romantica1.jpg' },
-      { url: 'https://example.com/romantica2.jpg' },
+      { url: 'https://example.com/romantica1.jpg',
+        publicId: 'imagen1',
+       },
+      { url: 'https://example.com/romantica2.jpg',
+        publicId: 'imagen1',
+       },
     ],
     validFrom: new Date('2024-02-10'),
     validUntil: new Date('2024-02-15'),
