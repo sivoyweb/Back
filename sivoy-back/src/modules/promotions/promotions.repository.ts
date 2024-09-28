@@ -15,7 +15,7 @@ export class PromotionsRepository {
   async getAllPromotions(): Promise<Promotion[]> {
     try {
       return await this.promotionsRepository.find({
-        where: { isActive: true }, 
+        where: { isActive: true },
       });
     } catch (error) {
       throw new HttpException(

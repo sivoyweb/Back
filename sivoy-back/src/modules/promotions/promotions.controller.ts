@@ -24,8 +24,7 @@ export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
 
   @Get()
-  async getAllPromotions(
-  ): Promise<Promotion[]> {
+  async getAllPromotions(): Promise<Promotion[]> {
     return await this.promotionsService.getAllPromotions();
   }
 
