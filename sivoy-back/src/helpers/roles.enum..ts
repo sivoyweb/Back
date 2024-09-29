@@ -3,3 +3,9 @@ export enum Role {
   Admin = 'admin',
   Disabled = 'disabled',
 }
+
+export enum DonationStatus {
+  PENDING = 'pending',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
+}

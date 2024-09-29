@@ -80,24 +80,13 @@ export class AuthService {
     return { userFinal, token };
   }
 
-  async signinGoogle(userData, firebaseUser) {
-    const exist: boolean | string = await this.userService.isEmailInUse(
-      userData.email,
-    );
+  async signinGoogle(email: string) {
+    const exist: boolean | string = await this.userService.isEmailInUse(email);
     if (!exist) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
     }
 
     const user = await this.userService.getUserById(exist as string);
-
-    const verify = user.googleId === firebaseUser.user_id;
-
-    if (!verify) {
-      throw new HttpException(
-        { status: 401, error: 'The user does not have the same ID.' },
-        401,
-      );
-    }
 
     const { role, ...userFinal } = user.userWithoutPassword;
 
@@ -111,22 +100,6 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     return { userFinal, token };
-  }
-
-  async signupGoogle(userData, firebaseUser) {
-    const credential = await this.userRepository.createCredential({
-      email: userData.email,
-      googleId: firebaseUser.user_id,
-    });
-
-    const user: Partial<User> = {
-      name: userData.name,
-      createdAt: new Date(),
-      phone: userData.phone || null,
-      credential: credential as Credential,
-    };
-
-    await this.userRepository.createGoogleUser(user);
   }
 
   async verifyToken(token: string) {

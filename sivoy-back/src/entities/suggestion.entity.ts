@@ -66,6 +66,10 @@ export class Suggestion {
   @Column({ type: 'varchar', length: 255 })
   openingHours: string;
 
-  @Column({ type: 'enum', enum: SuggestionState, default: SuggestionState.PENDING })
+  @Column({
+    type: 'enum',
+    enum: SuggestionState,
+    default: SuggestionState.PENDING,
+  })
   state: SuggestionState;
 }

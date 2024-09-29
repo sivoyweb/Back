@@ -75,3 +75,15 @@ export class UpdateUserDto {
   @Validate(MatchPassword, [`password`])
   confirmPassword: string;
 }
+
+export class SignInGoogleDto extends PickType(CreateUserDto, ['email']) {}
+
+export class SendEmailDto extends PickType(CreateUserDto, ['email']) {
+  @IsString()
+  @IsNotEmpty()
+  token: string;
+
+  @IsString()
+  @IsNotEmpty()
+  html: string;
+}
