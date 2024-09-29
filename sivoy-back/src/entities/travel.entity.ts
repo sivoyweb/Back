@@ -45,8 +45,8 @@ export class Travel {
   @JoinTable()
   images: Image[];
 
-  @Column({ type: 'int' })
-  stars: number;
+  @Column({ type: 'float', default: 0 })
+  averageStars: number;
 
   @ManyToOne(() => Provider, (provider) => provider.travels)
   provider: Provider;
