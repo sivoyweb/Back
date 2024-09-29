@@ -142,11 +142,11 @@ export class UpdateTravelDto {
   @IsOptional()
   @IsString()
   @IsUrl()
-  website: string;
+  website?: string;
 
   @IsOptional()
   @IsString()
-  phone: string;
+  phone?: string;
 
   @IsOptional()
   @IsEmail()
@@ -175,10 +175,6 @@ export class CreateReviewDto {
   @Min(1)
   @Max(5)
   stars: number;
-
-  @IsNotEmpty()
-  @IsUUID()
-  userId: string;
 
   @IsNotEmpty()
   @IsUUID()

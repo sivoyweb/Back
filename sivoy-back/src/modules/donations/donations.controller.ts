@@ -1,29 +1,58 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { DonationsService } from './donations.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { CreateDonationDto } from './donations.dto';
+import { Donation } from 'src/entities/donation.entity';
 
-@ApiTags(`Donations`)
+@ApiTags('Donations')
 @Controller('donations')
 export class DonationsController {
-  constructor(private readonly donationService: DonationsService) {}
+  constructor(private readonly donationsService: DonationsService) {}
+
+  @Post()
+  @ApiResponse({ status: 201, description: 'Donation created successfully.' })
+  async makeDonation(
+    @Body() createDonationDto: CreateDonationDto, // Usa un DTO para la validación
+  ): Promise<{ status: string; payment_url: string; preference_id: string }> {
+    return await this.donationsService.makeDonation(createDonationDto);
+  }
 
   @Get()
-  getAllDonations() {
-    return this.donationService.getAllDonations();
+  @ApiResponse({ status: 200, description: 'Retrieved all donations.' })
+  async getAllDonations(): Promise<Donation[]> {
+    return await this.donationsService.getAllDonations();
   }
 
   @Get(':id')
-  getDonationById(@Param('id') id: string) {
-    return this.donationService.getDonationById(id);
+  @ApiResponse({ status: 200, description: 'Retrieved donation by ID.' })
+  async getDonationById(@Param('id') id: string): Promise<Donation> {
+    return await this.donationsService.getDonationById(id);
   }
 
-  @Get('/user/:id')
-  getDonationsByUser(@Param('id') id: string) {
-    return this.donationService.getDonationsByUser(id);
+  @Get('user/:userId')
+  @ApiResponse({ status: 200, description: 'Retrieved donations for user.' })
+  async getDonationsByUser(
+    @Param('userId') userId: string,
+  ): Promise<Donation[]> {
+    return await this.donationsService.getDonationsByUser(userId);
   }
 
-  @Post()
-  makeDonation() {
-    return this.donationService.makeDonation();
+  @Put('webhook')
+  @ApiResponse({
+    status: 200,
+    description: 'Payment notification processed successfully.',
+  })
+  async handlePaymentWebhook(
+    @Body() payload: any,
+  ): Promise<{ message: string }> {
+    return await this.donationsService.processPaymentNotification(payload);
   }
 }
