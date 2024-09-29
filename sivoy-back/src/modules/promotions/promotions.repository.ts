@@ -7,12 +7,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PromotionsRepository {
-  constructor( @InjectRepository(Promotion) private readonly promotionsRepository: Repository<Promotion>) {}
+  constructor(
+    @InjectRepository(Promotion)
+    private readonly promotionsRepository: Repository<Promotion>,
+  ) {}
 
   async getAllPromotions(): Promise<Promotion[]> {
     try {
       return await this.promotionsRepository.find({
-        where: { isActive: true }, 
+        where: { isActive: true },
       });
     } catch (error) {
       throw new HttpException(
