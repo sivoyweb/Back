@@ -48,8 +48,8 @@ export class Suggestion {
   @Column({ type: 'int' })
   stars: number;
 
-  @Column ({ type: 'varchar', length: 255 })    
-  provider: string;
+  @ManyToOne(() => Provider, (provider) => provider.suggestion)
+  provider: Provider;
 
   @Column({ type: 'varchar', length: 255 })
   website: string;
