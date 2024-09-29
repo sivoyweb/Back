@@ -1,7 +1,11 @@
-import { Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Suggestion } from 'src/entities/suggestion.entity';
+import { CreateTravelDto } from '../travels/travels.dto';
+import { ReadGuard } from 'src/guards/read.guard';
+import { Request } from 'express';
+import { CreateSuggestionDto } from './suggestions.dto';
 
 @ApiTags(`Suggestions`)
 @Controller('suggestions')
@@ -19,8 +23,10 @@ export class SuggestionsController {
   }
 
   @Post()
-  createSuggestion() {
-    return this.suggestionsService.createSuggestion();
+  @UseGuards(ReadGuard)
+  createSuggestion(@Body() suggestion: CreateSuggestionDto, @Req() req: Request) {
+    const userId = req.user.id;
+    return this.suggestionsService.createSuggestion(suggestion, userId);
   }
 
   @Put(':id')

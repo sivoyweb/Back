@@ -7,10 +7,10 @@ import {
   JoinTable,
 } from 'typeorm';
 import { Review } from './review.entity';
-import { TravelProvider } from './travelProvider.entity';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 import { User } from './user.entity';
+import { Provider } from './provider.entity';
 
 @Entity('travels')
 export class Travel {
@@ -48,8 +48,8 @@ export class Travel {
   @Column({ type: 'int' })
   stars: number;
 
-  @ManyToOne(() => TravelProvider, (travelProvider) => travelProvider.provider)
-  provider: TravelProvider;
+  @ManyToOne(() => Provider, (provider) => provider.travels)
+  provider: Provider;
 
   @Column({ type: 'varchar', length: 255 })
   website: string;

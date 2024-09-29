@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SuggestionsRepository } from './suggestions.repository';
+import { CreateTravelDto } from '../travels/travels.dto';
+import { CreateSuggestionDto } from './suggestions.dto';
 
 @Injectable()
 export class SuggestionsService {
@@ -13,8 +15,8 @@ export class SuggestionsService {
     return this.SuggestionsRepository.getSuggestionById(id);
   }
 
-  createSuggestion() {
-    return this.SuggestionsRepository.createSuggestion();
+  createSuggestion(suggestion: CreateSuggestionDto, userId) {
+    return this.SuggestionsRepository.createSuggestion(suggestion, userId);
   }
 
   updateState(id: string) {
