@@ -17,7 +17,9 @@ import { Role } from "src/helpers/roles.enum.";
         async getTravelsAvailable(): Promise<Travel[]> {
             let travels = await this.travelsRepository.find({
                 relations: {
-                    reviews: true,
+                    reviews: {
+                        user: true,
+                      },
                     images: true,
                     provider: true
                 }
@@ -29,7 +31,9 @@ import { Role } from "src/helpers/roles.enum.";
         async getAllTravelsAdmin(): Promise<Travel[]> {
             let travels = await this.travelsRepository.find({
                 relations: {
-                    reviews: true,
+                    reviews: {
+                        user: true,
+                      },
                     images: true,
                     provider: true
                 }
@@ -39,12 +43,14 @@ import { Role } from "src/helpers/roles.enum.";
 
         async getTravelById(id: string, user) {
             const travel = await this.travelsRepository.findOne({
-              where: { id },
-              relations: {
-                reviews: true,
-                images: true,
-                provider: true,
-              },
+                where: { id },
+                relations: {
+                  reviews: {
+                    user: true,
+                  },
+                  images: true,
+                  provider: true,
+                },
             });
             if (!travel) {
                 throw new NotFoundException(`Travel with ID ${id} not found`);
@@ -96,7 +102,9 @@ import { Role } from "src/helpers/roles.enum.";
                 where: { id },
                 select: ['id', 'name'],
                 relations: {
-                    reviews: true,
+                    reviews: {
+                        user: true,
+                      },
                 }
             })
             if (!travel) throw new NotFoundException (`travel whit ${id} not found`)
@@ -104,21 +112,16 @@ import { Role } from "src/helpers/roles.enum.";
             return travel
         }
 
-        async createReview(Review: CreateReviewDto) {
+        async createReview(Review: CreateReviewDto, userId) {
             const review = this.reviewsRepository.create(Review);
         
-            const user = await this.userRepository.findOne({ where: { id: Review.userId } });
             const travel = await this.travelsRepository.findOne({ where: { id: Review.travelId } });
-
-            if (!user) {
-                throw new NotFoundException(`user whit ${user.id} not found`);
-            }
 
             if (!travel) {
                 throw new NotFoundException(`travel whit ${travel.id} not found`);
             }
 
-            review.user = user;
+            review.user = userId;
             review.travel = travel;
 
             return this.reviewsRepository.save(review);
@@ -129,7 +132,7 @@ import { Role } from "src/helpers/roles.enum.";
         async updateReview(id: string, review: UpdateTravelDto, userId: string) {
             const updateReview = await this.reviewsRepository.findOne({
                 where: { id },
-                relations: ['user']
+                relations: { user: true },
             });
             if (!updateReview) throw new NotFoundException (`Review whit ${id} not found`)
             if (updateReview.user.id !== userId) {
@@ -143,7 +146,7 @@ import { Role } from "src/helpers/roles.enum.";
         async deleteReview(id: string, userId: string, userRole: string) {
             const review = await this.reviewsRepository.findOne({
                 where: { id },
-                relations: ['user'], // Asegúrate de cargar la relación con el usuario
+                relations: { user: true }
             });
             if (!review) throw new NotFoundException (`review whit ${id} not found`)
             if (review.user.id !== userId && userRole !== Role.Admin) {
