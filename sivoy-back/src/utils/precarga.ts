@@ -68,7 +68,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 4, // Ajusta la calificación si es necesario
     website: '', // Puedes añadir la URL del sitio web si la tienes
     phone: '0342 15-421-5566',
     email: '', // No se proporcionó un email, puedes añadirlo si lo tienes
@@ -102,7 +101,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5, // Este dato no se cambia
     website: 'https://www.almacendepizzas.com',
     facebook:
       'https://www.facebook.com/pages/category/Pizza-Place/Almacen-de-Pizzas-Rosario-291103111004051/',
@@ -139,7 +137,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5, // Este dato no se cambia
     website: 'http://www.sanmartindelosandes.gov.ar/turismo',
     phone: '02972 42-0042',
     email: 'bamboobrasas@gmail.com',
@@ -174,7 +171,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5,
     website: 'http://www.cervezabaum.com/#fabrica',
     phone: '0223 474-1392',
     email: 'a@b.com',
@@ -208,7 +204,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5,
     website: 'http://www.balneariobahiabonita.com/',
     phone: '0223 15-400-1008',
     email: 'a@b.com',
@@ -242,7 +237,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5,
     website: 'https://www.balnearioapolo.com.ar/',
     phone: '0223 485 1188',
     email: 'a@b.com',
@@ -276,7 +270,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5,
     website: 'http://www.balnearioalicante.com.ar/',
     phone: '0223 475-4773',
     email: 'balnearioalicante@gmail.com',
@@ -310,7 +303,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 5,
     website: 'http://www.alamosdelmar.com.ar/',
     phone: '02254 480300',
     email: 'info@alamosdelmar.com.ar',
@@ -344,7 +336,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 4,
     website: 'https://www.google.com',
     phone: '0294 15-490-9821',
     email: 'airespatagonicoshotel@gmail.com',
@@ -378,7 +369,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 4,
     website: 'https://www.aikendorhotel.com/index.php?action=inicio',
     phone: '54 02902 49-6030',
     email: 'reservas@aikendorhotel.com',
@@ -411,7 +401,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 4,
     website: 'http://www.hotel-abril.com/index.html',
     phone: '0261 429-0027',
     email: 'reservas@hotel-abril.com',
@@ -444,7 +433,6 @@ export const travelsMock = [
         publicId: 'imagen1',
       },
     ],
-    stars: 4,
     website: 'http://www.aca.tur.ar/index.php',
     phone: '+542234841569',
     email: '', // No se proporcionó un email, puedes añadirlo si lo tienes

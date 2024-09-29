@@ -124,10 +124,28 @@ import { Role } from "src/helpers/roles.enum.";
             review.user = userId;
             review.travel = travel;
 
-            return this.reviewsRepository.save(review);
+            await this.reviewsRepository.save(review);
+            await this.updateTravelAverageStars(review.travel.id);
+    
+            return review;
             }
 
-        
+        async updateTravelAverageStars(travelId: string): Promise<void> {
+            const travel = await this.travelsRepository.findOne({
+                where: { id: travelId },
+                relations: { reviews: true },
+            });
+            
+            if (travel) {
+                if (travel.reviews.length > 0) {
+                    const totalStars = travel.reviews.reduce((sum, review) => sum + review.stars, 0);
+                    travel.averageStars = parseFloat((totalStars / travel.reviews.length).toFixed(2));
+                } else {
+                    travel.averageStars = 0;
+                }
+                await this.travelsRepository.save(travel);
+            }
+        }
 
         async updateReview(id: string, review: UpdateTravelDto, userId: string) {
             const updateReview = await this.reviewsRepository.findOne({
