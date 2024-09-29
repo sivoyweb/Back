@@ -66,10 +66,6 @@ export class CreateTravelDto {
   images: Partial<Image[]>;
 
   @IsNotEmpty()
-  @IsNumber()
-  stars: number;
-
-  @IsNotEmpty()
   @IsString()
   @IsUrl()
   website: string;
@@ -134,10 +130,6 @@ export class UpdateTravelDto {
   @IsArray()
   @ArrayMinSize(1)
   images?: Partial<Image[]>;
-
-  @IsOptional()
-  @IsNumber()
-  stars?: number;
 
   @IsOptional()
   @IsString()
