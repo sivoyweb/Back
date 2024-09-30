@@ -158,6 +158,7 @@ import { Role } from "src/helpers/roles.enum.";
             }
             Object.assign(updateReview, review);
             await this.reviewsRepository.save(updateReview);
+            await this.updateTravelAverageStars(updateReview.travel.id);
             return updateReview;
         }
 
