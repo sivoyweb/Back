@@ -51,7 +51,7 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   phone: string;
 
   @IsOptional()

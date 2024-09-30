@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Suggestion } from 'src/entities/suggestion.entity';
@@ -24,7 +33,10 @@ export class SuggestionsController {
 
   @Post()
   @UseGuards(ReadGuard)
-  createSuggestion(@Body() suggestion: CreateSuggestionDto, @Req() req: Request) {
+  createSuggestion(
+    @Body() suggestion: CreateSuggestionDto,
+    @Req() req: Request,
+  ) {
     const userId = req.user.id;
     return this.suggestionsService.createSuggestion(suggestion, userId);
   }

@@ -83,7 +83,7 @@ export const travelsMock = [
     date: new Date('2024-12-01'), // Manteniendo la fecha original
     description: 'La Pizza más rica, moderna y divertida!',
 
-    serviceType: 'Gastronomia',
+    serviceType: 'Gastronomía',
 
     accesibilitySeal:
       'Ingreso accesible o asistido, Circuito interior accesible, Baño adaptado en zona común, Menú Braille',
@@ -119,7 +119,7 @@ export const travelsMock = [
     description:
       'Bamboo Brasas ofrece tanto a turistas como locales las mejores carnes asadas, comidas al horno a leña, cordero patagónico, deliciosos platos regionales, pastas y postres caseros.',
 
-    serviceType: 'Gastronomia',
+    serviceType: 'Gastronomía',
 
     accesibilitySeal:
       'Establecimiento turístico accesible. Información proporcionada por el prestador. Sujeta a verificación.',
@@ -153,7 +153,7 @@ export const travelsMock = [
     description:
       'Viví el #Verano a tu manera, vivilo con #Espíritu. Ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común, menú Braille. Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
 
-    serviceType: 'Gastronomia',
+    serviceType: 'Gastronomía',
 
     accesibilitySeal:
       'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',

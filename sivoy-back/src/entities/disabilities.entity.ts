@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { User } from './user.entity';
 
@@ -16,6 +16,6 @@ export class Disability {
   @Column({ default: true })
   active: boolean;
 
-  @ManyToOne(() => User, (user) => user.disabilities)
-  user: User;
+  @ManyToMany(() => User, (user) => user.disabilities)
+  users: User[];
 }
