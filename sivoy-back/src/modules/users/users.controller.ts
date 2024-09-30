@@ -20,31 +20,42 @@ import { ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Get('/')
   async getAllUsers() {
     return await this.userService.getAllUsers();
   }
 
+  @UseGuards(TokenGuard)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     return await this.userService.getUserById(id);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.User)
   @Put(':id')
   async updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
     return await this.userService.updateUser(id, user);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.User)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Put('block/:id')
   async blockUser(@Param('id') id: string) {
     return await this.userService.blockUser(id);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Put('unblock/:id')
   async unblockUser(@Param('id') id: string) {
     return await this.userService.unblockUser(id);
