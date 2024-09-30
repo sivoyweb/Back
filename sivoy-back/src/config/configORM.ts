@@ -6,7 +6,6 @@ import { Provider } from 'src/entities/provider.entity';
 import { Review } from 'src/entities/review.entity';
 import { Suggestion } from 'src/entities/suggestion.entity';
 import { Travel } from 'src/entities/travel.entity';
-import { TravelProvider } from 'src/entities/travelProvider.entity';
 import { User } from 'src/entities/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { Image } from 'src/entities/images.entity';
@@ -36,7 +35,6 @@ const typeORMconfig = {
     Promotion,
     Donation,
     Provider,
-    TravelProvider,
     Image,
     Disability,
     Blog,

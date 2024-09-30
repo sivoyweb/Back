@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { TravelProvider } from './travelProvider.entity';
 import { v4 as uuid } from 'uuid';
+import { Travel } from './travel.entity';
+import { Suggestion } from './suggestion.entity';
 
 @Entity('providers')
 export class Provider {
@@ -13,6 +14,9 @@ export class Provider {
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
-  @OneToMany(() => TravelProvider, (travelProvider) => travelProvider.provider)
-  travelProviders: TravelProvider[];
+  @OneToMany(() => Travel, (travel) => travel.provider)
+  travels: Travel[];
+
+  @OneToMany(() => Suggestion, (suggestion) => suggestion.provider)
+  suggestion: Suggestion[];
 }

@@ -11,11 +11,14 @@ export class Donation {
   user: User;
 
   @Column({ type: 'int' })
-  mount: number;
+  amount: number;
 
   @Column()
   date: Date;
 
   @Column({ type: 'varchar', length: 255 })
   description: string;
+
+  @Column({ nullable: true })
+  status: string;
 }

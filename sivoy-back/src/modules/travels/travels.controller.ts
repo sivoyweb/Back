@@ -86,9 +86,11 @@ export class TravelsController {
   }
 
   @Post('reviews')
-  @UseGuards(TokenGuard)
-  createReview(@Body() Review: CreateReviewDto) {
-    return this.travelsService.createReview(Review);
+  @UseGuards(ReadGuard, RolesGuard)
+  @Roles(Role.User, Role.Admin)
+  createReview(@Body() Review: CreateReviewDto, @Req() req: Request) {
+    const userId = req.user.id;
+    return this.travelsService.createReview(Review, userId);
   }
 
   @Put('/reviews/:id')
