@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Credential } from 'src/entities/credential.entity';
 import * as bcrypt from 'bcrypt';
-import { startWith } from 'rxjs';
+import { Disability } from 'src/entities/disabilities.entity';
 
 @Injectable()
 export class UsersRepository {
@@ -14,6 +14,8 @@ export class UsersRepository {
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     @InjectRepository(Credential)
     private readonly credentialsRepository: Repository<Credential>,
+    @InjectRepository(Disability)
+    private readonly disabilitiesRepository: Repository<Disability>,
   ) {}
 
   async getAllUsers() {
@@ -27,7 +29,7 @@ export class UsersRepository {
   async getUserById(id: string) {
     const userFound = await this.usersRepository.findOne({
       where: { id },
-      relations: ['credential'],
+      relations: ['credential', 'disabilities'],
     });
     if (!userFound) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
@@ -39,6 +41,7 @@ export class UsersRepository {
     const credentialsFound = await this.credentialsRepository.findOne({
       where: { email },
     });
+    console.log(credentialsFound);
     if (!credentialsFound) {
       return false;
     }
@@ -49,12 +52,33 @@ export class UsersRepository {
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
-    const userFound = await this.usersRepository.findOne({ where: { id } });
+    const userFound = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['disabilities'],
+    });
+
     if (!userFound) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
     }
 
-    await this.usersRepository.update(id, { ...user, auth: false });
+    Object.assign(userFound, user);
+
+    if (user.disabilities) {
+      userFound.disabilities = await Promise.all(
+        user.disabilities.map(async (disability) => {
+          const existingDisability = await this.disabilitiesRepository.findOne({
+            where: { name: disability.name },
+          });
+
+          if (existingDisability) {
+            return existingDisability;
+          } else {
+            return this.disabilitiesRepository.create(disability);
+          }
+        }),
+      );
+    }
+    await this.usersRepository.save(userFound);
 
     return 'User Updated';
   }

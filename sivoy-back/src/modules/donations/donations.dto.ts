@@ -7,10 +7,6 @@ export class CreateDonationDto {
 
   @IsNotEmpty()
   @IsNumber()
-  quantity: number;
-
-  @IsNotEmpty()
-  @IsNumber()
   unit_price: number;
 
   @IsNotEmpty()

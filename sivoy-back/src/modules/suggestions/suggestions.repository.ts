@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Suggestion } from 'src/entities/suggestion.entity';
 import { SuggestionState } from 'src/helpers/suggestionState.enum';
@@ -12,7 +16,8 @@ export class SuggestionsRepository {
   constructor(
     @InjectRepository(Suggestion)
     private readonly SuggestionsRepository: Repository<Suggestion>,
-    @InjectRepository(Travel) private readonly TravelsRepository: Repository<Travel>,
+    @InjectRepository(Travel)
+    private readonly TravelsRepository: Repository<Travel>,
   ) {}
 
   async getPendingSuggestions() {
@@ -33,17 +38,28 @@ export class SuggestionsRepository {
     return suggestion;
   }
 
-  async createSuggestion(suggestion:CreateSuggestionDto, userId) {
-    const existingTravel = await this.TravelsRepository.findOne({ where: { website: suggestion.website } });
+  async createSuggestion(suggestion: CreateSuggestionDto, userId) {
+    const existingTravel = await this.TravelsRepository.findOne({
+      where: { website: suggestion.website },
+    });
     if (existingTravel) {
-      throw new BadRequestException(`A travel with the name '${suggestion.name}' already exists.`);
+      throw new BadRequestException(
+        `A travel with the name '${suggestion.name}' already exists.`,
+      );
     }
-    const existingSuggestion = await this.SuggestionsRepository.findOne({ where: { website: suggestion.website } });
-    if (existingSuggestion && existingSuggestion.state === SuggestionState.PENDING) {
-      throw new BadRequestException(`A suggestion with the name '${suggestion.name}' already exists and is pending.`);
+    const existingSuggestion = await this.SuggestionsRepository.findOne({
+      where: { website: suggestion.website },
+    });
+    if (
+      existingSuggestion &&
+      existingSuggestion.state === SuggestionState.PENDING
+    ) {
+      throw new BadRequestException(
+        `A suggestion with the name '${suggestion.name}' already exists and is pending.`,
+      );
     }
 
-    suggestion.userId = userId
+    suggestion.userId = userId;
     const newSuggestion = this.SuggestionsRepository.create(suggestion);
     try {
       return await this.SuggestionsRepository.save(newSuggestion);

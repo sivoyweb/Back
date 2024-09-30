@@ -51,7 +51,7 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   phone: string;
 
   @IsOptional()
@@ -80,10 +80,10 @@ export class SignInGoogleDto extends PickType(CreateUserDto, ['email']) {}
 
 export class SendEmailDto extends PickType(CreateUserDto, ['email']) {
   @IsString()
-  @IsNotEmpty()
-  token: string;
+  @IsOptional()
+  htmlMessage: string;
 
   @IsString()
-  @IsNotEmpty()
-  html: string;
+  @IsOptional()
+  subject: string;
 }
