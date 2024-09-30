@@ -6,10 +6,17 @@ import {
   Delete,
   Body,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { DisabilitiesService } from './disabilities.service';
 import { addDisabilityDto, UpdateDisabilityDto } from './disabilities.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { TokenGuard } from 'src/guards/token.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Role } from 'src/helpers/roles.enum.';
+import { Roles } from 'src/decorators/roles.decorator';
 
+@ApiTags(`Disabilities`)
 @Controller('disabilities')
 export class DisabilitiesController {
   constructor(private readonly disabilitiesService: DisabilitiesService) {}
@@ -31,6 +38,8 @@ export class DisabilitiesController {
     return await this.disabilitiesService.addDisability(disabilityData);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Put('/:id')
   async modifyDisability(
     @Body() disabilityData: UpdateDisabilityDto,
@@ -39,6 +48,8 @@ export class DisabilitiesController {
     return await this.disabilitiesService.modifyDisability(disabilityData, id);
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Delete('/:id')
   async removeDisability(@Param('id') id: string) {
     return await this.disabilitiesService.removeDisability(id);

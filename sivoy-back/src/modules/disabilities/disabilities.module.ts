@@ -4,9 +4,10 @@ import { Disability } from 'src/entities/disabilities.entity';
 import { DisabilitiesController } from './disabilities.controller';
 import { DisabilitiesService } from './disabilities.service';
 import { DisabilitiesRepository } from './disabilities.repository';
+import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Disability])],
+  imports: [TypeOrmModule.forFeature([Disability]), UsersModule],
   controllers: [DisabilitiesController],
   providers: [DisabilitiesService, DisabilitiesRepository],
 })

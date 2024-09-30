@@ -116,11 +116,7 @@ export class AuthService {
     return 'authenticated user';
   }
 
-  async sendEmail(token: string, emailHtml: string) {
-    const data = await this.jwtService.verifyAsync(token, {
-      secret: JWT_SECRET,
-    });
-
-    await sendEmailService(data.email, 'Welcome', emailHtml);
+  async sendEmail(to: string, subject: string, textMessage: string) {
+    await sendEmailService(to, subject, textMessage);
   }
 }
