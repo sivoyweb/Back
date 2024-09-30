@@ -6,6 +6,7 @@ import {
   JoinTable,
   OneToOne,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Credential } from './credential.entity';
@@ -27,8 +28,8 @@ export class User {
   @Column({ default: Role.User })
   role: Role;
 
-  @OneToMany(() => Disability, (disability) => disability.user)
-  @JoinTable()
+  @ManyToMany(() => Disability, (disability) => disability.users)
+  @JoinTable() // Necesario en una de las entidades para la relación ManyToMany
   disabilities: Disability[];
 
   @Column({ nullable: true })

@@ -4,7 +4,10 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto, LoginUserDto } from '../users/user.dto';
 import { UsersRepository } from '../users/users.repository';
-import { getStructureforWelcome } from 'src/utils/mail.structure';
+import {
+  getStructureForVerification,
+  getStructureforWelcome,
+} from 'src/utils/mail.structure';
 import sendEmailService from 'src/helpers/email.service';
 import { JWT_SECRET } from 'src/config/envConfig';
 import { User } from 'src/entities/user.entity';
@@ -33,6 +36,12 @@ export class AuthService {
         secret: JWT_SECRET,
       });
 
+      await sendEmailService(
+        newUser.credential.email,
+        'Welcome',
+        getStructureforWelcome(token),
+      );
+
       return token;
     } catch (err) {
       console.log(err);
@@ -53,6 +62,7 @@ export class AuthService {
     }
 
     const user = await this.userService.getUserById(exist as string);
+    const userData = user.userWithoutPassword;
 
     if (!user || !user.password) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
@@ -60,22 +70,37 @@ export class AuthService {
 
     const passwordToConfirm = user.password;
 
-    const verify = await bcrypt.compare(data.password, passwordToConfirm);
+    const verifyPassword = await bcrypt.compare(
+      data.password,
+      passwordToConfirm,
+    );
 
-    if (!verify) {
+    if (!verifyPassword) {
       throw new HttpException({ status: 401, error: 'Unauthorized' }, 401);
     }
 
     const { role, ...userFinal } = user.userWithoutPassword;
 
     const payload = {
-      sub: user.id,
-      id: user.id,
-      email: user.userWithoutPassword.credential.email,
+      sub: userData.id,
+      id: userData.id,
+      email: userData.credential.email,
       role: user.role,
     };
 
     const token = this.jwtService.sign(payload);
+
+    if (!userData.auth) {
+      await sendEmailService(
+        userData.credential.email,
+        'Email verification',
+        getStructureForVerification(token),
+      );
+      throw new HttpException(
+        { status: 401, error: 'Email must be verified' },
+        401,
+      );
+    }
 
     return { userFinal, token };
   }
@@ -91,10 +116,10 @@ export class AuthService {
     const { role, ...userFinal } = user.userWithoutPassword;
 
     const payload = {
-      sub: user.id,
-      id: user.id,
-      email: user.userWithoutPassword.credential.email,
-      role: user.role,
+      sub: userFinal.id,
+      id: userFinal.id,
+      email: userFinal.credential.email,
+      role: userFinal.role,
     };
 
     const token = this.jwtService.sign(payload);
