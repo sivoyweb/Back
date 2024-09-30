@@ -40,15 +40,15 @@ export class DonationsRepository {
             {
               id: uuidv4(),
               title: preferenceData.title,
-              quantity: preferenceData.quantity,
-              unit_price: preferenceData.unit_price,
+              unit_price: preferenceData.unit_price, // Elimina el uso de quantity
+              quantity: 1, // Configura la cantidad fija en 1 para donaciones
             },
           ],
         },
       });
 
       const donation = this.donationRepository.create({
-        amount: preferenceData.unit_price * preferenceData.quantity,
+        amount: preferenceData.unit_price, // Solo considera el unit_price
         date: new Date(),
         description: preferenceData.description,
         status: DonationStatus.PENDING, // Asignar un estado inicial
