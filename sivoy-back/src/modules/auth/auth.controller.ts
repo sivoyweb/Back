@@ -59,6 +59,10 @@ export class AuthController {
 
   @Post('send-email')
   async sendEmail(@Body() data: SendEmailDto) {
-    return await this.authService.sendEmail(data.token, data.html);
+    return await this.authService.sendEmail(
+      data.email,
+      data.subject,
+      data.htmlMessage,
+    );
   }
 }
