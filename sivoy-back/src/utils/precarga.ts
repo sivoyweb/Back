@@ -50,7 +50,7 @@ export const travelsMock = [
     description:
       'Disfruta de la mejor vista de Santa Fe junto al emblemático Puente Colgante. Especialidad en carnes y pescados a la parrilla, con opciones accesibles para todos.',
 
-    serviceType: 'Restaurante',
+    serviceType: 'Gastronomía',
 
     accesibilitySeal:
       'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación',
