@@ -1,14 +1,18 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { UpdateUserDto } from './user.dto';
+import { DisabilitiesRepository } from '../disabilities/disabilities.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly UsersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly disabilitiesRepository: DisabilitiesRepository,
+  ) {}
 
   async getAllUsers() {
     try {
-      const users = await this.UsersRepository.getAllUsers();
+      const users = await this.usersRepository.getAllUsers();
       const usersWithoutPassword = [];
       users.forEach((user) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,10 +37,9 @@ export class UsersService {
 
   async getUserById(id: string) {
     try {
-      const user = await this.UsersRepository.getUserById(id);
+      const user = await this.usersRepository.getUserById(id);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, googleId, ...credentialWithoutPassword } =
-        user.credential;
+      const { password, ...credentialWithoutPassword } = user.credential;
       const userWithoutPassword = {
         ...user,
         credential: {
@@ -44,7 +47,7 @@ export class UsersService {
         },
       };
 
-      return { userWithoutPassword, password, googleId };
+      return { userWithoutPassword, password };
     } catch (err) {
       return err;
     }
@@ -52,19 +55,48 @@ export class UsersService {
 
   async updateUser(id: string, user: UpdateUserDto) {
     try {
-      return await this.UsersRepository.updateUser(id, user);
+      const actualDisabilities =
+        await this.disabilitiesRepository.getDisabilities();
+
+      const processedDisabilities = await Promise.all(
+        user.disabilities?.map(async (disability) => {
+          const exist = actualDisabilities.some(
+            (actualDisability) => disability.name === actualDisability.name,
+          );
+
+          if (!exist) {
+            try {
+              const result =
+                await this.disabilitiesRepository.addDisability(disability);
+              return result;
+            } catch (err) {
+              throw new HttpException(
+                `Internal server error creating disability on update user: ${err.message}`,
+                500,
+              );
+            }
+          } else {
+            return disability;
+          }
+        }) || [],
+      );
+
+      user.disabilities = processedDisabilities;
+
+      return await this.usersRepository.updateUser(id, { ...user });
     } catch (err) {
-      return err;
+      console.log(err);
+      throw new HttpException(`Error updating user: ${err.message}`, 500);
     }
   }
 
   async isEmailInUse(email: string) {
-    return await this.UsersRepository.isEmailUsed(email);
+    return await this.usersRepository.isEmailUsed(email);
   }
 
   async deleteUser(id: string) {
     try {
-      return await this.UsersRepository.deleteUser(id);
+      return await this.usersRepository.deleteUser(id);
     } catch (err) {
       return err;
     }
@@ -72,7 +104,7 @@ export class UsersService {
 
   async blockUser(id: string) {
     try {
-      return await this.UsersRepository.blockUser(id);
+      return await this.usersRepository.blockUser(id);
     } catch (err) {
       return err;
     }
@@ -80,7 +112,7 @@ export class UsersService {
 
   async unblockUser(id: string) {
     try {
-      return await this.UsersRepository.unblockUser(id);
+      return await this.usersRepository.unblockUser(id);
     } catch (err) {
       return err;
     }

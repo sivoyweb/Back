@@ -1,15 +1,16 @@
-export const getStructureforWelcome = (verificationToken: string) => {
+export const getStructureForVerification = (verificationToken: string) => {
   return `
 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
   <h2 style="color: #4CAF50;">Hola,</h2>
   <p>Gracias por unirte, por favor verifica tu dirección de correo para poder activar tu cuenta.</p>
-  <a href="http://localhost:3000/auth/verify-email?token=${verificationToken}" style="display: inline-block; padding: 10px 20px; background-color: rgb(120, 5, 245); color: white; text-decoration: none; border-radius: 5px;">
+  <a href="https://api-sivoy.onrender.com/auth/verify-email?token=${verificationToken}" style="display: inline-block; padding: 10px 20px; background-color: rgb(120, 5, 245); color: white; text-decoration: none; border-radius: 5px;">
     Confirmar dirección
   </a>
 </div>`;
 };
 
-export const htmlMail = `<html lang="es">
+export const getStructureforWelcome = (verificationToken: string) => {
+  return `<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -75,7 +76,7 @@ export const htmlMail = `<html lang="es">
       </p>
       <!-- Botón -->
       <div class="btn-container">
-        <a href="https://tu-enlace.com/" class="btn">Comenzar ahora</a>
+        <a href="https://api-sivoy.onrender.com/auth/verify-email?token=${verificationToken}" class="btn">Comenzar ahora</a>
       </div>
       <!-- Footer -->
       <footer>
@@ -84,3 +85,4 @@ export const htmlMail = `<html lang="es">
     </div>
   </body>
 </html>`;
+};
