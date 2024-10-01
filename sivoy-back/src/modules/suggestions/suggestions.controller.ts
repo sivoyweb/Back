@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Req,
@@ -15,6 +16,7 @@ import { CreateTravelDto } from '../travels/travels.dto';
 import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
 import { CreateSuggestionDto } from './suggestions.dto';
+import { SuggestionState } from 'src/helpers/suggestionState.enum';
 
 @ApiTags(`Suggestions`)
 @Controller('suggestions')
@@ -44,5 +46,15 @@ export class SuggestionsController {
   @Put(':id')
   updateState(@Param('id') id: string) {
     return this.suggestionsService.updateState(id);
+  }
+
+  @Patch(':id/approve')
+  async approveSuggestion(@Param('id') id: string) {
+    return await this.suggestionsService.updateSuggestionState(id, SuggestionState.APPROVED);
+  }
+
+  @Patch(':id/reject')
+  async rejectSuggestion(@Param('id') id: string) {
+    return await this.suggestionsService.updateSuggestionState(id, SuggestionState.REJECTED);
   }
 }
