@@ -40,7 +40,7 @@ export class DonationsRepository {
             {
               id: uuidv4(),
               title: preferenceData.title,
-              unit_price: preferenceData.unit_price, // Elimina el uso de quantity
+              unit_price: preferenceData.unit_price,
               quantity: 1, // Configura la cantidad fija en 1 para donaciones
             },
           ],
