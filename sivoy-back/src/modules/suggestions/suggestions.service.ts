@@ -21,8 +21,8 @@ export class SuggestionsService {
     return this.SuggestionsRepository.createSuggestion(suggestion, userId);
   }
 
-  updateState(id: string) {
-    return this.SuggestionsRepository.updateState(id);
+  updateSuggestion(id: string, suggestion: CreateSuggestionDto) {
+    return this.SuggestionsRepository.updateSuggestion(id, suggestion);
   }
 
   updateSuggestionState(id: string, suggestionState: SuggestionState) {
