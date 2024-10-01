@@ -13,6 +13,7 @@ import {
 import { MatchPassword } from 'src/decorators/matchPassword';
 import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
+import { Role } from 'src/helpers/roles.enum.';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -56,6 +57,9 @@ export class UpdateUserDto {
 
   @IsOptional()
   disabilities?: Disability[];
+
+  @IsOptional()
+  role: Role;
 
   @IsOptional()
   @IsEmail()

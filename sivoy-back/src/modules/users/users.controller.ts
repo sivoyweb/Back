@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @UseGuards(TokenGuard, RolesGuard)
-  @Roles(Role.User)
+  @Roles(Role.User, Role.Admin)
   @Put(':id')
   async updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
     return await this.userService.updateUser(id, user);
