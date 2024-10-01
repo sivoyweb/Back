@@ -44,8 +44,8 @@ export class SuggestionsController {
   }
 
   @Put(':id')
-  updateState(@Param('id') id: string) {
-    return this.suggestionsService.updateState(id);
+  updateSuggestion(@Param('id') id: string, @Body() suggestion: CreateSuggestionDto) {
+    return this.suggestionsService.updateSuggestion(id, suggestion);
   }
 
   @Patch(':id/approve')
