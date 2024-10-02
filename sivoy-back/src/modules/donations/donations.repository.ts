@@ -27,6 +27,7 @@ export class DonationsRepository {
 
   async createDonation(preferenceData: PreferenceData) {
     try {
+      console.log('preferenceData received:', preferenceData);
       const preference = new Preference(this.client);
 
       const response = await preference.create({
@@ -46,6 +47,20 @@ export class DonationsRepository {
           ],
         },
       });
+
+      console.log('MercadoPago Response:', response);
+
+      const initPoint = response.sandbox_init_point || response.init_point;
+
+      if (!initPoint) {
+        throw new HttpException(
+          {
+            status: 500,
+            error: 'Error creating donation: No init point found',
+          },
+          500,
+        );
+      }
 
       const donation = this.donationRepository.create({
         amount: preferenceData.unit_price, // Solo considera el unit_price
