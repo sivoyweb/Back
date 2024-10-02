@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { BlogsRepository } from './blogs.repository';
-import { CreateBlogDto } from './blogs.dto';
+import { CreateBlogDto, UpdateBlogDto } from './blogs.dto';
 
 @Injectable()
 export class BlogsService {
@@ -22,7 +22,7 @@ export class BlogsService {
     return this.blogsRepository.createBlog(blog);
   }
 
-  updateBlog(id: string, blog: CreateBlogDto) {
+  updateBlog(id: string, blog: UpdateBlogDto) {
     return this.blogsRepository.updateBlog(id, blog);
   }
 

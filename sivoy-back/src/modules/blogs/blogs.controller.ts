@@ -14,7 +14,7 @@ import {
 import { BlogsService } from './blogs.service';
 import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
-import { CreateBlogDto } from './blogs.dto';
+import { CreateBlogDto, UpdateBlogDto } from './blogs.dto';
 import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/helpers/roles.enum.';
@@ -40,7 +40,6 @@ export class BlogsController {
   @UseGuards(ReadGuard)
   getBlogById(@Param('id') id: string, @Req() @Optional() req: Request) {
     const user = req.user;
-    console.log(user);
     return this.blogsService.getBlogById(id, user);
   }
 
@@ -54,7 +53,7 @@ export class BlogsController {
   @Put(':id')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
-  updateBlog(@Param('id') id: string, @Body() blog: CreateBlogDto) {
+  updateBlog(@Param('id') id: string, @Body() blog: UpdateBlogDto) {
     return this.blogsService.updateBlog(id, blog);
   }
 

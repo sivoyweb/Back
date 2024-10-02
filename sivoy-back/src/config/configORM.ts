@@ -18,6 +18,8 @@ import {
   POSTGRES_PASSWORD,
 } from './envConfig';
 import { Blog } from 'src/entities/blogs.entity';
+import { Faq } from 'src/entities/faq.entity';
+import { Team } from 'src/entities/team.entity';
 
 const typeORMconfig = {
   type: 'postgres',
@@ -38,6 +40,8 @@ const typeORMconfig = {
     Image,
     Disability,
     Blog,
+    Faq,
+    Team, 
   ],
   synchronize: true,
   logging: ['query', 'error'],
