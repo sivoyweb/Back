@@ -11,6 +11,7 @@ import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 import { User } from './user.entity';
 import { Provider } from './provider.entity';
+import { ServiceType } from 'src/helpers/serviceType.enum';
 
 @Entity('travels')
 export class Travel {
@@ -32,8 +33,9 @@ export class Travel {
   @Column({ type: 'varchar', length: 500 })
   description: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  serviceType: string;
+  @Column({
+  type: 'enum', enum: ServiceType, default: ServiceType.Other})
+  serviceType: ServiceType;
 
   @Column({ type: 'varchar', length: 255 })
   accesibilitySeal: string;

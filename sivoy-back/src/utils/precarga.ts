@@ -1,3 +1,5 @@
+import { ServiceType } from "src/helpers/serviceType.enum";
+
 export const categorizedDisabilities = [
   {
     category: 'Físicas',
@@ -50,7 +52,7 @@ export const travelsMock = [
     description:
       'Disfruta de la mejor vista de Santa Fe junto al emblemático Puente Colgante. Especialidad en carnes y pescados a la parrilla, con opciones accesibles para todos.',
 
-    serviceType: 'Gastronomía',
+    serviceType: ServiceType.Gastronomy,
 
     accesibilitySeal:
       'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación',
@@ -83,7 +85,7 @@ export const travelsMock = [
     date: new Date('2024-12-01'), // Manteniendo la fecha original
     description: 'La Pizza más rica, moderna y divertida!',
 
-    serviceType: 'Gastronomía',
+    serviceType: ServiceType.Gastronomy,
 
     accesibilitySeal:
       'Ingreso accesible o asistido, Circuito interior accesible, Baño adaptado en zona común, Menú Braille',
@@ -119,7 +121,7 @@ export const travelsMock = [
     description:
       'Bamboo Brasas ofrece tanto a turistas como locales las mejores carnes asadas, comidas al horno a leña, cordero patagónico, deliciosos platos regionales, pastas y postres caseros.',
 
-    serviceType: 'Gastronomía',
+    serviceType: ServiceType.Gastronomy,
 
     accesibilitySeal:
       'Establecimiento turístico accesible. Información proporcionada por el prestador. Sujeta a verificación.',
@@ -153,7 +155,7 @@ export const travelsMock = [
     description:
       'Viví el #Verano a tu manera, vivilo con #Espíritu. Ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común, menú Braille. Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
 
-    serviceType: 'Gastronomía',
+    serviceType: ServiceType.Gastronomy,
 
     accesibilitySeal:
       'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
@@ -187,7 +189,7 @@ export const travelsMock = [
     description:
       'Ubicada en Mar del Plata desde 1998, nuestra empresa se dedica a la actividad balnearia. Estamos en la zona norte, a una cuadra del Museo Mar y a 2 km del centro. La administración del balneario está abierta todo el año de 13 a 17 hs, con opción de alquilar unidades de sombra durante todo el año con planes de pago. Desde el 1 de diciembre al 31 de marzo, abrimos todos los días de 9 a 19 hs. Contamos con ingreso y circuito interior accesibles, así como baño adaptado en zona común.',
 
-    serviceType: 'Balneario',
+    serviceType: ServiceType.BeachResort,
 
     accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
@@ -220,7 +222,7 @@ export const travelsMock = [
     description:
       'Para este verano, yo elijo lo que me hace bien. Por eso elijo Apolo. Ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común, silla anfibia a disposición. Información proporcionada por el prestador. Sujeta a verificación. Fuente: http://www.turismomardelplata.gob.ar/accesible.',
 
-    serviceType: 'Balneario',
+    serviceType: ServiceType.BeachResort,
 
     accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
@@ -253,7 +255,7 @@ export const travelsMock = [
     description:
       'Balneario de La Perla caracterizado por el lindo mar y el deporte que se puede realizar allí. Ingreso accesible o asistido, ascensor, circuito interior accesible, baño adaptado en zona común, silla anfibia a disposición. Información proporcionada por el prestador. Sujeta a verificación. Fuente: http://www.turismomardelplata.gob.ar/accesible.',
 
-    serviceType: 'Balneario',
+    serviceType: ServiceType.BeachResort,
 
     accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
@@ -286,7 +288,7 @@ export const travelsMock = [
     description:
       'Situado en Valeria del Mar, a tan solo 360 km de la Capital Federal, Alamos del Mar Apart Hotel & Spa ofrece una experiencia única con modernas tendencias en apart hoteles. Disfruta de confort, tranquilidad y seguridad en un entorno excepcional con grandes extensiones de médanos y playas de fina arena. Servicios de excelencia en Hotelería y Gastronomía.',
 
-    serviceType: 'Alojamiento',
+    serviceType: ServiceType.Accommodation,
 
     accesibilitySeal: 'Ingreso accesible o asistido (80 cm o más, rampas)',
     images: [
@@ -319,7 +321,7 @@ export const travelsMock = [
     description:
       'Ubicado en El Bolsón, Aires Patagónicos Hotel ofrece un ambiente acogedor y accesible. Disfruta de un circuito interior accesible y un ingreso asistido para garantizar una estancia cómoda.',
 
-    serviceType: 'Alojamiento',
+    serviceType: ServiceType.Accommodation,
 
     accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
@@ -352,7 +354,7 @@ export const travelsMock = [
     description:
       'Con vista panorámica al Lago Argentino y la Cordillera de los Andes, Aikendor Hotel Panorámico combina comodidad y relax en una ubicación privilegiada. Disfruta de su piscina climatizada, mini gimnasio, y desayuno buffet.',
 
-    serviceType: 'Alojamiento',
+    serviceType: ServiceType.Accommodation,
 
     accesibilitySeal: 'Habitación y baño accesible',
     images: [
@@ -384,7 +386,7 @@ export const travelsMock = [
     description:
       'Abril Hotel Boutique es un hotel nuevo con solo 22 habitaciones, ubicado a pocos metros de la Peatonal Sarmiento y la plaza Independencia, ofreciendo comodidad y accesibilidad en el corazón de Mendoza.',
 
-    serviceType: 'Alojamiento',
+    serviceType: ServiceType.Accommodation,
 
     accesibilitySeal: 'Ingreso y habitación accesible',
     images: [
@@ -416,7 +418,7 @@ export const travelsMock = [
     description:
       'Mar del Plata es uno de los destinos preferidos por los argentinos para las vacaciones de verano. El balneario del ACA ofrece comodidad y servicios para disfrutar plenamente de la playa, con un entorno natural mejorado durante más de 30 años.',
 
-    serviceType: 'Balneario',
+    serviceType: ServiceType.BeachResort,
 
     accesibilitySeal: 'Accesible para personas con movilidad reducida',
     images: [
