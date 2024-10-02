@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
 import { Suggestion } from './suggestion.entity';
 import { v4 as uuid } from 'uuid';
 import { Travel } from './travel.entity';
@@ -23,7 +29,7 @@ export class Image {
   @ManyToOne(() => Travel, (travel) => travel.images)
   travel: Travel;
 
-  @ManyToOne(() => Credential, (credential) => credential.avatar)
+  @OneToOne(() => Credential, (credential) => credential.avatar)
   avatarUser: Credential;
 
   @ManyToOne(() => Blog, (blog) => blog.images, { onDelete: 'CASCADE' })

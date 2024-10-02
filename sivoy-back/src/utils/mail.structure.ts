@@ -86,3 +86,38 @@ export const getStructureforWelcome = (verificationToken: string) => {
   </body>
 </html>`;
 };
+
+export const getStructureForForgotPassword = (code: string) => {
+  return `
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; background-color: #f9f9f9;">
+  <h2 style="text-align: center; color: #333;">Reset Your Password</h2>
+  
+  <p style="font-size: 16px; color: #555;">Hello,</p>
+
+  <p style="font-size: 16px; color: #555;">
+    We received a request to reset the password associated with this email address. Please use the following code to reset your password:
+  </p>
+
+  <div style="text-align: center; margin: 20px 0;">
+    <span style="display: inline-block; font-size: 24px; padding: 10px 20px; background-color: #eaeaea; color: #333; border-radius: 5px;">
+      <strong>${code}</strong>
+    </span>
+  </div>
+
+  <p style="font-size: 16px; color: #555;">
+    If you did not request this, please ignore this email or contact support if you have concerns.
+  </p>
+
+  <p style="font-size: 16px; color: #555;">
+    Thanks,<br>
+    The Support Team
+  </p>
+
+  <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
+  
+  <p style="font-size: 12px; color: #888; text-align: center;">
+    If you're having trouble using the code, please reach out to our support team for assistance.
+  </p>
+</div>
+`;
+};

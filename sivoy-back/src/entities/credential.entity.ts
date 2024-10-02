@@ -21,7 +21,13 @@ export class Credential {
   @Column({ type: 'varchar', length: 255 })
   password: string;
 
-  @OneToMany(() => Image, (image) => image)
+  @Column({ type: 'date', nullable: true })
+  resetPasswordExpiration: Date;
+
+  @Column({ type: 'varchar', nullable: true })
+  resetPasswordCode: string;
+
+  @OneToOne(() => Image, { cascade: true })
   @JoinColumn()
   avatar: Image;
 

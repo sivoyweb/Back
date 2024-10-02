@@ -7,6 +7,7 @@ import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Credential } from 'src/entities/credential.entity';
 import * as bcrypt from 'bcrypt';
 import { Disability } from 'src/entities/disabilities.entity';
+import { Image } from 'src/entities/images.entity';
 
 @Injectable()
 export class UsersRepository {
@@ -16,6 +17,8 @@ export class UsersRepository {
     private readonly credentialsRepository: Repository<Credential>,
     @InjectRepository(Disability)
     private readonly disabilitiesRepository: Repository<Disability>,
+    @InjectRepository(Image)
+    private readonly imagesRepository: Repository<Image>,
   ) {}
 
   async getAllUsers() {
@@ -29,11 +32,12 @@ export class UsersRepository {
   async getUserById(id: string) {
     const userFound = await this.usersRepository.findOne({
       where: { id },
-      relations: ['credential', 'disabilities'],
+      relations: ['credential', 'disabilities', 'credential.avatar'],
     });
     if (!userFound) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
     }
+
     return userFound;
   }
 
@@ -54,11 +58,26 @@ export class UsersRepository {
   async updateUser(id: string, user: UpdateUserDto) {
     const userFound = await this.usersRepository.findOne({
       where: { id },
-      relations: ['disabilities'],
+      relations: ['disabilities', 'credential'],
     });
 
     if (!userFound) {
       throw new HttpException({ status: 404, error: 'User not found' }, 404);
+    }
+
+    const { credential } = userFound;
+
+    if (user.credential.avatar) {
+      const existingAvatar = await this.imagesRepository.findOne({
+        where: { publicId: user.credential.avatar.publicId },
+      });
+
+      if (existingAvatar) {
+        credential.avatar = existingAvatar;
+      } else {
+        const newAvatar = this.imagesRepository.create(user.credential.avatar);
+        credential.avatar = await this.imagesRepository.save(newAvatar);
+      }
     }
 
     Object.assign(userFound, user);
@@ -78,14 +97,12 @@ export class UsersRepository {
         }),
       );
     }
+
+    await this.credentialsRepository.update(credential.id, credential);
+    userFound.credential = credential;
     await this.usersRepository.save(userFound);
 
     return 'User Updated';
-  }
-
-  async createGoogleUser(user: Partial<User>) {
-    this.usersRepository.create(user);
-    await this.usersRepository.save(user);
   }
 
   async createUser(userDto: CreateUserDto) {

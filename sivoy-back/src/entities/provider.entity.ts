@@ -14,6 +14,9 @@ export class Provider {
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
+  @Column({ default: true })
+  visible: boolean;
+
   @OneToMany(() => Travel, (travel) => travel.provider)
   travels: Travel[];
 
