@@ -34,7 +34,7 @@ export class Travel {
   description: string;
 
   @Column({
-    type: 'enum', enum: ServiceType, default: ServiceType.Other})
+  type: 'enum', enum: ServiceType, default: ServiceType.Other})
   serviceType: ServiceType;
 
   @Column({ type: 'varchar', length: 255 })
