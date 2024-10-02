@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProvidersRepository } from './providers.repository';
+import { CreateProviderDto, UpdateProviderDto } from './providers.dto';
 
 @Injectable()
 export class ProvidersService {
@@ -13,10 +14,16 @@ export class ProvidersService {
     return this.ProvidersRepository.getProviderById(id);
   }
 
-  createProvider() {
-    return this.ProvidersRepository.createProvider();
+  createProvider(provider: CreateProviderDto) {
+    return this.ProvidersRepository.createProvider(provider);
   }
-  updateProvider(id: string) {
-    return this.ProvidersRepository.updateProvider(id);
+  updateProvider(id: string, provider: UpdateProviderDto) {
+    return this.ProvidersRepository.updateProvider(id, provider);
+  }
+  deleteProvider(id: string) {
+    return this.ProvidersRepository.deleteProvider(id);
+  }
+  restoreProvider(id: string) {
+    return this.ProvidersRepository.restoreProvider(id);
   }
 }
