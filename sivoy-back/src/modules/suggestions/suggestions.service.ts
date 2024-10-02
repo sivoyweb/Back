@@ -2,9 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { SuggestionsRepository } from './suggestions.repository';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { CreateSuggestionDto } from './suggestions.dto';
+import { SuggestionState } from 'src/helpers/suggestionState.enum';
 
 @Injectable()
 export class SuggestionsService {
+
   constructor(private readonly SuggestionsRepository: SuggestionsRepository) {}
 
   getPendingSuggestions() {
@@ -19,7 +21,11 @@ export class SuggestionsService {
     return this.SuggestionsRepository.createSuggestion(suggestion, userId);
   }
 
-  updateState(id: string) {
-    return this.SuggestionsRepository.updateState(id);
+  updateSuggestion(id: string, suggestion: CreateSuggestionDto) {
+    return this.SuggestionsRepository.updateSuggestion(id, suggestion);
+  }
+
+  updateSuggestionState(id: string, suggestionState: SuggestionState) {
+    return this.SuggestionsRepository.updateSuggestionState(id, suggestionState);
   }
 }

@@ -14,11 +14,24 @@ export class DonationsService {
       const response =
         await this.donationsRepository.makeDonation(preferenceData);
 
+      // Obtén el init_point de la respuesta
+      const initPoint = response.sandbox_init_point || response.init_point;
+
+      if (!initPoint) {
+        throw new HttpException(
+          {
+            status: 500,
+            error: 'Error creating donation: No payment URL found',
+          },
+          500,
+        );
+      }
+
       // Retorna el resultado de la creación de la preferencia de pago
       return {
         status: 'success',
-        payment_url: response.body.sandbox_init_point,
-        preference_id: response.body.id,
+        payment_url: initPoint, // Usa el initPoint en lugar de response.body.sandbox_init_point
+        preference_id: response.id, // Usa response.id directamente
       };
     } catch (error) {
       // Manejo de errores si la creación de la donación falla

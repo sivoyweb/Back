@@ -68,7 +68,27 @@ export class SuggestionsRepository {
     }
   }
 
-  updateState(id: string) {
-    return 'Suggestion Updated';
+  async updateSuggestion(id: string, suggestion: CreateSuggestionDto) {
+    const updateSuggestion = await this.SuggestionsRepository.findOneBy({id});
+    if (!updateSuggestion) throw new NotFoundException (`suggestion whit ${id} not found`)
+    await this.SuggestionsRepository.update(id, suggestion);    
+    return suggestion;
+  }
+
+  async updateSuggestionState(id: string, suggestionState: SuggestionState) {
+    const suggestion = await this.SuggestionsRepository.findOne({ where: { id } });
+    if (!suggestion) {
+      throw new NotFoundException(`Suggestion with ID ${id} not found`);
+    }
+    suggestion.state = suggestionState;
+    await this.SuggestionsRepository.save(suggestion);
+
+    // const email = suggestion.user.credential.email;
+    // if (suggestionState === SuggestionState.APPROVED) {
+    // // enviar mail aprobado
+    // } else if (suggestionState === SuggestionState.REJECTED) {
+    // // enviar mail rechazado
+    // }
+    return suggestion;
   }
 }
