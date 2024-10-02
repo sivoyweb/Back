@@ -53,7 +53,7 @@ export class AuthController {
     return user;
   }
 
-  @Put('reset-password')
+  @Put('/reset-password')
   async resetPassword(@Body() userData: ResetPasswordDto) {
     const { password, resetCode, email } = userData;
 

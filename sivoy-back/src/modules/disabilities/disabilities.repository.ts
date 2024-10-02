@@ -14,6 +14,7 @@ export class DisabilitiesRepository {
   async getDisabilities() {
     const disabilities = await this.disabilitiesRepository.find({
       where: { active: true },
+      select: ['name', 'category', 'id'],
     });
 
     return disabilities;
