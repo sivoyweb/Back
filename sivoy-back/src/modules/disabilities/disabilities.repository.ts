@@ -14,6 +14,7 @@ export class DisabilitiesRepository {
   async getDisabilities() {
     const disabilities = await this.disabilitiesRepository.find({
       where: { active: true },
+      select: ['name', 'category', 'id'],
     });
 
     return disabilities;
@@ -22,6 +23,7 @@ export class DisabilitiesRepository {
   async getDisabilityById(id: string) {
     const disabilityFound = await this.disabilitiesRepository.findOne({
       where: { id },
+      select: ['name', 'category', 'id'],
     });
 
     if (!disabilityFound) {

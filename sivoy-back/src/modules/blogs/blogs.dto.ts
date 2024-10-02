@@ -21,3 +21,18 @@ export class CreateBlogDto {
   @ArrayMinSize(1)
   images?: Partial<Image[]>;
 }
+
+export class UpdateBlogDto {
+  @IsString()
+  @IsOptional()
+  title?: string;
+
+  @IsString()
+  @IsOptional()
+  content?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  images?: Partial<Image[]>; 
+}

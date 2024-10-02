@@ -14,6 +14,8 @@ import { JWT_SECRET } from './config/envConfig';
 import { DataSeederModule } from './modules/data/dataSeeder.module';
 import { BlogsModule } from './modules/blogs/blogs.module';
 import { DisabilitiesModule } from './modules/disabilities/disabilities.module';
+import { TeamModule } from './modules/team/team.module';
+import { FaqModule } from './modules/faq/faq.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { DisabilitiesModule } from './modules/disabilities/disabilities.module';
     PromotionsModule,
     DataSeederModule,
     BlogsModule,
+    TeamModule,
+    FaqModule,
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },

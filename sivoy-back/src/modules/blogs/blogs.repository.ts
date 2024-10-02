@@ -8,7 +8,7 @@ import { Blog } from 'src/entities/blogs.entity';
 import { Role } from 'src/helpers/roles.enum.';
 
 import { Repository } from 'typeorm';
-import { CreateBlogDto } from './blogs.dto';
+import { CreateBlogDto, UpdateBlogDto } from './blogs.dto';
 
 @Injectable()
 export class BlogsRepository {
@@ -58,15 +58,12 @@ export class BlogsRepository {
     const existingBlog = await this.blogsRepository.findOne({
       where: { title: blog.title },
     });
-
     if (existingBlog) {
       throw new BadRequestException(
         `A blog with the name '${blog.title}' already exists.`,
       );
     }
-
     const newBlog = this.blogsRepository.create(blog);
-
     try {
       return await this.blogsRepository.save(newBlog);
     } catch (error) {
@@ -74,7 +71,7 @@ export class BlogsRepository {
     }
   }
 
-  async updateBlog(id: string, blog: CreateBlogDto) {
+  async updateBlog(id: string, blog: UpdateBlogDto) {
     const updateBlog = await this.blogsRepository.findOneBy({ id });
     if (!updateBlog) throw new NotFoundException(`Blog whit ${id} not found`);
     await this.blogsRepository.update(id, blog);
