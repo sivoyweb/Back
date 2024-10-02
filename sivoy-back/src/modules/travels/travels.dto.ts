@@ -4,6 +4,7 @@ import {
   IsDate,
   IsDateString,
   IsEmail,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -19,6 +20,7 @@ import {
 } from 'class-validator';
 import { Image } from 'src/entities/images.entity';
 import { Review } from 'src/entities/review.entity';
+import { ServiceType } from 'src/helpers/serviceType.enum';
 
 export class CreateTravelDto {
   @IsNotEmpty()
@@ -46,9 +48,9 @@ export class CreateTravelDto {
   @MaxLength(255)
   description: string;
 
-  @IsString()
-  @IsOptional()
-  serviceType: string;
+  @IsNotEmpty()
+  @IsEnum(ServiceType)
+  serviceType: ServiceType;
 
   @IsString()
   @IsNotEmpty()
@@ -113,8 +115,8 @@ export class UpdateTravelDto {
   description?: string;
 
   @IsOptional()
-  @IsString()
-  serviceType?: string;
+  @IsEnum(ServiceType)
+  serviceType?: ServiceType;
 
   @IsOptional()
   @IsString()
