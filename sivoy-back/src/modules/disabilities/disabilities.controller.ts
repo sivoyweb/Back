@@ -33,6 +33,8 @@ export class DisabilitiesController {
     return disability;
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.User, Role.Admin)
   @Post()
   async addDisability(@Body() disabilityData: addDisabilityDto) {
     return await this.disabilitiesService.addDisability(disabilityData);
