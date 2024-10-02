@@ -4,13 +4,14 @@ import {
   Get,
   HttpException,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import {
   CreateUserDto,
   LoginUserDto,
-  SendEmailDto,
-  SignInGoogleDto,
+  EmailDto,
+  ResetPasswordDto,
 } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
@@ -46,23 +47,38 @@ export class AuthController {
   }
 
   @Post('signin/google')
-  async googleSignin(@Body() userData: SignInGoogleDto) {
+  async googleSignin(@Body() userData: EmailDto) {
     const user = await this.authService.signinGoogle(userData.email);
 
     return user;
   }
 
+  @Put('reset-password')
+  async resetPassword(@Body() userData: ResetPasswordDto) {
+    const { password, resetCode, email } = userData;
+
+    const userId = await this.userService.isEmailInUse(email);
+
+    if (!userId) {
+      throw new HttpException({ status: 404, error: 'user not found' }, 404);
+    }
+
+    await this.authService.resetPasswordService(
+      userId as string,
+      password,
+      resetCode,
+    );
+
+    return { message: 'Password updated successfully' };
+  }
+
+  @Post('/forgot-password')
+  async forgotPassword(@Body() userData: EmailDto) {
+    return await this.authService.sendResetPasswordCode(userData.email);
+  }
+
   @Get('verify-email')
   async verifyEmail(@Query('token') token: string) {
     return await this.authService.verifyToken(token);
-  }
-
-  @Post('send-email')
-  async sendEmail(@Body() data: SendEmailDto) {
-    return await this.authService.sendEmail(
-      data.email,
-      data.subject,
-      data.htmlMessage,
-    );
   }
 }

@@ -29,7 +29,7 @@ export class User {
   role: Role;
 
   @ManyToMany(() => Disability, (disability) => disability.users)
-  @JoinTable() // Necesario en una de las entidades para la relación ManyToMany
+  @JoinTable()
   disabilities: Disability[];
 
   @Column({ nullable: true })

@@ -2,7 +2,6 @@ import { PickType } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
   IsStrongPassword,
@@ -11,9 +10,8 @@ import {
   Validate,
 } from 'class-validator';
 import { MatchPassword } from 'src/decorators/matchPassword';
+import { Credential } from 'src/entities/credential.entity';
 import { Disability } from 'src/entities/disabilities.entity';
-import { Image } from 'src/entities/images.entity';
-import { Role } from 'src/helpers/roles.enum.';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -59,35 +57,21 @@ export class UpdateUserDto {
   disabilities?: Disability[];
 
   @IsOptional()
-  role: Role;
-
-  @IsOptional()
   @IsEmail()
   email: string;
 
   @IsOptional()
-  avatar: Image;
-
-  @IsOptional()
-  @IsString()
-  @IsStrongPassword()
-  @MinLength(8)
-  @MaxLength(15)
-  password: string;
-
-  @IsOptional()
-  @Validate(MatchPassword, [`password`])
-  confirmPassword: string;
+  credential: Credential;
 }
 
-export class SignInGoogleDto extends PickType(CreateUserDto, ['email']) {}
+export class EmailDto extends PickType(CreateUserDto, ['email']) {}
 
-export class SendEmailDto extends PickType(CreateUserDto, ['email']) {
+export class ResetPasswordDto extends PickType(CreateUserDto, [
+  'email',
+  'password',
+  'confirmPassword',
+]) {
+  @IsNotEmpty()
   @IsString()
-  @IsOptional()
-  htmlMessage: string;
-
-  @IsString()
-  @IsOptional()
-  subject: string;
+  resetCode: string;
 }
