@@ -113,10 +113,17 @@ import { Role } from "src/helpers/roles.enum.";
         }
 
         async createReview(Review: CreateReviewDto, userId) {
+            const existingReview = await this.reviewsRepository.findOne({
+                where: { 
+                    travel: { id: Review.travelId }, 
+                    user: { id: userId }
+                }
+            });
+            if (existingReview) {
+                throw new BadRequestException('You have already created a review for this travel.');
+            }
             const review = this.reviewsRepository.create(Review);
-        
             const travel = await this.travelsRepository.findOne({ where: { id: Review.travelId } });
-
             if (!travel) {
                 throw new NotFoundException(`travel whit ${travel.id} not found`);
             }
@@ -126,7 +133,7 @@ import { Role } from "src/helpers/roles.enum.";
 
             await this.reviewsRepository.save(review);
             await this.updateTravelAverageStars(review.travel.id);
-    
+
             return review;
             }
 
@@ -137,9 +144,10 @@ import { Role } from "src/helpers/roles.enum.";
             });
             
             if (travel) {
-                if (travel.reviews.length > 0) {
-                    const totalStars = travel.reviews.reduce((sum, review) => sum + review.stars, 0);
-                    travel.averageStars = parseFloat((totalStars / travel.reviews.length).toFixed(2));
+                const visibleReviews = travel.reviews.filter(review => review.visible);
+                if (visibleReviews.length > 0) {
+                    const totalStars = visibleReviews.reduce((sum, review) => sum + review.stars, 0);
+                    travel.averageStars = parseFloat((totalStars / visibleReviews.length).toFixed(2));
                 } else {
                     travel.averageStars = 0;
                 }
