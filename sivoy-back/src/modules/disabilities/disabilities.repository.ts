@@ -23,6 +23,7 @@ export class DisabilitiesRepository {
   async getDisabilityById(id: string) {
     const disabilityFound = await this.disabilitiesRepository.findOne({
       where: { id },
+      select: ['name', 'category', 'id'],
     });
 
     if (!disabilityFound) {
