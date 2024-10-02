@@ -30,6 +30,8 @@ export class TokenGuard implements CanActivate {
         secret: JWT_SECRET,
       });
 
+      console.log(payload);
+
       if (!payload) {
         return false;
       }
@@ -43,13 +45,18 @@ export class TokenGuard implements CanActivate {
       payload.exp = new Date(payload.exp * 1000);
       payload.role = userFound.userWithoutPassword.role;
 
-      console.log(payload);
-
       req.user = payload;
 
       return true;
     } catch (err) {
-      throw new Error(err);
+      console.log(err);
+      throw new HttpException(
+        {
+          status: 400,
+          error: 'token invalid or expired',
+        },
+        400,
+      );
     }
   }
 }

@@ -36,25 +36,22 @@ export class UsersService {
   }
 
   async getUserById(id: string) {
-    try {
-      const user = await this.usersRepository.getUserById(id);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...credentialWithoutPassword } = user.credential;
-      const userWithoutPassword = {
-        ...user,
-        credential: {
-          ...credentialWithoutPassword,
-        },
-      };
+    const user = await this.usersRepository.getUserById(id);
 
-      return { userWithoutPassword, password };
-    } catch (err) {
-      return err;
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...credentialWithoutPassword } = user.credential;
+    const userWithoutPassword = {
+      ...user,
+      credential: {
+        ...credentialWithoutPassword,
+      },
+    };
+
+    return { userWithoutPassword, password };
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
-    try {
+    if (user.disabilities) {
       const actualDisabilities =
         await this.disabilitiesRepository.getDisabilities();
 
@@ -82,12 +79,9 @@ export class UsersService {
       );
 
       user.disabilities = processedDisabilities;
-
-      return await this.usersRepository.updateUser(id, { ...user });
-    } catch (err) {
-      console.log(err);
-      throw new HttpException(`Error updating user: ${err.message}`, 500);
     }
+
+    return await this.usersRepository.updateUser(id, { ...user });
   }
 
   async isEmailInUse(email: string) {
@@ -95,26 +89,14 @@ export class UsersService {
   }
 
   async deleteUser(id: string) {
-    try {
-      return await this.usersRepository.deleteUser(id);
-    } catch (err) {
-      return err;
-    }
+    return await this.usersRepository.deleteUser(id);
   }
 
   async blockUser(id: string) {
-    try {
-      return await this.usersRepository.blockUser(id);
-    } catch (err) {
-      return err;
-    }
+    return await this.usersRepository.blockUser(id);
   }
 
   async unblockUser(id: string) {
-    try {
-      return await this.usersRepository.unblockUser(id);
-    } catch (err) {
-      return err;
-    }
+    return await this.usersRepository.unblockUser(id);
   }
 }
