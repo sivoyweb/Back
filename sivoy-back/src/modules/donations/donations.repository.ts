@@ -34,7 +34,7 @@ export class DonationsRepository {
         body: {
           payment_methods: {
             excluded_payment_methods: [],
-            excluded_payment_types: [{ id: 'ticket' }],
+            // excluded_payment_types: [{ id: 'ticket' }],
             installments: 1,
           },
           items: [
@@ -45,6 +45,12 @@ export class DonationsRepository {
               quantity: 1, // Configura la cantidad fija en 1 para donaciones
             },
           ],
+          back_urls: {
+            success: 'https://front-eta-teal.vercel.app', // URL de éxito
+            failure: 'https://front-eta-teal.vercel.app/', // URL en caso de error
+            pending: 'https://front-eta-teal.vercel.app/', // URL para pagos pendientes
+          },
+          auto_return: 'approved', // Redirige automáticamente si el pago es aprobado
         },
       });
 
@@ -62,6 +68,7 @@ export class DonationsRepository {
         );
       }
 
+      // Guardar la donación en la base de datos
       const donation = this.donationRepository.create({
         amount: preferenceData.unit_price, // Solo considera el unit_price
         date: new Date(),
