@@ -57,10 +57,6 @@ export class UpdateUserDto {
   disabilities?: Disability[];
 
   @IsOptional()
-  @IsEmail()
-  email: string;
-
-  @IsOptional()
   credential: Credential;
 }
 

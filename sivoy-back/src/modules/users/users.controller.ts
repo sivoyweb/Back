@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UpdateUserDto } from './user.dto';
+import { EmailDto, UpdateUserDto } from './user.dto';
 import { TokenGuard } from 'src/guards/token.guard';
 import { Roles } from '../../decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
@@ -41,10 +41,18 @@ export class UsersController {
   }
 
   @UseGuards(TokenGuard, RolesGuard)
-  @Roles(Role.User)
+  @Roles(Role.User, Role.Admin)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
+  }
+
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Put('/make-admin')
+  async makeAdmin(@Body() userData: EmailDto) {
+    const response = await this.userService.makeAdmin(userData.email);
+    return response;
   }
 
   @UseGuards(TokenGuard, RolesGuard)

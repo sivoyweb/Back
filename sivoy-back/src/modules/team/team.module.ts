@@ -9,6 +9,6 @@ import { UsersModule } from '../users/users.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Team]), UsersModule],
   controllers: [TeamController],
-  providers: [TeamService, TeamRepository]
+  providers: [TeamService, TeamRepository],
 })
 export class TeamModule {}

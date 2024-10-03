@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Provider } from 'src/entities/provider.entity';
 
@@ -28,10 +32,10 @@ export class ProvidersRepository {
         travels: true,
       },
     });
-    if (!provider	) {
+    if (!provider) {
       throw new NotFoundException(`Provider with ID ${id} not found`);
     }
-    return provider
+    return provider;
   }
 
   async createProvider(provider: CreateProviderDto) {
@@ -49,13 +53,16 @@ export class ProvidersRepository {
     try {
       return await this.providersRepository.save(newProvider);
     } catch (error) {
-      throw new BadRequestException(`Error creating provider: ${error.message}`);
+      throw new BadRequestException(
+        `Error creating provider: ${error.message}`,
+      );
     }
   }
 
   async updateProvider(id: string, provider: UpdateProviderDto) {
     const updateProvider = await this.providersRepository.findOneBy({ id });
-    if (!updateProvider) throw new NotFoundException(`Provider whit ${id} not found`);
+    if (!updateProvider)
+      throw new NotFoundException(`Provider whit ${id} not found`);
     await this.providersRepository.update(id, provider);
     return updateProvider;
   }

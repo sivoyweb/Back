@@ -4,25 +4,25 @@ import { CreateTeamDto, UpdateTeamDto } from './team.dto';
 
 @Injectable()
 export class TeamService {
-    constructor(private readonly teamRepository: TeamRepository) {}
+  constructor(private readonly teamRepository: TeamRepository) {}
 
-    getTeam() {
-        return this.teamRepository.getTeam();
-    }
+  getTeam() {
+    return this.teamRepository.getTeam();
+  }
 
-    getMemberById(id: string, user) {
-        return this.teamRepository.getMemberById(id, user);
-    }
+  getMemberById(id: string, user) {
+    return this.teamRepository.getMemberById(id, user);
+  }
 
-    addMember(member: CreateTeamDto) {
-        return this.teamRepository.addMember(member);
-    }
+  addMember(member: CreateTeamDto) {
+    return this.teamRepository.addMember(member);
+  }
 
-    updateMember(id: string, member: UpdateTeamDto) {
-        return this.teamRepository.updateMember(id, member);
-    }
+  updateMember(id: string, member: UpdateTeamDto) {
+    return this.teamRepository.updateMember(id, member);
+  }
 
-    deleteMember(id: string) {
-        return this.teamRepository.deleteMember(id);
-    }
+  deleteMember(id: string) {
+    return this.teamRepository.deleteMember(id);
+  }
 }

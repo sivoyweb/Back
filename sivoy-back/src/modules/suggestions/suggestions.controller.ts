@@ -44,17 +44,26 @@ export class SuggestionsController {
   }
 
   @Put(':id')
-  updateSuggestion(@Param('id') id: string, @Body() suggestion: CreateSuggestionDto) {
+  updateSuggestion(
+    @Param('id') id: string,
+    @Body() suggestion: CreateSuggestionDto,
+  ) {
     return this.suggestionsService.updateSuggestion(id, suggestion);
   }
 
   @Patch(':id/approve')
   async approveSuggestion(@Param('id') id: string) {
-    return await this.suggestionsService.updateSuggestionState(id, SuggestionState.APPROVED);
+    return await this.suggestionsService.updateSuggestionState(
+      id,
+      SuggestionState.APPROVED,
+    );
   }
 
   @Patch(':id/reject')
   async rejectSuggestion(@Param('id') id: string) {
-    return await this.suggestionsService.updateSuggestionState(id, SuggestionState.REJECTED);
+    return await this.suggestionsService.updateSuggestionState(
+      id,
+      SuggestionState.REJECTED,
+    );
   }
 }

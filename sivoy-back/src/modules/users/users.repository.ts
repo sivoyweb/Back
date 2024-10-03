@@ -147,6 +147,11 @@ export class UsersRepository {
     return 'User Deleted';
   }
 
+  async makeAdmin(id: string) {
+    await this.usersRepository.update(id, { role: Role.Admin });
+    return 'User updated';
+  }
+
   async blockUser(id: string) {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {

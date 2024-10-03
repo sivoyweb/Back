@@ -68,6 +68,16 @@ export class AuthService {
     const user = await this.userService.getUserById(exist as string);
     const userData = user.userWithoutPassword;
 
+    if (userData.block) {
+      throw new HttpException(
+        {
+          status: 401,
+          error: 'your account has been blocked by an admin',
+        },
+        401,
+      );
+    }
+
     const passwordToConfirm = user.password;
 
     const verifyPassword = await bcrypt.compare(
