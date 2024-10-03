@@ -36,8 +36,8 @@ export class AuthController {
       );
     }
 
-    const token = await this.authService.signup(user);
-    return { token };
+    const message = await this.authService.signup(user);
+    return { message };
   }
 
   @Post('signin')
