@@ -23,6 +23,12 @@ export class Image {
   @Column({ type: 'varchar', length: 255, default: 'public id default' })
   publicId: string;
 
+  @Column({ type: 'varchar', nullable: true })
+  alt: string;
+
+  @Column({ type: 'boolean', default: true })
+  active: boolean;
+
   @ManyToOne(() => Suggestion, (suggestion) => suggestion.images)
   suggestion: Suggestion;
 

@@ -92,6 +92,17 @@ export class UsersService {
     return await this.usersRepository.deleteUser(id);
   }
 
+  async makeAdmin(email: string) {
+    const userId: boolean | string =
+      await this.usersRepository.isEmailUsed(email);
+
+    if (!userId) {
+      throw new HttpException({ status: 404, error: 'user not found' }, 404);
+    }
+
+    return await this.usersRepository.makeAdmin(userId as string);
+  }
+
   async blockUser(id: string) {
     return await this.usersRepository.blockUser(id);
   }

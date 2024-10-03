@@ -14,6 +14,9 @@ export class DonationsService {
       const response =
         await this.donationsRepository.makeDonation(preferenceData);
 
+      // Log para verificar el response completo
+      console.log('Mercado Pago Response:', response);
+
       // Obtén el init_point de la respuesta
       const initPoint = response.sandbox_init_point || response.init_point;
 
@@ -26,6 +29,9 @@ export class DonationsService {
           500,
         );
       }
+      // Log del initPoint y el preference_id
+      console.log('Payment URL:', initPoint);
+      console.log('Preference ID:', response.id);
 
       // Retorna el resultado de la creación de la preferencia de pago
       return {
@@ -34,6 +40,8 @@ export class DonationsService {
         preference_id: response.id, // Usa response.id directamente
       };
     } catch (error) {
+      // Log del error capturado
+      console.error('Error during makeDonation:', error.message);
       // Manejo de errores si la creación de la donación falla
       throw new HttpException(
         {

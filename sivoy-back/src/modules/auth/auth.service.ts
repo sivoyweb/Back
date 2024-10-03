@@ -47,6 +47,7 @@ export class AuthService {
         'Welcome',
         getStructureforWelcome(token),
       );
+      return { message: 'User created successfully' };
     } catch (err) {
       console.log(err);
       throw new HttpException(
@@ -67,6 +68,16 @@ export class AuthService {
 
     const user = await this.userService.getUserById(exist as string);
     const userData = user.userWithoutPassword;
+
+    if (userData.block) {
+      throw new HttpException(
+        {
+          status: 401,
+          error: 'your account has been blocked by an admin',
+        },
+        401,
+      );
+    }
 
     const passwordToConfirm = user.password;
 

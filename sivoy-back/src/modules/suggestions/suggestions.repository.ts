@@ -69,14 +69,17 @@ export class SuggestionsRepository {
   }
 
   async updateSuggestion(id: string, suggestion: CreateSuggestionDto) {
-    const updateSuggestion = await this.SuggestionsRepository.findOneBy({id});
-    if (!updateSuggestion) throw new NotFoundException (`suggestion whit ${id} not found`)
-    await this.SuggestionsRepository.update(id, suggestion);    
+    const updateSuggestion = await this.SuggestionsRepository.findOneBy({ id });
+    if (!updateSuggestion)
+      throw new NotFoundException(`suggestion whit ${id} not found`);
+    await this.SuggestionsRepository.update(id, suggestion);
     return suggestion;
   }
 
   async updateSuggestionState(id: string, suggestionState: SuggestionState) {
-    const suggestion = await this.SuggestionsRepository.findOne({ where: { id } });
+    const suggestion = await this.SuggestionsRepository.findOne({
+      where: { id },
+    });
     if (!suggestion) {
       throw new NotFoundException(`Suggestion with ID ${id} not found`);
     }
