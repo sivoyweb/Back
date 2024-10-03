@@ -6,7 +6,6 @@ import { SuggestionState } from 'src/helpers/suggestionState.enum';
 
 @Injectable()
 export class SuggestionsService {
-
   constructor(private readonly SuggestionsRepository: SuggestionsRepository) {}
 
   getPendingSuggestions() {
@@ -26,6 +25,9 @@ export class SuggestionsService {
   }
 
   updateSuggestionState(id: string, suggestionState: SuggestionState) {
-    return this.SuggestionsRepository.updateSuggestionState(id, suggestionState);
+    return this.SuggestionsRepository.updateSuggestionState(
+      id,
+      suggestionState,
+    );
   }
 }

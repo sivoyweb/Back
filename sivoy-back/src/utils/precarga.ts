@@ -1,4 +1,4 @@
-import { ServiceType } from "src/helpers/serviceType.enum";
+import { ServiceType } from 'src/helpers/serviceType.enum';
 
 export const categorizedDisabilities = [
   {
@@ -232,11 +232,11 @@ export const travelsMock = [
       },
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8SFP7dMdjODO02D8M3EnTU0DZR7EAHsrlFA&s',
-        publicId: 'imagen1',
+        publicId: 'imagen2',
       },
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYYKlzitP5u0gwnyYewXfr_bt7OqGQkdTJkg&s',
-        publicId: 'imagen1',
+        publicId: 'imagen3',
       },
     ],
     website: 'https://www.balnearioapolo.com.ar/',
@@ -261,15 +261,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtF7DVHrIzfrKwBlVU_nbJQv9R0GidUyaJ1Q&s',
-        publicId: 'imagen1',
+        publicId: 'imagen4',
       },
       {
         url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/0b/f6/98/balneario-alicante.jpg?w=1200&h=1200&s=1',
-        publicId: 'imagen1',
+        publicId: 'imagen5',
       },
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf_vS8fRrFSEIiDd9zvuQizoftOriSThFz0A&s',
-        publicId: 'imagen1',
+        publicId: 'imagen6',
       },
     ],
     website: 'http://www.balnearioalicante.com.ar/',
@@ -294,15 +294,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://www.alamosdelmar.com.ar/imagenes/hotel.jpg',
-        publicId: 'imagen1',
+        publicId: 'imagen7',
       },
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/45051327.jpg?k=60dcf76d2579785dd66a204547659b52d7824b02de719f66d22843b27f11e221&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen8',
       },
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/544404150.jpg?k=d1feafa703dd34543e5dd12925f1a61441111fd2a39c2ab20c4126be10dd79e8&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen9',
       },
     ],
     website: 'http://www.alamosdelmar.com.ar/',
@@ -327,15 +327,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2NEJIxTkiRq2ffjPwloQyifepD0kCiWNEJg&s',
-        publicId: 'imagen1',
+        publicId: 'imagen10',
       },
       {
         url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/b0/14/30/aires-patagonicos.jpg?w=700&h=-1&s=1',
-        publicId: 'imagen1',
+        publicId: 'imagen11',
       },
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3Vts1H_D3VA-ejNYE7ZV7dUjTAvfFVYRYhA&s',
-        publicId: 'imagen1',
+        publicId: 'imagen12',
       },
     ],
     website: 'https://www.google.com',
@@ -360,15 +360,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/230765397.jpg?k=33ead257f0362ae2cd200e870dcde6d7154269b5fa7f3f21970f46d2bdfdcde9&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen13',
       },
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/230768222.jpg?k=410ccca4986758cee38f10f28112b13643edbd73548af6ed74929fefc0fad040&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen14',
       },
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/84777330.jpg?k=51e28ceefd8ede70eb18083d8f5711e776bd94d3ef5a0fd3d5abc4a33f5371f7&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen15',
       },
     ],
     website: 'https://www.aikendorhotel.com/index.php?action=inicio',
@@ -392,15 +392,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPlgSXBLAxjA7STzMI9XWaLx9uMFUyDVfX8w&s',
-        publicId: 'imagen1',
+        publicId: 'imagen16',
       },
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/38309797.jpg?k=91f67dc1884ee2dfb89e2f330c8b8cf5152b964db4004ea9aefede4542e4d7f3&o=&hp=1',
-        publicId: 'imagen1',
+        publicId: 'imagen17',
       },
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSpBGMZ7aqba-EL7zfP6E6SqETy-W64SXVug&s',
-        publicId: 'imagen1',
+        publicId: 'imagen18',
       },
     ],
     website: 'http://www.hotel-abril.com/index.html',
@@ -424,15 +424,15 @@ export const travelsMock = [
     images: [
       {
         url: 'https://www.autoclub.org.ar/wp-content/uploads/2021/12/punta-mogotes-06.jpg',
-        publicId: 'imagen1',
+        publicId: 'imagen19',
       },
       {
         url: 'https://www.autoclub.org.ar/wp-content/uploads/2021/12/punta-mogotes-01-destacada.jpg',
-        publicId: 'imagen1',
+        publicId: 'imagen20',
       },
       {
         url: 'https://www.aca.tur.ar/promociones/balnearios/ficha/puntamogotes/images/06.JPG',
-        publicId: 'imagen1',
+        publicId: 'imagen21',
       },
     ],
     website: 'http://www.aca.tur.ar/index.php',

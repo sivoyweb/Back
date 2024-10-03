@@ -16,6 +16,7 @@ import { BlogsModule } from './modules/blogs/blogs.module';
 import { DisabilitiesModule } from './modules/disabilities/disabilities.module';
 import { TeamModule } from './modules/team/team.module';
 import { FaqModule } from './modules/faq/faq.module';
+import { ImagesModule } from './modules/images/images.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { FaqModule } from './modules/faq/faq.module';
     BlogsModule,
     TeamModule,
     FaqModule,
+    ImagesModule,
     JwtModule.register({
       global: true,
       signOptions: { expiresIn: '1h' },

@@ -15,15 +15,15 @@ export class CreateTeamDto {
 }
 
 export class UpdateTeamDto {
-    @IsString()
-    @IsOptional()
-    name?: string;
-  
-    @IsString()
-    @IsOptional()
-    description?: string;
+  @IsString()
+  @IsOptional()
+  name?: string;
 
-    @IsOptional()
-    @IsUrl()
-    linkedin?: string;
-  }
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsOptional()
+  @IsUrl()
+  linkedin?: string;
+}

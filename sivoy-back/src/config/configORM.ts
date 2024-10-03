@@ -41,7 +41,7 @@ const typeORMconfig = {
     Disability,
     Blog,
     Faq,
-    Team, 
+    Team,
   ],
   synchronize: true,
   logging: ['query', 'error'],
