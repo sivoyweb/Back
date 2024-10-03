@@ -18,3 +18,4 @@ export class Team {
   @Column({ default: true })
   visible: boolean;
 }
+

@@ -19,3 +19,4 @@ export class UpdateFaqDto {
   @IsOptional()
   answer?: string;
 }
+
