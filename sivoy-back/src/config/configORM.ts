@@ -20,6 +20,7 @@ import {
 import { Blog } from 'src/entities/blogs.entity';
 import { Faq } from 'src/entities/faq.entity';
 import { Team } from 'src/entities/team.entity';
+import { Alliance } from 'src/entities/alliances.entity';
 
 const typeORMconfig = {
   type: 'postgres',
@@ -42,6 +43,7 @@ const typeORMconfig = {
     Blog,
     Faq,
     Team,
+    Alliance
   ],
   synchronize: true,
   logging: ['query', 'error'],

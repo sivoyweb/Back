@@ -11,6 +11,7 @@ import { Travel } from './travel.entity';
 import { Credential } from './credential.entity';
 import { Blog } from './blogs.entity';
 import { Promotion } from './promotion.entity';
+import { Team } from './team.entity';
 
 @Entity('images')
 export class Image {
@@ -43,4 +44,7 @@ export class Image {
 
   @ManyToOne(() => Promotion, (promotion) => promotion.images)
   promotion: Promotion;
+
+  @OneToOne(() => Team, team => team.image)  
+  team: Team;
 }
