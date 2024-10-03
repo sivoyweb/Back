@@ -47,6 +47,7 @@ export class AuthService {
         'Welcome',
         getStructureforWelcome(token),
       );
+      return { message: 'User created successfully' };
     } catch (err) {
       console.log(err);
       throw new HttpException(
