@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 import {
   CreateReviewDto,
   CreateTravelDto,
+  UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
 import { User } from 'src/entities/user.entity';
@@ -192,10 +193,12 @@ export class TravelsRepository {
     }
   }
 
-  async updateReview(id: string, review: UpdateTravelDto, userId: string) {
+  async updateReview(id: string, review: UpdateReviewDto, userId: string) {
     const updateReview = await this.reviewsRepository.findOne({
       where: { id },
-      relations: { user: true },
+      relations: { user: true,
+        travel: true,
+       },
     });
     if (!updateReview)
       throw new NotFoundException(`Review whit ${id} not found`);

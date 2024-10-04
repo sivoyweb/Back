@@ -34,3 +34,4 @@ export class FaqController {
   deleteFaq(@Param('id') id: string) {
     return this.faqService.deleteFaq(id);
   }
+}

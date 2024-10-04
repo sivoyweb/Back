@@ -5,6 +5,7 @@ import { Travel } from 'src/entities/travel.entity';
 import {
   CreateReviewDto,
   CreateTravelDto,
+  UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
 
@@ -48,7 +49,7 @@ export class TravelsService {
     return this.travelsRepository.createReview(Review, userId);
   }
 
-  updateReview(id: string, review: UpdateTravelDto, userId: string) {
+  updateReview(id: string, review: UpdateReviewDto, userId: string) {
     return this.travelsRepository.updateReview(id, review, userId);
   }
 
