@@ -19,6 +19,7 @@ import { Review } from 'src/entities/review.entity';
 import {
   CreateReviewDto,
   CreateTravelDto,
+  UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
 import { RolesGuard } from 'src/guards/roles.guard';
@@ -105,7 +106,7 @@ export class TravelsController {
   @UseGuards(ReadGuard)
   updateReview(
     @Param('id') id: string,
-    @Body() review: UpdateTravelDto,
+    @Body() review: UpdateReviewDto,
     @Req() req: Request,
   ) {
     if (!req.user) {
