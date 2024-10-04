@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { config } from 'dotenv';
 import { DonationStatus } from 'src/helpers/roles.enum.';
 import { PreferenceData } from 'src/utils/interface.donations';
+import sendEmailService from 'src/helpers/email.service';
+import { donationConfirmationEmail } from 'src/utils/mail.structure';
 
 const { MP_ACCESS_TOKEN } = process.env;
 
@@ -28,29 +30,34 @@ export class DonationsRepository {
   async createDonation(preferenceData: PreferenceData) {
     try {
       console.log('preferenceData received:', preferenceData);
+
+      // Configuración de la preferencia de MercadoPago
       const preference = new Preference(this.client);
 
       const response = await preference.create({
         body: {
           payment_methods: {
             excluded_payment_methods: [],
-            // excluded_payment_types: [{ id: 'ticket' }],
             installments: 1,
           },
           items: [
             {
               id: uuidv4(),
-              title: preferenceData.title,
+              title: 'Donación para Si, voy',
               unit_price: preferenceData.unit_price,
-              quantity: 1, // Configura la cantidad fija en 1 para donaciones
+              quantity: 1,
             },
           ],
-          back_urls: {
-            success: 'https://front-eta-teal.vercel.app', // URL de éxito
-            failure: 'https://front-eta-teal.vercel.app/', // URL en caso de error
-            pending: 'https://front-eta-teal.vercel.app/', // URL para pagos pendientes
+          payer: {
+            email: preferenceData.email, // Se usa el email proporcionado por el usuario
+            name: preferenceData.name, // Se usa el nombre proporcionado por el usuario
           },
-          auto_return: 'approved', // Redirige automáticamente si el pago es aprobado
+          back_urls: {
+            success: 'https://front-eta-teal.vercel.app',
+            failure: 'https://front-eta-teal.vercel.app/',
+            pending: 'https://front-eta-teal.vercel.app/',
+          },
+          auto_return: 'approved',
         },
       });
 
@@ -70,16 +77,26 @@ export class DonationsRepository {
 
       // Guardar la donación en la base de datos
       const donation = this.donationRepository.create({
-        amount: preferenceData.unit_price, // Solo considera el unit_price
+        amount: preferenceData.unit_price,
         date: new Date(),
         description: preferenceData.description,
-        status: DonationStatus.PENDING, // Asignar un estado inicial
+        status: DonationStatus.PENDING,
       });
 
       await this.donationRepository.save(donation);
 
+      const emailSubject = 'Gracias por tu donación';
+
+      const emailHtml = donationConfirmationEmail(
+        preferenceData.name,
+        preferenceData.unit_price,
+      );
+
+      await sendEmailService(preferenceData.email, emailSubject, emailHtml);
+
       return response;
     } catch (error) {
+      console.error('Error during createDonation:', error);
       throw new HttpException(
         { status: 500, error: `Error creating donation: ${error.message}` },
         500,
@@ -139,7 +156,7 @@ export class DonationsRepository {
     }
   }
 
-  async makeDonation(preferenceData: any): Promise<any> {
+  async makeDonation(preferenceData: PreferenceData): Promise<any> {
     return await this.createDonation(preferenceData);
   }
 
