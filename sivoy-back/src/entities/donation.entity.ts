@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
+import { DonationStatus } from 'src/helpers/roles.enum.';
 
 @Entity('donations')
 export class Donation {
@@ -13,12 +14,12 @@ export class Donation {
   @Column({ type: 'int' })
   amount: number;
 
-  @Column()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
-  @Column({ nullable: true })
-  status: string;
+  @Column({ type: 'varchar', nullable: true })
+  status: DonationStatus;
 }

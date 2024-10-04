@@ -1,5 +1,6 @@
 export interface PreferenceData {
-  title: string;
+  email: string;
+  name: string;
   unit_price: number;
-  description: string;
+  description?: string;
 }
