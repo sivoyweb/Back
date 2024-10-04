@@ -36,6 +36,10 @@ export class TravelsService {
     return this.travelsRepository.deleteTravel(id);
   }
 
+  restoreTravel(id: string) {
+    return this.travelsRepository.restoreTravel(id);
+  }
+
   getReviewsByTravel(id: string) {
     return this.travelsRepository.getReviewsByTravel(id);
   }
