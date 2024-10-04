@@ -6,6 +6,7 @@ import {
   Get,
   Optional,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -78,6 +79,13 @@ export class TravelsController {
   @Roles(Role.Admin)
   deleteTravel(@Param('id') id: string) {
     return this.travelsService.deleteTravel(id);
+  }
+
+  @Patch(':id')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  restoreTravel(@Param('id') id: string) {
+    return this.travelsService.restoreTravel(id);
   }
 
   @Get('/:id/reviews')

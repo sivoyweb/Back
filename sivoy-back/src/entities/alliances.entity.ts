@@ -22,7 +22,7 @@ import {
     images: Image[];
   
     @CreateDateColumn({ type: 'date' })
-    date: string;
+    date: Date;
   
     @Column({ default: true })
     visible: boolean;

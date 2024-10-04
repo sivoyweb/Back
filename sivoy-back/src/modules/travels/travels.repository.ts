@@ -114,6 +114,16 @@ export class TravelsRepository {
     return travel;
   }
 
+  async restoreTravel(id: string) {
+    const travel = await this.travelsRepository.findOneBy({ id });
+    if (!travel) throw new NotFoundException(`travel whit ${id} not found`);
+    if (travel.available === true)
+      throw new BadRequestException('This travel is already available');
+    travel.available = true;
+    await this.travelsRepository.save(travel);
+    return travel;
+  }
+  
   async getReviewsByTravel(id: string) {
     const travel = await this.travelsRepository.findOne({
       where: { id },
