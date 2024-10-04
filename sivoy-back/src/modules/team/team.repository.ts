@@ -16,7 +16,9 @@ export class TeamRepository {
   ) {}
 
   async getTeam() {
-    let Team = await this.teamRepository.find();
+    let Team = await this.teamRepository.find({
+      relations: { image: true },
+    });
     Team = Team.filter((Faqs) => Faqs.visible);
     return Team;
   }
@@ -24,6 +26,7 @@ export class TeamRepository {
   async getMemberById(id: string, user) {
     const member = await this.teamRepository.findOne({
       where: { id },
+      relations: { image: true },
     });
     if (!member) {
       throw new NotFoundException(`Member with ID ${id} not found`);
