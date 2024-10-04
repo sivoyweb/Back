@@ -13,7 +13,7 @@ export class AlliancesRepository {
     async getAllAlliances() {
     let alliances = await this.allianceRepository.find({
       relations: {
-        images: true,
+        image: true,
       },
     });
     alliances = alliances.filter((alliances) => alliances.visible);
@@ -24,7 +24,7 @@ export class AlliancesRepository {
     const alliance = await this.allianceRepository.findOne({
       where: { id },
       relations: {
-        images: true,
+        image: true,
       },
     });
     if (!alliance) {

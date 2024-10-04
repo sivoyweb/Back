@@ -8,7 +8,7 @@ export class CreateAllianceDto {
     name: string;
   
     @IsNotEmpty()
-    image: Partial<Image>;
+    image: Image;
   }
 
   export class UpdateAllianceDto {
@@ -18,6 +18,6 @@ export class CreateAllianceDto {
     name?: string;
   
     @IsOptional()
-    image?: Partial<Image>;
+    image?: Image;
   }
   

@@ -2,7 +2,6 @@ import {
     Entity,
     Column,
     PrimaryGeneratedColumn,
-    CreateDateColumn,
     JoinColumn,
     OneToOne,
   } from 'typeorm';
@@ -19,10 +18,7 @@ import {
   
     @OneToOne(() => Image, { cascade: true }) 
     @JoinColumn() 
-    images: Image[];
-  
-    @CreateDateColumn({ type: 'date' })
-    date: Date;
+    image: Image;
   
     @Column({ default: true })
     visible: boolean;
