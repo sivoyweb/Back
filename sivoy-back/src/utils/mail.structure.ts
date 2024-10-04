@@ -121,3 +121,11 @@ export const getStructureForForgotPassword = (code: string) => {
 </div>
 `;
 };
+
+export const donationConfirmationEmail = (name: string, amount: number) => {
+  return `
+    <h1>¡Gracias, ${name}!</h1>
+    <p>Tu donación de <strong>$${amount}</strong> ha sido recibida exitosamente.</p>
+    <p>Nos ayudas a continuar con nuestro proyecto "Si, voy".</p>
+  `;
+};
