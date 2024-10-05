@@ -90,12 +90,12 @@ export const getStructureforWelcome = (verificationToken: string) => {
 export const getStructureForForgotPassword = (code: string) => {
   return `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; background-color: #f9f9f9;">
-  <h2 style="text-align: center; color: #333;">Reset Your Password</h2>
+  <h2 style="text-align: center; color: #333;">Restablece tu contraseña</h2>
   
-  <p style="font-size: 16px; color: #555;">Hello,</p>
+  <p style="font-size: 16px; color: #555;">Hola,</p>
 
   <p style="font-size: 16px; color: #555;">
-    We received a request to reset the password associated with this email address. Please use the following code to reset your password:
+    Hemos recibido una solicitud para restablecer la contraseña asociada con esta dirección de correo. Por favor, utiliza el siguiente código para restablecer tu contraseña:
   </p>
 
   <div style="text-align: center; margin: 20px 0;">
@@ -105,19 +105,84 @@ export const getStructureForForgotPassword = (code: string) => {
   </div>
 
   <p style="font-size: 16px; color: #555;">
-    If you did not request this, please ignore this email or contact support if you have concerns.
+    Si no solicitaste este cambio, ignora este correo o contacta con el soporte si tienes alguna duda.
   </p>
 
   <p style="font-size: 16px; color: #555;">
-    Thanks,<br>
-    The Support Team
+    Gracias,<br>
+    El equipo de soporte
   </p>
 
   <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;">
   
   <p style="font-size: 12px; color: #888; text-align: center;">
-    If you're having trouble using the code, please reach out to our support team for assistance.
+    Si tienes problemas utilizando el código, contacta con nuestro equipo de soporte para obtener ayuda.
   </p>
 </div>
 `;
+};
+
+export const getStructureForHelp = (
+  email: string,
+  helpType: string,
+  name: string,
+  message = '',
+) => {
+  return `
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+          }
+          .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+          }
+          .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+          }
+          .content {
+            padding: 20px;
+            line-height: 1.6;
+          }
+          .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            text-align: center;
+            color: #777777;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Solicitud de ayuda: ${helpType}</h1>
+          </div>
+          <div class="content">
+            <p><strong>Nombre:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Tipo de ayuda:</strong> ${helpType}</p>
+            ${
+              message
+                ? `<p><strong>Mensaje:</strong> ${message}</p>`
+                : '<p><strong>Mensaje:</strong> No se proporcionó mensaje adicional.</p>'
+            }
+          </div>
+          <div class="footer">
+            <p>Este mensaje fue generado automáticamente. Por favor, no respondas directamente.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
 };
