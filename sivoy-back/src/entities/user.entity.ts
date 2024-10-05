@@ -39,6 +39,9 @@ export class User {
   createdAt: Date;
 
   @Column({ type: 'boolean', default: false })
+  isRepresentative: boolean;
+
+  @Column({ type: 'boolean', default: false })
   auth: boolean;
 
   @OneToOne(() => Credential, (credential) => credential.id, {
