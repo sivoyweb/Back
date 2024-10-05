@@ -1,5 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsOptional,
@@ -50,8 +51,13 @@ export class UpdateUserDto {
   @MaxLength(50)
   name: string;
 
+  @IsString()
   @IsOptional()
   phone: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isRepresentative: boolean;
 
   @IsOptional()
   disabilities?: Disability[];

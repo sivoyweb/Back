@@ -37,7 +37,7 @@ export class AuthController {
     }
 
     const message = await this.authService.signup(user);
-    return { message };
+    return message;
   }
 
   @Post('signin')
