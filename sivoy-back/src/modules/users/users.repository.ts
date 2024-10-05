@@ -67,7 +67,7 @@ export class UsersRepository {
 
     const { credential } = userFound;
 
-    if (user.credential.avatar) {
+    if (user.credential?.avatar) {
       const existingAvatar = await this.imagesRepository.findOne({
         where: { publicId: user.credential.avatar.publicId },
       });
