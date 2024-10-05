@@ -148,7 +148,7 @@ export class TravelsRepository {
         user: { id: userId },
       },
     });
-    if (existingReview) {
+    if (existingReview && existingReview.visible === true) {
       throw new BadRequestException(
         'You have already created a review for this travel.',
       );
