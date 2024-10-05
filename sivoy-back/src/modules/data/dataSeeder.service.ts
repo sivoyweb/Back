@@ -64,7 +64,10 @@ export class DataSeederService implements OnModuleInit {
       // Precargar las imágenes
       const imagePromises = travel.images.map(async (imageData) => {
         // Crea la entidad de imagen
-        const image = this.imageRepository.create(imageData);
+        const image = this.imageRepository.create({
+          ...imageData,
+          alt: imageData.publicId,
+        });
         // Guarda la imagen y retorna la entidad guardada
         return await this.imageRepository.save(image);
       });
@@ -95,7 +98,7 @@ export class DataSeederService implements OnModuleInit {
 
         // Crear y guardar las imágenes si no lo has hecho ya
         const images = promotion.images.map((image) =>
-          this.imageRepository.create(image),
+          this.imageRepository.create({ ...image, alt: image.publicId }),
         );
         await this.imageRepository.save(images);
 

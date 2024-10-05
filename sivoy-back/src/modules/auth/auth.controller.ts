@@ -12,10 +12,14 @@ import {
   LoginUserDto,
   EmailDto,
   ResetPasswordDto,
+  SendEmailDto,
 } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { ApiTags } from '@nestjs/swagger';
+import sendEmailService from 'src/helpers/email.service';
+import { CONTACT_EMAIL } from 'src/config/envConfig';
+import { getStructureForHelp } from 'src/utils/mail.structure';
 
 @ApiTags(`Auths`)
 @Controller('auth')
@@ -80,5 +84,16 @@ export class AuthController {
   @Get('verify-email')
   async verifyEmail(@Query('token') token: string) {
     return await this.authService.verifyToken(token);
+  }
+
+  @Post('/send-help-email')
+  async sendEmail(@Body() data: SendEmailDto) {
+    await sendEmailService(
+      CONTACT_EMAIL,
+      'help',
+      getStructureForHelp(data.email, data.helpType, data.name, data.message),
+    );
+
+    return 'email sent';
   }
 }
