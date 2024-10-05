@@ -68,6 +68,20 @@ export class UpdateUserDto {
 
 export class EmailDto extends PickType(CreateUserDto, ['email']) {}
 
+export class SendEmailDto extends PickType(CreateUserDto, ['email']) {
+  @IsString()
+  @IsNotEmpty()
+  helpType: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  message: string;
+}
+
 export class ResetPasswordDto extends PickType(CreateUserDto, [
   'email',
   'password',
