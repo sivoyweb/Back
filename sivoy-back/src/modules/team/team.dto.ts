@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsOptional, IsUrl } from 'class-validator';
+import { Image } from 'src/entities/images.entity';
 
 export class CreateTeamDto {
   @IsString()
@@ -12,6 +13,9 @@ export class CreateTeamDto {
   @IsOptional()
   @IsUrl()
   linkedin?: string;
+
+  @IsNotEmpty()
+  image: Partial<Image>;
 }
 
 export class UpdateTeamDto {
@@ -26,4 +30,7 @@ export class UpdateTeamDto {
   @IsOptional()
   @IsUrl()
   linkedin?: string;
+
+  @IsOptional()
+  image?: Partial<Image>;
 }

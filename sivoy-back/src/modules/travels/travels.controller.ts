@@ -6,6 +6,7 @@ import {
   Get,
   Optional,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -18,6 +19,7 @@ import { Review } from 'src/entities/review.entity';
 import {
   CreateReviewDto,
   CreateTravelDto,
+  UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
 import { RolesGuard } from 'src/guards/roles.guard';
@@ -80,6 +82,13 @@ export class TravelsController {
     return this.travelsService.deleteTravel(id);
   }
 
+  @Patch(':id')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  restoreTravel(@Param('id') id: string) {
+    return this.travelsService.restoreTravel(id);
+  }
+
   @Get('/:id/reviews')
   getReviewsByTravel(@Param('id') id: string) {
     return this.travelsService.getReviewsByTravel(id);
@@ -97,7 +106,7 @@ export class TravelsController {
   @UseGuards(ReadGuard)
   updateReview(
     @Param('id') id: string,
-    @Body() review: UpdateTravelDto,
+    @Body() review: UpdateReviewDto,
     @Req() req: Request,
   ) {
     if (!req.user) {

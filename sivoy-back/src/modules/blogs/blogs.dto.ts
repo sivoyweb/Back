@@ -36,3 +36,4 @@ export class UpdateBlogDto {
   @ArrayMinSize(1)
   images?: Partial<Image[]>;
 }
+

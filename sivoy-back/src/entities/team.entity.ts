@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Image } from './images.entity';
 
 @Entity('team')
 export class Team {
@@ -13,8 +14,13 @@ export class Team {
   description: string;
 
   @Column({ nullable: true })
-  linkedin: string;
+  linkedin: string; 
 
   @Column({ default: true })
   visible: boolean;
+
+  @OneToOne(() => Image, { cascade: true }) 
+  @JoinColumn() 
+  image: Image;
 }
+

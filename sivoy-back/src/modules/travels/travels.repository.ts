@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 import {
   CreateReviewDto,
   CreateTravelDto,
+  UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
 import { User } from 'src/entities/user.entity';
@@ -114,6 +115,16 @@ export class TravelsRepository {
     return travel;
   }
 
+  async restoreTravel(id: string) {
+    const travel = await this.travelsRepository.findOneBy({ id });
+    if (!travel) throw new NotFoundException(`travel whit ${id} not found`);
+    if (travel.available === true)
+      throw new BadRequestException('This travel is already available');
+    travel.available = true;
+    await this.travelsRepository.save(travel);
+    return travel;
+  }
+  
   async getReviewsByTravel(id: string) {
     const travel = await this.travelsRepository.findOne({
       where: { id },
@@ -137,7 +148,7 @@ export class TravelsRepository {
         user: { id: userId },
       },
     });
-    if (existingReview) {
+    if (existingReview && existingReview.visible === true) {
       throw new BadRequestException(
         'You have already created a review for this travel.',
       );
@@ -182,10 +193,12 @@ export class TravelsRepository {
     }
   }
 
-  async updateReview(id: string, review: UpdateTravelDto, userId: string) {
+  async updateReview(id: string, review: UpdateReviewDto, userId: string) {
     const updateReview = await this.reviewsRepository.findOne({
       where: { id },
-      relations: { user: true },
+      relations: { user: true,
+        travel: true,
+       },
     });
     if (!updateReview)
       throw new NotFoundException(`Review whit ${id} not found`);
