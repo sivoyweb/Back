@@ -18,6 +18,7 @@ import { TeamModule } from './modules/team/team.module';
 import { FaqModule } from './modules/faq/faq.module';
 import { ImagesModule } from './modules/images/images.module';
 import { AlliancesModule } from './modules/alliances/alliances.module';
+import { ProjectsModule } from './modules/projects/projects.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AlliancesModule } from './modules/alliances/alliances.module';
       signOptions: { expiresIn: '1h' },
       secret: JWT_SECRET,
     }),
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
