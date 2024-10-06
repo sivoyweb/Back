@@ -17,6 +17,10 @@ import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
 import { CreateSuggestionDto } from './suggestions.dto';
 import { ApprovalState } from 'src/helpers/ApprovalState.enum';
+import { TokenGuard } from 'src/guards/token.guard';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags(`Suggestions`)
 @Controller('suggestions')
@@ -24,11 +28,15 @@ export class SuggestionsController {
   constructor(private readonly suggestionsService: SuggestionsService) {}
 
   @Get('pending')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   getPendingSuggestions(): Promise<Suggestion[]> {
     return this.suggestionsService.getPendingSuggestions();
   }
 
   @Get(':id')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   getSuggestionById(@Param('id') id: string) {
     return this.suggestionsService.getSuggestionById(id);
   }
@@ -52,11 +60,15 @@ export class SuggestionsController {
   }
 
   @Patch(':id/approve')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   async approveSuggestion(@Param('id') id: string) {
     return await this.suggestionsService.updateApprovalState(id, ApprovalState.APPROVED);
   }
 
   @Patch(':id/reject')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   async rejectSuggestion(@Param('id') id: string) {
     return await this.suggestionsService.updateApprovalState(id, ApprovalState.REJECTED);
   }
