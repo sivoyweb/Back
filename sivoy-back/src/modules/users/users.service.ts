@@ -5,10 +5,7 @@ import { DisabilitiesRepository } from '../disabilities/disabilities.repository'
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private readonly usersRepository: UsersRepository,
-    private readonly disabilitiesRepository: DisabilitiesRepository,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async getAllUsers() {
     try {
@@ -51,36 +48,6 @@ export class UsersService {
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
-    if (user.disabilities) {
-      const actualDisabilities =
-        await this.disabilitiesRepository.getDisabilities();
-
-      const processedDisabilities = await Promise.all(
-        user.disabilities?.map(async (disability) => {
-          const exist = actualDisabilities.some(
-            (actualDisability) => disability.name === actualDisability.name,
-          );
-
-          if (!exist) {
-            try {
-              const result =
-                await this.disabilitiesRepository.addDisability(disability);
-              return result;
-            } catch (err) {
-              throw new HttpException(
-                `Internal server error creating disability on update user: ${err.message}`,
-                500,
-              );
-            }
-          } else {
-            return disability;
-          }
-        }) || [],
-      );
-
-      user.disabilities = processedDisabilities;
-    }
-
     return await this.usersRepository.updateUser(id, { ...user });
   }
 

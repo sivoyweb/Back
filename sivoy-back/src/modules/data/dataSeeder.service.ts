@@ -35,14 +35,12 @@ export class DataSeederService implements OnModuleInit {
         const exists = await this.disabilityRepository.findOne({
           where: {
             name: disabilityName,
-            category: category.category,
           },
         });
 
         if (!exists) {
           const newDisability = this.disabilityRepository.create({
             name: disabilityName,
-            category: category.category,
           });
           await this.disabilityRepository.save(newDisability);
         }

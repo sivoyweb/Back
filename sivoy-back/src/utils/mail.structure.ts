@@ -184,7 +184,9 @@ export const getStructureForHelp = (
         </div>
       </body>
     </html>
-=======
+  `;
+};
+
 export const donationConfirmationEmail = (name: string, amount: number) => {
   return `
     <h1>¡Gracias, ${name}!</h1>

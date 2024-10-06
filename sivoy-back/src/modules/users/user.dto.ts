@@ -1,5 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 import {
+  IsArray,
   IsBoolean,
   IsEmail,
   IsNotEmpty,
@@ -60,7 +61,9 @@ export class UpdateUserDto {
   isRepresentative: boolean;
 
   @IsOptional()
-  disabilities?: Disability[];
+  @IsArray()
+  @IsString({ each: true }) // Cada valor del array debe ser una cadena de texto
+  disabilities?: string[]; // Nombres de las discapacidades
 
   @IsOptional()
   credential: Credential;
