@@ -10,9 +10,6 @@ export class Disability {
   @Column({ type: 'varchar', length: 100, unique: true })
   name: string;
 
-  @Column()
-  category: string;
-
   @Column({ default: true })
   active: boolean;
 

@@ -56,6 +56,7 @@ export class UsersRepository {
   }
 
   async updateUser(id: string, user: UpdateUserDto) {
+    // Buscar el usuario por ID con relaciones
     const userFound = await this.usersRepository.findOne({
       where: { id },
       relations: ['disabilities', 'credential'],
@@ -67,6 +68,7 @@ export class UsersRepository {
 
     const { credential } = userFound;
 
+    // Lógica de actualización del avatar
     if (user.credential?.avatar) {
       const existingAvatar = await this.imagesRepository.findOne({
         where: { publicId: user.credential.avatar.publicId },
@@ -80,26 +82,37 @@ export class UsersRepository {
       }
     }
 
+    // Actualizar campos del usuario con los datos del DTO
     Object.assign(userFound, user);
 
-    if (user.disabilities) {
-      userFound.disabilities = await Promise.all(
-        user.disabilities.map(async (disability) => {
+    // Lógica de actualización de discapacidades
+    if (user.disabilities && user.disabilities.length > 0) {
+      const updatedDisabilities = await Promise.all(
+        user.disabilities.map(async (disabilityName) => {
           const existingDisability = await this.disabilitiesRepository.findOne({
-            where: { name: disability.name },
+            where: { name: disabilityName }, // Buscar discapacidad por nombre
           });
 
           if (existingDisability) {
-            return existingDisability;
+            return existingDisability; // Retornar si ya existe
           } else {
-            return this.disabilitiesRepository.create(disability);
+            const newDisability = this.disabilitiesRepository.create({
+              name: disabilityName,
+            });
+            return await this.disabilitiesRepository.save(newDisability); // Crear si no existe
           }
         }),
       );
+
+      // Asignar las discapacidades actualizadas al usuario encontrado
+      userFound.disabilities = updatedDisabilities;
     }
 
+    // Actualizar credencial si ha sido modificada
     await this.credentialsRepository.update(credential.id, credential);
     userFound.credential = credential;
+
+    // Guardar los cambios en el usuario
     await this.usersRepository.save(userFound);
 
     return 'User Updated';
