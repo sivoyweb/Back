@@ -9,48 +9,7 @@ export class DonationsService {
 
   // Método para crear una donación
   async makeDonation(preferenceData: PreferenceData): Promise<any> {
-    try {
-      // Llama al repositorio para crear la donación sin manejar la cantidad
-      const response =
-        await this.donationsRepository.makeDonation(preferenceData);
-
-      // Log para verificar el response completo
-      console.log('Mercado Pago Response:', response);
-
-      // Obtén el init_point de la respuesta
-      const initPoint = response.sandbox_init_point || response.init_point;
-
-      if (!initPoint) {
-        throw new HttpException(
-          {
-            status: 500,
-            error: 'Error creating donation: No payment URL found',
-          },
-          500,
-        );
-      }
-      // Log del initPoint y el preference_id
-      console.log('Payment URL:', initPoint);
-      console.log('Preference ID:', response.id);
-
-      // Retorna el resultado de la creación de la preferencia de pago
-      return {
-        status: 'success',
-        payment_url: initPoint, // Usa el initPoint en lugar de response.body.sandbox_init_point
-        preference_id: response.id, // Usa response.id directamente
-      };
-    } catch (error) {
-      // Log del error capturado
-      console.error('Error during makeDonation:', error.message);
-      // Manejo de errores si la creación de la donación falla
-      throw new HttpException(
-        {
-          status: 500,
-          error: `Error creating donation: ${error.message}`,
-        },
-        500,
-      );
-    }
+    return this.donationsRepository.makeDonation(preferenceData);
   }
 
   // Obtener todas las donaciones

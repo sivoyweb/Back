@@ -22,4 +22,7 @@ export class Donation {
 
   @Column({ type: 'varchar', nullable: true })
   status: DonationStatus;
+
+  @Column({ type: 'json', nullable: false })
+  payer: { name: string; email: string };
 }

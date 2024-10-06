@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { DonationsService } from './donations.service';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
-import { CreateDonationDto } from './donations.dto';
+import { CreateDonationDto, PaymentNotificationDto } from './donations.dto';
 import { Donation } from 'src/entities/donation.entity';
 
 @ApiTags('Donations')
@@ -45,14 +45,15 @@ export class DonationsController {
     return await this.donationsService.getDonationsByUser(userId);
   }
 
-  @Put('webhook')
+  @Post('webhook')
   @ApiResponse({
     status: 200,
     description: 'Payment notification processed successfully.',
   })
   async handlePaymentWebhook(
-    @Body() payload: any,
+    @Body() payload: PaymentNotificationDto,
   ): Promise<{ message: string }> {
+    console.log('Received payment webhook:', payload);
     return await this.donationsService.processPaymentNotification(payload);
   }
 }

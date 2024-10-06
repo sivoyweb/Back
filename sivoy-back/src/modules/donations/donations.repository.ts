@@ -29,8 +29,6 @@ export class DonationsRepository {
 
   async createDonation(preferenceData: PreferenceData) {
     try {
-      console.log('preferenceData received:', preferenceData);
-
       // Configuración de la preferencia de MercadoPago
       const preference = new Preference(this.client);
 
@@ -43,14 +41,14 @@ export class DonationsRepository {
           items: [
             {
               id: uuidv4(),
-              title: 'Donación para Si, voy',
-              unit_price: preferenceData.unit_price,
-              quantity: 1,
+              title: 'Donación para Si, voy', // Título fijo
+              unit_price: preferenceData.unit_price, // Se usa el unit_price del body
+              quantity: 1, // Cantidad fija
             },
           ],
           payer: {
-            email: preferenceData.email, // Se usa el email proporcionado por el usuario
-            name: preferenceData.name, // Se usa el nombre proporcionado por el usuario
+            email: preferenceData.email, // Capturado del body
+            name: preferenceData.name, // Capturado del body
           },
           back_urls: {
             success: 'https://front-eta-teal.vercel.app',
@@ -61,9 +59,7 @@ export class DonationsRepository {
         },
       });
 
-      console.log('MercadoPago Response:', response);
-
-      const initPoint = response.sandbox_init_point || response.init_point;
+      const initPoint = response.sandbox_init_point || null;
 
       if (!initPoint) {
         throw new HttpException(
@@ -77,24 +73,35 @@ export class DonationsRepository {
 
       // Guardar la donación en la base de datos
       const donation = this.donationRepository.create({
-        amount: preferenceData.unit_price,
+        amount: preferenceData.unit_price, // Guardar el unit_price en amount
         date: new Date(),
         description: preferenceData.description,
+        payer: {
+          email: preferenceData.email,
+          name: preferenceData.name,
+        }, // Asegúrate de que el modelo Donation tenga estos campos
         status: DonationStatus.PENDING,
       });
 
       await this.donationRepository.save(donation);
 
-      const emailSubject = 'Gracias por tu donación';
+      // Construir la respuesta personalizada
+      const customResponse = {
+        id: response.id,
+        init_point: initPoint,
+        payer: {
+          email: preferenceData.email,
+          name: preferenceData.name,
+        },
+        items: [
+          {
+            title: 'Donación para Sí, voy',
+            unit_price: preferenceData.unit_price,
+          },
+        ],
+      };
 
-      const emailHtml = donationConfirmationEmail(
-        preferenceData.name,
-        preferenceData.unit_price,
-      );
-
-      await sendEmailService(preferenceData.email, emailSubject, emailHtml);
-
-      return response;
+      return customResponse; // Devuelve la respuesta personalizada
     } catch (error) {
       console.error('Error during createDonation:', error);
       throw new HttpException(
@@ -175,6 +182,16 @@ export class DonationsRepository {
 
       donation.status = status;
       await this.donationRepository.save(donation);
+
+      // Enviar correo solo si la donación es exitosa
+      if (status === DonationStatus.COMPLETED) {
+        const emailSubject = 'Gracias por tu donación';
+        const emailHtml = donationConfirmationEmail(
+          donation.payer.name,
+          donation.amount,
+        );
+        await sendEmailService(donation.payer.email, emailSubject, emailHtml);
+      }
     } catch (error) {
       throw new HttpException(
         {
