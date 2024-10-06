@@ -125,11 +125,15 @@ export class TravelsController {
     return this.travelsService.deleteReview(id, userId, userRole);
   }
   @Patch(':id/approve')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   async approveReview(@Param('id') id: string) {
     return await this.travelsService.updateApprovalState(id, ApprovalState.APPROVED);
   }
 
   @Patch(':id/reject')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   async rejectReview(@Param('id') id: string) {
     return await this.travelsService.updateApprovalState(id, ApprovalState.REJECTED);
   }
