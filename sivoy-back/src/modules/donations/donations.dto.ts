@@ -16,3 +16,11 @@ export class CreateDonationDto {
   @IsString({ message: 'La descripción debe ser una cadena' })
   description?: string;
 }
+
+export class PaymentNotificationDto {
+  @IsString()
+  id: string;
+
+  @IsString()
+  status: string;
+}
