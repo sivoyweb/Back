@@ -22,7 +22,7 @@ import { Faq } from 'src/entities/faq.entity';
 import { Team } from 'src/entities/team.entity';
 import { Alliance } from 'src/entities/alliances.entity';
 
-const typeORMconfig = {
+export const typeORMconfig = {
   type: 'postgres',
   host: DB_HOST,
   port: parseInt(DB_PORT),
@@ -43,7 +43,7 @@ const typeORMconfig = {
     Blog,
     Faq,
     Team,
-    Alliance
+    Alliance,
   ],
   synchronize: true,
   logging: ['query', 'error'],

@@ -45,6 +45,6 @@ export class Image {
   @ManyToOne(() => Promotion, (promotion) => promotion.images)
   promotion: Promotion;
 
-  @OneToOne(() => Team, team => team.image)  
+  @OneToOne(() => Team, (team) => team.image)
   team: Team;
 }

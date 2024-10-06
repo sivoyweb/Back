@@ -124,7 +124,7 @@ export class TravelsRepository {
     await this.travelsRepository.save(travel);
     return travel;
   }
-  
+
   async getReviewsByTravel(id: string) {
     const travel = await this.travelsRepository.findOne({
       where: { id },
@@ -148,13 +148,15 @@ export class TravelsRepository {
         user: { id: userId },
       },
     });
-    const visibleReview = existingReview.find(review => review.visible === true);
-
-  if (visibleReview) {
-    throw new BadRequestException(
-      'You have already created a visible review for this travel.'
+    const visibleReview = existingReview.find(
+      (review) => review.visible === true,
     );
-  }
+
+    if (visibleReview) {
+      throw new BadRequestException(
+        'You have already created a visible review for this travel.',
+      );
+    }
     const review = this.reviewsRepository.create(Review);
     const travel = await this.travelsRepository.findOne({
       where: { id: Review.travelId },
@@ -198,9 +200,7 @@ export class TravelsRepository {
   async updateReview(id: string, review: UpdateReviewDto, userId: string) {
     const updateReview = await this.reviewsRepository.findOne({
       where: { id },
-      relations: { user: true,
-        travel: true,
-       },
+      relations: { user: true, travel: true },
     });
     if (!updateReview)
       throw new NotFoundException(`Review whit ${id} not found`);

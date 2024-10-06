@@ -1,7 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateProjectDto {
-
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
@@ -13,14 +12,13 @@ export class CreateProjectDto {
   description: string;
 }
 export class UpdateProjectDto {
-    
-    @IsOptional()
-    @IsString()
-    @MaxLength(255)
-    name?: string;
-  
-    @IsOptional()
-    @IsString()
-    @MaxLength(255)
-    description?: string;
-  }
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  description?: string;
+}

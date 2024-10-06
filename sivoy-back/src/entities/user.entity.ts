@@ -35,7 +35,7 @@ export class User {
   @Column({ nullable: true })
   phone: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', default: new Date() })
   createdAt: Date;
 
   @Column({ type: 'boolean', default: false })
