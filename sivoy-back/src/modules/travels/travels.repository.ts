@@ -220,15 +220,13 @@ export class TravelsRepository {
     if (!updateReview)
       throw new NotFoundException(`Review whit ${id} not found`);
     if (updateReview.user.id !== userId) {
-      throw new ForbiddenException(
-        'You do not have permission to update this review',
-      );
+      throw new ForbiddenException('You do not have permission to update this review');
     }
+    updateReview.state = ApprovalState.PENDING; 
     Object.assign(updateReview, review);
     await this.reviewsRepository.save(updateReview);
-    if (updateReview.state === ApprovalState.APPROVED) {
-      await this.updateTravelAverageStars(updateReview.travel.id);
-    }
+    await this.updateTravelAverageStars(updateReview.travel.id);
+  
     return updateReview;
   }
 
