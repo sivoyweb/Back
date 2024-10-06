@@ -30,6 +30,7 @@ import { User } from 'src/entities/user.entity';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @ApiTags(`Travels`)
 @Controller('travels')
@@ -122,5 +123,14 @@ export class TravelsController {
     const userId = req.user.id;
     const userRole = req.user.role;
     return this.travelsService.deleteReview(id, userId, userRole);
+  }
+  @Patch(':id/approve')
+  async approveReview(@Param('id') id: string) {
+    return await this.travelsService.updateApprovalState(id, ApprovalState.APPROVED);
+  }
+
+  @Patch(':id/reject')
+  async rejectReview(@Param('id') id: string) {
+    return await this.travelsService.updateApprovalState(id, ApprovalState.REJECTED);
   }
 }

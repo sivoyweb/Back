@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { SuggestionsRepository } from './suggestions.repository';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { CreateSuggestionDto } from './suggestions.dto';
-import { SuggestionState } from 'src/helpers/suggestionState.enum';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @Injectable()
 export class SuggestionsService {
@@ -24,10 +24,10 @@ export class SuggestionsService {
     return this.SuggestionsRepository.updateSuggestion(id, suggestion);
   }
 
-  updateSuggestionState(id: string, suggestionState: SuggestionState) {
-    return this.SuggestionsRepository.updateSuggestionState(
+  updateApprovalState(id: string, ApprovalState: ApprovalState) {
+    return this.SuggestionsRepository.updateApprovalState(
       id,
-      suggestionState,
+      ApprovalState,
     );
   }
 }
