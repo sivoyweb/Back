@@ -6,7 +6,7 @@ import { DonationStatus } from 'src/helpers/roles.enum.';
 @Entity('donations')
 export class Donation {
   @PrimaryGeneratedColumn('uuid')
-  id: string = uuid();
+  id: string;
 
   @ManyToOne(() => User, (user) => user.donations)
   user: User;
@@ -23,6 +23,6 @@ export class Donation {
   @Column({ type: 'varchar', nullable: true })
   status: DonationStatus;
 
-  @Column({ type: 'json', nullable: false })
+  @Column({ type: 'json', nullable: true })
   payer: { name: string; email: string };
 }

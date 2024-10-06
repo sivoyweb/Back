@@ -9,6 +9,7 @@ import { DonationStatus } from 'src/helpers/roles.enum.';
 import { PreferenceData } from 'src/utils/interface.donations';
 import sendEmailService from 'src/helpers/email.service';
 import { donationConfirmationEmail } from 'src/utils/mail.structure';
+import { response } from 'express';
 
 const { MP_ACCESS_TOKEN } = process.env;
 
@@ -29,14 +30,17 @@ export class DonationsRepository {
 
   async createDonation(preferenceData: PreferenceData) {
     try {
+      console.log('Datos de donación recibidos:', preferenceData);
       // Configuración de la preferencia de MercadoPago
       const preference = new Preference(this.client);
+      console.log('Donación a guardar:', preference);
 
       const response = await preference.create({
         body: {
           payment_methods: {
+            installments: 1, // Define la cantidad de cuotas si es necesario
             excluded_payment_methods: [],
-            installments: 1,
+            excluded_payment_types: [{ id: 'ticket' }],
           },
           items: [
             {
@@ -58,8 +62,8 @@ export class DonationsRepository {
           auto_return: 'approved',
         },
       });
-
-      const initPoint = response.sandbox_init_point || null;
+      console.log(response);
+      const initPoint = response.sandbox_init_point;
 
       if (!initPoint) {
         throw new HttpException(
