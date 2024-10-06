@@ -142,17 +142,19 @@ export class TravelsRepository {
   }
 
   async createReview(Review: CreateReviewDto, userId) {
-    const existingReview = await this.reviewsRepository.findOne({
+    const existingReview = await this.reviewsRepository.find({
       where: {
         travel: { id: Review.travelId },
         user: { id: userId },
       },
     });
-    if (existingReview && existingReview.visible === true) {
-      throw new BadRequestException(
-        'You have already created a review for this travel.',
-      );
-    }
+    const visibleReview = existingReview.find(review => review.visible === true);
+
+  if (visibleReview) {
+    throw new BadRequestException(
+      'You have already created a visible review for this travel.'
+    );
+  }
     const review = this.reviewsRepository.create(Review);
     const travel = await this.travelsRepository.findOne({
       where: { id: Review.travelId },
