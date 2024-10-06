@@ -21,6 +21,7 @@ import { Blog } from 'src/entities/blogs.entity';
 import { Faq } from 'src/entities/faq.entity';
 import { Team } from 'src/entities/team.entity';
 import { Alliance } from 'src/entities/alliances.entity';
+import { Project } from 'src/entities/projects.entity';
 
 const typeORMconfig = {
   type: 'postgres',
@@ -43,7 +44,8 @@ const typeORMconfig = {
     Blog,
     Faq,
     Team,
-    Alliance
+    Alliance,
+    Project,
   ],
   synchronize: true,
   logging: ['query', 'error'],
