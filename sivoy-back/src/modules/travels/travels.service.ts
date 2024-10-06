@@ -8,6 +8,7 @@ import {
   UpdateReviewDto,
   UpdateTravelDto,
 } from './travels.dto';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @Injectable()
 export class TravelsService {
@@ -55,5 +56,9 @@ export class TravelsService {
 
   deleteReview(id: string, userId: string, userRole: string) {
     return this.travelsRepository.deleteReview(id, userId, userRole);
+  }
+
+  updateApprovalState(id: string, ApprovalState: ApprovalState) {
+    return this.travelsRepository.updateApprovalState(id, ApprovalState);
   }
 }
