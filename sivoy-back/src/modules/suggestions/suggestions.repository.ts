@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Suggestion } from 'src/entities/suggestion.entity';
-import { SuggestionState } from 'src/helpers/suggestionState.enum';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 import { Repository } from 'typeorm';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { Travel } from 'src/entities/travel.entity';
@@ -22,7 +22,7 @@ export class SuggestionsRepository {
 
   async getPendingSuggestions() {
     return this.SuggestionsRepository.find({
-      where: { state: SuggestionState.PENDING },
+      where: { state: ApprovalState.PENDING },
     });
   }
 
@@ -52,7 +52,7 @@ export class SuggestionsRepository {
     });
     if (
       existingSuggestion &&
-      existingSuggestion.state === SuggestionState.PENDING
+      existingSuggestion.state === ApprovalState.PENDING
     ) {
       throw new BadRequestException(
         `A suggestion with the name '${suggestion.name}' already exists and is pending.`,
@@ -76,20 +76,20 @@ export class SuggestionsRepository {
     return suggestion;
   }
 
-  async updateSuggestionState(id: string, suggestionState: SuggestionState) {
+  async updateApprovalState(id: string, ApprovalState: ApprovalState) {
     const suggestion = await this.SuggestionsRepository.findOne({
       where: { id },
     });
     if (!suggestion) {
       throw new NotFoundException(`Suggestion with ID ${id} not found`);
     }
-    suggestion.state = suggestionState;
+    suggestion.state = ApprovalState;
     await this.SuggestionsRepository.save(suggestion);
 
     // const email = suggestion.user.credential.email;
-    // if (suggestionState === SuggestionState.APPROVED) {
+    // if (ApprovalState === ApprovalState.APPROVED) {
     // // enviar mail aprobado
-    // } else if (suggestionState === SuggestionState.REJECTED) {
+    // } else if (ApprovalState === ApprovalState.REJECTED) {
     // // enviar mail rechazado
     // }
     return suggestion;
