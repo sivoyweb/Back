@@ -22,6 +22,8 @@ import { AlliancesModule } from '../alliances/alliances.module';
 import { TeamModule } from '../team/team.module';
 import { ProvidersModule } from '../providers/providers.module';
 import { FaqModule } from '../faq/faq.module';
+import { DonationsModule } from '../donations/donations.module';
+import { Donation } from 'src/entities/donation.entity';
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { FaqModule } from '../faq/faq.module';
       Provider,
       Promotion,
       Faq,
+      Donation,
     ]),
     UsersModule,
     DisabilitiesModule,
@@ -49,6 +52,7 @@ import { FaqModule } from '../faq/faq.module';
     ProvidersModule,
     PromotionsModule,
     FaqModule,
+    DonationsModule,
   ],
   controllers: [DataController],
   providers: [DataSeederService],
