@@ -66,6 +66,7 @@ export class UsersService {
     if (!userId) {
       throw new HttpException({ status: 404, error: 'user not found' }, 404);
     }
+    console.log(userId);
 
     return await this.usersRepository.makeAdmin(userId as string);
   }

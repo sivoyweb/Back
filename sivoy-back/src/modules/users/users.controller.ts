@@ -34,6 +34,14 @@ export class UsersController {
   }
 
   @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Put('/make-admin')
+  async makeAdmin(@Body() userData: EmailDto) {
+    const response = await this.userService.makeAdmin(userData.email);
+    return response;
+  }
+
+  @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Put(':id')
   async updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
@@ -46,15 +54,6 @@ export class UsersController {
   async deleteUser(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
   }
-
-  @UseGuards(TokenGuard, RolesGuard)
-  @Roles(Role.Admin)
-  @Put('/make-admin')
-  async makeAdmin(@Body() userData: EmailDto) {
-    const response = await this.userService.makeAdmin(userData.email);
-    return response;
-  }
-
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put('block/:id')
