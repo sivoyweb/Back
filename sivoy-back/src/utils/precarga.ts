@@ -54,8 +54,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Gastronomy,
 
-    accesibilitySeal:
-      'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación',
     images: [
       {
         url: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/88/74/17/cervezas-en-costa-del.jpg?w=1200&h=-1&s=1',
@@ -87,8 +85,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Gastronomy,
 
-    accesibilitySeal:
-      'Ingreso accesible o asistido, Circuito interior accesible, Baño adaptado en zona común, Menú Braille',
     images: [
       {
         url: 'https://www.anura.com.ar/wp-content/uploads/2017/06/foto-almacen1.jpg',
@@ -123,8 +119,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Gastronomy,
 
-    accesibilitySeal:
-      'Establecimiento turístico accesible. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuItI69sNh7X9LL-mHr1Dz0QsH0WDWNp-vrg&s',
@@ -157,8 +151,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Gastronomy,
 
-    accesibilitySeal:
-      'Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
     images: [
       {
         url: 'https://restorantes.com.ar/wp-content/uploads/2024/07/unnamed.jpg',
@@ -191,7 +183,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.BeachResort,
 
-    accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj3kl_px-iL1ePrchY5_Hicvaep7go3XW-Tg&s',
@@ -224,7 +215,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.BeachResort,
 
-    accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
       {
         url: 'https://lh3.googleusercontent.com/proxy/xCczP_N9_lZbRu-aViM3qdkzBuL37S9E67LqUPGJDobbZGGVvAZp_UtF2yrdjfhJ1pDQ130PlVVHZhyrtCRAzBG2OVRflVCb9ksH0WMhV7MI9CW6rQ',
@@ -257,7 +247,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.BeachResort,
 
-    accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtF7DVHrIzfrKwBlVU_nbJQv9R0GidUyaJ1Q&s',
@@ -290,7 +279,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Accommodation,
 
-    accesibilitySeal: 'Ingreso accesible o asistido (80 cm o más, rampas)',
     images: [
       {
         url: 'https://www.alamosdelmar.com.ar/imagenes/hotel.jpg',
@@ -323,7 +311,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Accommodation,
 
-    accesibilitySeal: 'Ingreso accesible o asistido',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2NEJIxTkiRq2ffjPwloQyifepD0kCiWNEJg&s',
@@ -356,7 +343,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Accommodation,
 
-    accesibilitySeal: 'Habitación y baño accesible',
     images: [
       {
         url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/230765397.jpg?k=33ead257f0362ae2cd200e870dcde6d7154269b5fa7f3f21970f46d2bdfdcde9&o=&hp=1',
@@ -388,7 +374,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.Accommodation,
 
-    accesibilitySeal: 'Ingreso y habitación accesible',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPlgSXBLAxjA7STzMI9XWaLx9uMFUyDVfX8w&s',
@@ -420,7 +405,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.BeachResort,
 
-    accesibilitySeal: 'Accesible para personas con movilidad reducida',
     images: [
       {
         url: 'https://www.autoclub.org.ar/wp-content/uploads/2021/12/punta-mogotes-06.jpg',

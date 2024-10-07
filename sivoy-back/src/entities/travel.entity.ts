@@ -40,8 +40,9 @@ export class Travel {
   })
   serviceType: ServiceType;
 
-  @Column({ type: 'varchar', length: 255 })
-  accesibilitySeal: string;
+  @OneToMany(() => Image, (image) => image.accesibilitySeal)
+  @JoinTable()
+  accesibilitySeal: Image[];
 
   @OneToMany(() => Review, (review) => review.travel)
   reviews: Review[];
