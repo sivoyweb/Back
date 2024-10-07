@@ -7,6 +7,7 @@ import {
   ParseFilePipe,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { DataSeederService } from './dataSeeder.service';
@@ -45,6 +46,10 @@ import { Faq } from 'src/entities/faq.entity';
 import { Provider } from 'src/entities/provider.entity';
 import { DonationsRepository } from '../donations/donations.repository';
 import { Donation } from 'src/entities/donation.entity';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { TokenGuard } from 'src/guards/token.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -66,6 +71,8 @@ export class DataController {
   ) {}
 
   @Post('/import/:entity')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @UseInterceptors(FileInterceptor('file'))
   async importData(
     @UploadedFile(
@@ -178,6 +185,8 @@ export class DataController {
     }
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Get('/export/:entity')
   async exportData(@Param('entity') entity: string) {
     try {
