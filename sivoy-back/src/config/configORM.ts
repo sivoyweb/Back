@@ -23,7 +23,7 @@ import { Team } from 'src/entities/team.entity';
 import { Alliance } from 'src/entities/alliances.entity';
 import { Project } from 'src/entities/projects.entity';
 
-const typeORMconfig = {
+export const typeORMconfig = {
   type: 'postgres',
   host: DB_HOST,
   port: parseInt(DB_PORT),

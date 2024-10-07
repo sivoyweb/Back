@@ -4,29 +4,29 @@ import { CreateAllianceDto, UpdateAllianceDto } from './alliances.dto';
 
 @Injectable()
 export class AlliancesService {
-    constructor(private readonly alliancesRepository: AlliancesRepository) {}
-    
-    getAllAlliances() {
-        return this.alliancesRepository.getAllAlliances();
-    }
+  constructor(private readonly alliancesRepository: AlliancesRepository) {}
 
-    getAllianceById(id: string) {
-        return this.alliancesRepository.getAllianceById(id);
-    }
+  getAllAlliances() {
+    return this.alliancesRepository.getAllAlliances();
+  }
 
-    createAlliance(alliance: CreateAllianceDto) {
-        return this.alliancesRepository.createAlliance(alliance);
-    }
+  getAllianceById(id: string) {
+    return this.alliancesRepository.getAllianceById(id);
+  }
 
-    updateAlliance(id: string, alliance: UpdateAllianceDto) {
-        return this.alliancesRepository.updateAlliance(id, alliance);
-    }
+  createAlliance(alliance: CreateAllianceDto) {
+    return this.alliancesRepository.createAlliance(alliance);
+  }
 
-    deleteAlliance(id: string) {
-        return this.alliancesRepository.deleteAlliance(id);
-    }
-    
-    restoreAlliance(id: string) {
-        return this.alliancesRepository.restoreAlliance(id);
-    }
+  updateAlliance(id: string, alliance: UpdateAllianceDto) {
+    return this.alliancesRepository.updateAlliance(id, alliance);
+  }
+
+  deleteAlliance(id: string) {
+    return this.alliancesRepository.deleteAlliance(id);
+  }
+
+  restoreAlliance(id: string) {
+    return this.alliancesRepository.restoreAlliance(id);
+  }
 }

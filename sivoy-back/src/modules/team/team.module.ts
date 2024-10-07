@@ -11,5 +11,6 @@ import { Image } from 'src/entities/images.entity';
   imports: [TypeOrmModule.forFeature([Team, Image]), UsersModule],
   controllers: [TeamController],
   providers: [TeamService, TeamRepository],
+  exports: [TeamRepository],
 })
 export class TeamModule {}

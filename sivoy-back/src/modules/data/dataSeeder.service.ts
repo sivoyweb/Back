@@ -4,12 +4,14 @@ import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
 import { Promotion } from 'src/entities/promotion.entity';
 import { Travel } from 'src/entities/travel.entity';
+import { User } from 'src/entities/user.entity';
 import {
   categorizedDisabilities,
   promotionsMock,
   travelsMock,
 } from 'src/utils/precarga';
 import { Repository } from 'typeorm';
+import * as XLSX from 'xlsx';
 
 @Injectable()
 export class DataSeederService implements OnModuleInit {

@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Optional, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Optional,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
@@ -12,8 +23,8 @@ import { Role } from 'src/helpers/roles.enum.';
 @ApiTags('Projects')
 @Controller('projects')
 export class ProjectsController {
-    constructor(private readonly projectsService: ProjectsService) {}
-    
+  constructor(private readonly projectsService: ProjectsService) {}
+
   @Get()
   getProjects() {
     return this.projectsService.getProjects();

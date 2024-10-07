@@ -19,7 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true,
     "typeRoots": ["./node_modules/@types", "./@types"],
-    "types": ["node", "express"] // Si estás utilizando otros tipos como Node.js, inclúyelos aquí
-    
+    "types": ["node", "express", "multer"],
   }
 }

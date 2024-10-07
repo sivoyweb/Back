@@ -37,51 +37,57 @@ export class TravelsRepository {
       .leftJoinAndSelect('travel.provider', 'provider')
       .where('travel.available = :available', { available: true })
       .getMany();
-  
+
     // Filtrar reseñas aprobadas o mantener el viaje sin reseñas
-    travels.forEach(travel => {
-      travel.reviews = travel.reviews.filter(review => review.state === ApprovalState.APPROVED);
+    travels.forEach((travel) => {
+      travel.reviews = travel.reviews.filter(
+        (review) => review.state === ApprovalState.APPROVED,
+      );
     });
-  
+
     return travels;
   }
 
   async getAllTravelsAdmin(): Promise<Travel[]> {
     let travels = await this.travelsRepository
-    .createQueryBuilder('travel')
-    .leftJoinAndSelect('travel.reviews', 'review')
-    .leftJoinAndSelect('review.user', 'user')
-    .leftJoinAndSelect('travel.images', 'image')
-    .leftJoinAndSelect('travel.provider', 'provider')
-    .getMany();
-  travels.forEach(travel => {
-    travel.reviews = travel.reviews.filter(review => review.state === ApprovalState.APPROVED);
-  });
+      .createQueryBuilder('travel')
+      .leftJoinAndSelect('travel.reviews', 'review')
+      .leftJoinAndSelect('review.user', 'user')
+      .leftJoinAndSelect('travel.images', 'image')
+      .leftJoinAndSelect('travel.provider', 'provider')
+      .getMany();
+    travels.forEach((travel) => {
+      travel.reviews = travel.reviews.filter(
+        (review) => review.state === ApprovalState.APPROVED,
+      );
+    });
 
-  return travels;
+    return travels;
   }
 
   async getTravelById(id: string, user) {
     const travel = await this.travelsRepository
-    .createQueryBuilder('travel')
-    .leftJoinAndSelect('travel.reviews', 'review')
-    .leftJoinAndSelect('review.user', 'user')
-    .leftJoinAndSelect('travel.images', 'image')
-    .leftJoinAndSelect('travel.provider', 'provider')
-    .where('travel.id = :id', { id })
-    .getOne();
+      .createQueryBuilder('travel')
+      .leftJoinAndSelect('travel.reviews', 'review')
+      .leftJoinAndSelect('review.user', 'user')
+      .leftJoinAndSelect('travel.images', 'image')
+      .leftJoinAndSelect('travel.provider', 'provider')
+      .where('travel.id = :id', { id })
+      .getOne();
 
-  if (!travel) {
-    throw new NotFoundException(`Travel with ID ${id} not found`);
-  }
-  if (!travel.available) {
-    if (user && user.role === Role.Admin) {
-      return travel;
+    if (!travel) {
+      throw new NotFoundException(`Travel with ID ${id} not found`);
     }
-    throw new BadRequestException('This travel is no longer available');
-  }
-  travel.reviews = travel.reviews.filter(review => review.state === ApprovalState.APPROVED);
-  return travel;
+    if (!travel.available) {
+      if (user && user.role === Role.Admin) {
+        return travel;
+      }
+      throw new BadRequestException('This travel is no longer available');
+    }
+    travel.reviews = travel.reviews.filter(
+      (review) => review.state === ApprovalState.APPROVED,
+    );
+    return travel;
   }
 
   async createTravel(travel: CreateTravelDto): Promise<Travel> {
@@ -131,7 +137,7 @@ export class TravelsRepository {
     await this.travelsRepository.save(travel);
     return travel;
   }
-  
+
   async getReviewsByTravel(id: string) {
     const travel = await this.travelsRepository.findOne({
       where: { id },
@@ -155,18 +161,22 @@ export class TravelsRepository {
         user: { id: userId },
       },
     });
-    const approvedReview = existingReviews.find(review => review.state === ApprovalState.APPROVED);
-    const pendingReview = existingReviews.find(review => review.state === ApprovalState.PENDING);
+    const approvedReview = existingReviews.find(
+      (review) => review.state === ApprovalState.APPROVED,
+    );
+    const pendingReview = existingReviews.find(
+      (review) => review.state === ApprovalState.PENDING,
+    );
 
     if (approvedReview) {
       throw new BadRequestException(
-        'You have already created an approved review for this travel.'
+        'You have already created an approved review for this travel.',
       );
     }
-  
+
     if (pendingReview) {
       throw new BadRequestException(
-        'You already have a pending review for this travel.' 
+        'You already have a pending review for this travel.',
       );
     }
     const review = this.reviewsRepository.create(Review);
@@ -190,10 +200,12 @@ export class TravelsRepository {
       where: { id: travelId },
       relations: { reviews: true },
     });
-  
+
     if (travel) {
-      const approvedReviews = travel.reviews.filter((review) => review.state === ApprovalState.APPROVED);
-      
+      const approvedReviews = travel.reviews.filter(
+        (review) => review.state === ApprovalState.APPROVED,
+      );
+
       if (approvedReviews.length > 0) {
         const totalStars = approvedReviews.reduce(
           (sum, review) => sum + review.stars,
@@ -208,25 +220,24 @@ export class TravelsRepository {
       await this.travelsRepository.save(travel);
     }
   }
-  
 
   async updateReview(id: string, review: UpdateReviewDto, userId: string) {
     const updateReview = await this.reviewsRepository.findOne({
       where: { id },
-      relations: { user: true,
-        travel: true,
-       },
+      relations: { user: true, travel: true },
     });
     if (!updateReview)
       throw new NotFoundException(`Review whit ${id} not found`);
     if (updateReview.user.id !== userId) {
-      throw new ForbiddenException('You do not have permission to update this review');
+      throw new ForbiddenException(
+        'You do not have permission to update this review',
+      );
     }
-    updateReview.state = ApprovalState.PENDING; 
+    updateReview.state = ApprovalState.PENDING;
     Object.assign(updateReview, review);
     await this.reviewsRepository.save(updateReview);
     await this.updateTravelAverageStars(updateReview.travel.id);
-  
+
     return updateReview;
   }
 
@@ -244,14 +255,16 @@ export class TravelsRepository {
       );
     }
     if (review.state === ApprovalState.REJECTED) {
-      throw new BadRequestException('This review is already no longer available');
+      throw new BadRequestException(
+        'This review is already no longer available',
+      );
     }
     review.state = ApprovalState.REJECTED;
     await this.reviewsRepository.save(review);
     await this.updateTravelAverageStars(review.travel.id);
     return review;
   }
-  
+
   async updateApprovalState(id: string, newState: ApprovalState) {
     const review = await this.reviewsRepository.findOne({
       where: { id },

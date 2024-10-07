@@ -5,25 +5,25 @@ import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class ProjectsService {
-    constructor(private readonly projectsRepository: ProjectsRepository) {}
- 
-    getProjects() {
-        return this.projectsRepository.getProjects();
-    }
+  constructor(private readonly projectsRepository: ProjectsRepository) {}
 
-    getProjectById(id: string, user: User) {
-        return this.projectsRepository.getProjectById(id, user);
-    }
+  getProjects() {
+    return this.projectsRepository.getProjects();
+  }
 
-    createProject(Project: CreateProjectDto) {
-        return this.projectsRepository.createProject(Project);
-    }
+  getProjectById(id: string, user: User) {
+    return this.projectsRepository.getProjectById(id, user);
+  }
 
-    updateProject(id: string, Project: UpdateProjectDto) {
-        return this.projectsRepository.updateProject(id, Project);
-    }
+  createProject(Project: CreateProjectDto) {
+    return this.projectsRepository.createProject(Project);
+  }
 
-    deleteProject(id: string) {
-        return this.projectsRepository.deleteProject(id);
-    }
+  updateProject(id: string, Project: UpdateProjectDto) {
+    return this.projectsRepository.updateProject(id, Project);
+  }
+
+  deleteProject(id: string) {
+    return this.projectsRepository.deleteProject(id);
+  }
 }
