@@ -60,11 +60,6 @@ export class CreateTravelDto {
   @IsOptional()
   @IsArray()
   @ArrayMinSize(1)
-  reviews: Partial<Review[]>;
-
-  @IsOptional()
-  @IsArray()
-  @ArrayMinSize(1)
   images: Partial<Image[]>;
 
   @IsNotEmpty()
@@ -122,11 +117,6 @@ export class UpdateTravelDto {
   @IsString()
   @MaxLength(255)
   accesibilitySeal?: string;
-
-  @IsOptional()
-  @IsArray()
-  @ArrayMinSize(1)
-  reviews?: Partial<Review[]>;
 
   @IsOptional()
   @IsArray()
