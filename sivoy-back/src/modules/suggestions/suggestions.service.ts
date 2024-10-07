@@ -25,9 +25,6 @@ export class SuggestionsService {
   }
 
   updateApprovalState(id: string, ApprovalState: ApprovalState) {
-    return this.SuggestionsRepository.updateApprovalState(
-      id,
-      ApprovalState,
-    );
+    return this.SuggestionsRepository.updateApprovalState(id, ApprovalState);
   }
 }

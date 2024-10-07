@@ -10,6 +10,7 @@ import { UsersModule } from '../users/users.module';
 @Module({
   imports: [TypeOrmModule.forFeature([Alliance, Image]), UsersModule],
   controllers: [AlliancesController],
-  providers: [AlliancesService, AlliancesRepository]
+  providers: [AlliancesService, AlliancesRepository],
+  exports: [AlliancesRepository],
 })
 export class AlliancesModule {}

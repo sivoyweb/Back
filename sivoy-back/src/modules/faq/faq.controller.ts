@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Optional, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Optional,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { CreateFaqDto, UpdateFaqDto } from './faq.dto';
 import { Request } from 'express';

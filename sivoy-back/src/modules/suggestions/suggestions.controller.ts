@@ -63,13 +63,19 @@ export class SuggestionsController {
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async approveSuggestion(@Param('id') id: string) {
-    return await this.suggestionsService.updateApprovalState(id, ApprovalState.APPROVED);
+    return await this.suggestionsService.updateApprovalState(
+      id,
+      ApprovalState.APPROVED,
+    );
   }
 
   @Patch(':id/reject')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async rejectSuggestion(@Param('id') id: string) {
-    return await this.suggestionsService.updateApprovalState(id, ApprovalState.REJECTED);
+    return await this.suggestionsService.updateApprovalState(
+      id,
+      ApprovalState.REJECTED,
+    );
   }
 }

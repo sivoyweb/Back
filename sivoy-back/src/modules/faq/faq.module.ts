@@ -10,5 +10,6 @@ import { UsersModule } from '../users/users.module';
   imports: [TypeOrmModule.forFeature([Faq]), UsersModule],
   controllers: [FaqController],
   providers: [FaqService, FaqRepository],
+  exports: [FaqRepository],
 })
 export class FaqModule {}
