@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 import { Image } from 'src/entities/images.entity';
 
 export class CreateAllianceDto {
@@ -8,6 +8,11 @@ export class CreateAllianceDto {
 
   @IsNotEmpty()
   image: Image;
+
+  @IsNotEmpty()
+  @IsUrl()
+  url: string;
+
 }
 
 export class UpdateAllianceDto {
@@ -17,4 +22,8 @@ export class UpdateAllianceDto {
 
   @IsOptional()
   image?: Image;
+
+  @IsOptional()
+  @IsUrl()
+  url?: string;
 }

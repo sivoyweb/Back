@@ -1,8 +1,8 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Role } from 'src/helpers/roles.enum.';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { Credential } from 'src/entities/credential.entity';
 import * as bcrypt from 'bcrypt';
@@ -191,5 +191,20 @@ export class UsersRepository {
     }
 
     await this.usersRepository.update(id, { auth: true });
+  }
+
+  async getReviewsByUser(id: string, userId: string, userRole: string) {
+    if (userId !== id && userRole !== Role.Admin) {
+      throw new ForbiddenException('You do not have permission to view these reviews');
+    }
+    const userReviews = await this.usersRepository.findOne({ 
+      where: { id },
+      relations: {
+        reviews: true
+      }  
+    });
+
+    if (!userReviews) throw new NotFoundException(`User with ${id} not found`);
+    return userReviews;
   }
 }
