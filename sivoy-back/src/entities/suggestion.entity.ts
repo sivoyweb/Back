@@ -10,7 +10,7 @@ import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
 import { Image } from './images.entity';
 import { Provider } from './provider.entity';
-import { SuggestionState } from 'src/helpers/suggestionState.enum';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @Entity('suggestions')
 export class Suggestion {
@@ -66,10 +66,6 @@ export class Suggestion {
   @Column({ type: 'varchar', length: 255 })
   openingHours: string;
 
-  @Column({
-    type: 'enum',
-    enum: SuggestionState,
-    default: SuggestionState.PENDING,
-  })
-  state: SuggestionState;
+  @Column({ type: 'enum', enum: ApprovalState, default: ApprovalState.PENDING })
+  state: ApprovalState;
 }

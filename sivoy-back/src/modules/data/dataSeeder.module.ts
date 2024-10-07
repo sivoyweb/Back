@@ -16,7 +16,6 @@ import { Provider } from 'src/entities/provider.entity';
 import { Faq } from 'src/entities/faq.entity';
 import { DisabilitiesModule } from '../disabilities/disabilities.module';
 import { TravelsModule } from '../travels/travels.module';
-import { ImagesModule } from '../images/images.module';
 import { PromotionsModule } from '../promotions/promotions.module';
 import { BlogsModule } from '../blogs/blogs.module';
 import { AlliancesModule } from '../alliances/alliances.module';

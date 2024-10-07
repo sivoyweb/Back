@@ -4,7 +4,7 @@ import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
 import { Promotion } from 'src/entities/promotion.entity';
 import { Travel } from 'src/entities/travel.entity';
-import { getData } from 'src/helpers/get.repositoryData';
+import { User } from 'src/entities/user.entity';
 import {
   categorizedDisabilities,
   promotionsMock,
@@ -116,28 +116,5 @@ export class DataSeederService implements OnModuleInit {
         );
       }
     }
-  }
-
-  async exportToExcel(entityName: string) {
-    const dataFromDb = await getData(entityName);
-
-    // Transforma los datos a un formato que pueda usar xlsx
-    const data = dataFromDb.map((user) => ({
-      ID: user.id,
-      Name: user.name,
-      Email: user.email,
-      Birthdate: user.birthdate,
-    }));
-
-    // Crea una hoja de trabajo de Excel a partir de los datos
-    const worksheet = XLSX.utils.json_to_sheet(data);
-
-    // Crea un libro de trabajo
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Users Data');
-
-    // Escribe el archivo Excel
-    XLSX.writeFile(workbook, 'users_data.xlsx');
-    console.log('Archivo Excel exportado exitosamente.');
   }
 }

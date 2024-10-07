@@ -8,6 +8,7 @@ import {
 import { User } from './user.entity';
 import { Travel } from './travel.entity';
 import { v4 as uuid } from 'uuid';
+import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @Entity('reviews')
 export class Review {
@@ -29,6 +30,6 @@ export class Review {
   @CreateDateColumn({ type: 'date' })
   date: Date;
 
-  @Column({ default: true })
-  visible: boolean;
+  @Column({type: 'enum', enum: ApprovalState, default: ApprovalState.PENDING})
+  state: ApprovalState;
 }

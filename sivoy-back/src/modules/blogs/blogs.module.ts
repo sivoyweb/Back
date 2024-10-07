@@ -11,5 +11,6 @@ import { UsersModule } from '../users/users.module';
   imports: [TypeOrmModule.forFeature([Blog, Image]), UsersModule],
   controllers: [BlogsController],
   providers: [BlogsService, BlogsRepository],
+  exports: [BlogsRepository],
 })
 export class BlogsModule {}
