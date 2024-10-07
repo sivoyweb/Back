@@ -94,6 +94,6 @@ export class AuthController {
       getStructureForHelp(data.email, data.helpType, data.name, data.message),
     );
 
-    return 'email sent';
+    return { message: 'email sent' };
   }
 }
