@@ -2,6 +2,9 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { DonationsRepository } from './donations.repository';
 import { PreferenceData } from 'src/utils/interface.donations'; // Asegúrate de que esta interfaz no tenga 'quantity'
 import { Donation } from 'src/entities/donation.entity';
+import { PaymentNotificationDto } from './donations.dto';
+import { DonationStatus } from 'src/helpers/roles.enum.';
+import { isUUID } from 'class-validator';
 
 @Injectable()
 export class DonationsService {
@@ -28,26 +31,44 @@ export class DonationsService {
   }
 
   // Procesar notificación de pago
-  async processPaymentNotification(payload: any): Promise<{ message: string }> {
+  async processPaymentNotification(
+    payload: PaymentNotificationDto,
+  ): Promise<{ message: string }> {
+    console.log('Received payment webhook:', payload);
+
+    const { id, data } = payload;
+
+    // Usar el ID de data.donationId que hemos renombrado
+    const donationId = data.donationId || id;
+
+    // Verificar si donationId es un UUID válido
+    if (!isUUID(donationId)) {
+      throw new HttpException(`Invalid donation ID: ${donationId}`, 400);
+    }
+
     try {
-      // Validación del payload recibido en el webhook
-      if (!payload || !payload.id || !payload.status) {
-        throw new HttpException({ status: 400, error: 'Invalid payload' }, 400);
+      // Intentar encontrar la donación en la base de datos
+      const donation =
+        await this.donationsRepository.getDonationById(donationId);
+
+      if (!donation) {
+        throw new HttpException('Donation not found', 404);
       }
 
-      const { id, status } = payload;
+      // Procesar la notificación (actualizar estado, etc.)
+      donation.status = DonationStatus.APPROVED; // Ejemplo: actualizar el estado
 
-      // Actualiza el estado de la donación en base al ID de la notificación
-      await this.donationsRepository.updateDonationStatus(id, status);
+      // Actualizar el estado de la donación
+      await this.donationsRepository.updateDonationStatus(
+        donationId,
+        donation.status,
+      );
 
-      return { message: 'Payment status updated successfully' };
+      return { message: 'Payment notification processed successfully' };
     } catch (error) {
-      // Manejo de errores si el proceso de la notificación falla
+      console.error('Error processing payment notification:', error);
       throw new HttpException(
-        {
-          status: 500,
-          error: `Error processing payment notification: ${error.message}`,
-        },
+        'Error processing payment notification: ' + error.message,
         500,
       );
     }
