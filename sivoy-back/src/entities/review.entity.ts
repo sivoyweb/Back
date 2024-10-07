@@ -30,6 +30,6 @@ export class Review {
   @CreateDateColumn({ type: 'date' })
   date: Date;
 
-  @Column({type: 'enum', enum: ApprovalState, default: ApprovalState.PENDING})
+  @Column({ type: 'enum', enum: ApprovalState, default: ApprovalState.PENDING })
   state: ApprovalState;
 }

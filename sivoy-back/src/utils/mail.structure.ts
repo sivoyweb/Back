@@ -10,81 +10,19 @@ export const getStructureForVerification = (verificationToken: string) => {
 };
 
 export const getStructureforWelcome = (verificationToken: string) => {
-  return `<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Correo Electrónico</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-      }
-      .email-container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        font-size: 24px;
-        color: #333333;
-        text-align: center;
-      }
-      p {
-        font-size: 16px;
-        color: #666666;
-        line-height: 1.5;
-        text-align: center;
-      }
-      .btn-container {
-        text-align: center;
-        margin-top: 20px;
-      }
-      .btn {
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 16px;
-        display: inline-block;
-      }
-      .btn:hover {
-        background-color: #0056b3;
-      }
-      footer {
-        margin-top: 30px;
-        text-align: center;
-        font-size: 12px;
-        color: #999999;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="email-container">
-      <!-- Título -->
-      <h1>¡Bienvenido a nuestra plataforma!</h1>
-      <!-- Descripción -->
-      <p>
-        Gracias por unirte a nosotros. Estamos emocionados de tenerte a bordo.
-        Haz clic en el botón a continuación para comenzar tu experiencia.
-      </p>
-      <!-- Botón -->
-      <div class="btn-container">
-        <a href="https://api-sivoy.onrender.com/auth/verify-email?token=${verificationToken}" class="btn">Comenzar ahora</a>
-      </div>
-      <!-- Footer -->
-      <footer>
-        <p>Si tienes alguna pregunta, no dudes en contactarnos en <a href="mailto:soporte@tu-sitio.com">soporte@tu-sitio.com</a>.</p>
-      </footer>
-    </div>
-  </body>
-</html>`;
+  return `<div style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; max-width: 600px; margin: 0 auto; border-radius: 5px; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); background-color: #ffffff;">
+  <h1 style="font-size: 24px; color: #333333; text-align: center;">¡Bienvenido a nuestra plataforma!</h1>
+  <p style="font-size: 16px; color: #666666; line-height: 1.5; text-align: center;">
+    Gracias por unirte a nosotros. Estamos emocionados de tenerte a bordo. Haz clic en el botón a continuación para comenzar tu experiencia.
+  </p>
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://api-sivoy.onrender.com/auth/verify-email?token=${verificationToken}" style="background-color: #007bff; color: white; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; display: inline-block;">Comenzar ahora</a>
+  </div>
+  <footer style="margin-top: 30px; text-align: center; font-size: 12px; color: #999999;">
+    <p>Si tienes alguna pregunta, no dudes en contactarnos en <a href="mailto:soporte@tu-sitio.com">soporte@tu-sitio.com</a>.</p>
+  </footer>
+</div>
+`;
 };
 
 export const getStructureForForgotPassword = (code: string) => {

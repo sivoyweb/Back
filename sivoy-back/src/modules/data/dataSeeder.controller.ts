@@ -7,6 +7,7 @@ import {
   ParseFilePipe,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { DataSeederService } from './dataSeeder.service';
@@ -43,6 +44,12 @@ import { Disability } from 'src/entities/disabilities.entity';
 import { Alliance } from 'src/entities/alliances.entity';
 import { Faq } from 'src/entities/faq.entity';
 import { Provider } from 'src/entities/provider.entity';
+import { DonationsRepository } from '../donations/donations.repository';
+import { Donation } from 'src/entities/donation.entity';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { TokenGuard } from 'src/guards/token.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -60,9 +67,12 @@ export class DataController {
     private readonly alliancesRepo: AlliancesRepository,
     private readonly faqsRepo: FaqRepository,
     private readonly providersRepo: ProvidersRepository,
+    private readonly donatinoRepo: DonationsRepository,
   ) {}
 
   @Post('/import/:entity')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @UseInterceptors(FileInterceptor('file'))
   async importData(
     @UploadedFile(
@@ -115,8 +125,7 @@ export class DataController {
 
           dataRepo.push(user);
         });
-      }
-      if (entity.toLowerCase() === 'travel') {
+      } else if (entity.toLowerCase() === 'travel') {
         jsonData.forEach(async (travel: CreateTravelDto) => {
           const newTravel = await this.travelsRepo.createTravel({
             ...travel,
@@ -124,50 +133,45 @@ export class DataController {
           });
           dataRepo.push(newTravel);
         });
-      }
-      if (entity.toLowerCase() === 'team') {
+      } else if (entity.toLowerCase() === 'team') {
         jsonData.forEach(async (member: CreateTeamDto) => {
           const newTeamMember = await this.teamRepo.addMember(member);
           dataRepo.push(newTeamMember);
         });
-      }
-      if (entity.toLowerCase() === 'promotion') {
+      } else if (entity.toLowerCase() === 'promotion') {
         jsonData.forEach(async (promotion: CreatePromotionDto) => {
           const newPromotion =
             await this.promotionsRepo.createPromotion(promotion);
           dataRepo.push(newPromotion);
         });
-      }
-      if (entity.toLowerCase() === 'blog') {
+      } else if (entity.toLowerCase() === 'blog') {
         jsonData.forEach(async (blog: CreateBlogDto) => {
           const newBlog = await this.blogsRepo.createBlog(blog);
           dataRepo.push(newBlog);
         });
-      }
-      if (entity.toLowerCase() === 'disabilities') {
+      } else if (entity.toLowerCase() === 'disabilities') {
         jsonData.forEach(async (disability: addDisabilityDto) => {
           const newDisability =
             await this.disabilitiesRepo.addDisability(disability);
           dataRepo.push(newDisability);
         });
-      }
-      if (entity.toLowerCase() === 'alliance') {
+      } else if (entity.toLowerCase() === 'alliance') {
         jsonData.forEach(async (alliance: CreateAllianceDto) => {
           const newAlliance = await this.alliancesRepo.createAlliance(alliance);
           dataRepo.push(newAlliance);
         });
-      }
-      if (entity.toLowerCase() === 'faq') {
+      } else if (entity.toLowerCase() === 'faq') {
         jsonData.forEach(async (faq: CreateFaqDto) => {
           const newFaq = await this.faqsRepo.createFaq(faq);
           dataRepo.push(newFaq);
         });
-      }
-      if (entity.toLowerCase() === 'provider') {
+      } else if (entity.toLowerCase() === 'provider') {
         jsonData.forEach(async (provider: CreateProviderDto) => {
           const newProvider = await this.providersRepo.createProvider(provider);
           dataRepo.push(newProvider);
         });
+      } else {
+        return `entity ${entity} was not found to export`;
       }
 
       return {
@@ -181,6 +185,8 @@ export class DataController {
     }
   }
 
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
   @Get('/export/:entity')
   async exportData(@Param('entity') entity: string) {
     try {
@@ -225,10 +231,14 @@ export class DataController {
       } else if (entity.toLowerCase() === 'team') {
         dataFromDb = await this.teamRepo.getTeam();
 
-        data = dataFromDb.map((member: Team) => ({
+        data = dataFromDb.map((member: Team | any) => ({
           id: member.id,
           name: member.name,
           linkedin: member.linkedin,
+          imagen: {
+            url: member.imagenUrl,
+            publicId: member.imagenPI,
+          },
         }));
       } else if (entity.toLowerCase() === 'promotion') {
         dataFromDb = await this.promotionsRepo.getAllPromotions();
@@ -279,8 +289,19 @@ export class DataController {
           name: provider.name,
           description: provider.description,
         }));
+      } else if (entity.toLowerCase() === 'donation') {
+        dataFromDb = await this.donatinoRepo.getAllDonations();
+
+        data = dataFromDb.map((donation: Donation) => ({
+          id: donation.id,
+          amount: donation.amount,
+          date: donation.date,
+          description: donation.description,
+          payer: donation.payer,
+          status: donation.status,
+        }));
       } else {
-        return `entity ${entity} was not found`;
+        return `entity ${entity} was not found to export`;
       }
 
       // Crea una hoja de trabajo de Excel a partir de los datos

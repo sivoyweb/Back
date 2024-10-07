@@ -113,9 +113,9 @@ export class UsersRepository {
     userFound.credential = credential;
 
     // Guardar los cambios en el usuario
-    await this.usersRepository.save(userFound);
+    const newUser = await this.usersRepository.save(userFound);
 
-    return 'User Updated';
+    return { message: 'User Updated', user: newUser };
   }
 
   async createUser(userDto: CreateUserDto) {
