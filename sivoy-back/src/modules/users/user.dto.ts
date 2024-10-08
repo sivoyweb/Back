@@ -73,8 +73,12 @@ export class EmailDto extends PickType(CreateUserDto, ['email']) {}
 
 export class SendEmailDto extends PickType(CreateUserDto, ['email']) {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   helpType: string;
+
+  @IsString()
+  @IsOptional()
+  subject: string;
 
   @IsString()
   @IsNotEmpty()
