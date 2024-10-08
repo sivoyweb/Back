@@ -38,7 +38,7 @@ export class UpdatePromotionDto {
   description?: string;
 
   @IsArray()
-  images: Image[];
+  images?: Image[];
 
   @IsDateString()
   validFrom?: Date;
