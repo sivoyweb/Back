@@ -87,8 +87,14 @@ export class UsersRepository {
       }
     }
 
+    const disabilities = user.disabilities.map((dis) => {
+      return {
+        name: dis,
+      };
+    });
+
     // Actualizar campos del usuario con los datos del DTO
-    Object.assign(userFound, user);
+    Object.assign(userFound, { ...user, disabilities });
 
     // Lógica de actualización de discapacidades
     if (user.disabilities && user.disabilities.length > 0) {
