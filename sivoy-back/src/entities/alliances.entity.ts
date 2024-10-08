@@ -20,6 +20,9 @@ export class Alliance {
   @JoinColumn()
   image: Image;
 
+  @Column({ type: 'varchar', length: 255 })
+  url: string;
+
   @Column({ default: true })
   visible: boolean;
 }

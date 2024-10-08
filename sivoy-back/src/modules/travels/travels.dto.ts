@@ -52,15 +52,9 @@ export class CreateTravelDto {
   @IsEnum(ServiceType)
   serviceType: ServiceType;
 
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(255)
-  accesibilitySeal: string;
-
   @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
-  reviews: Partial<Review[]>;
+  accesibilitySeal: Partial<Image[]>;
 
   @IsOptional()
   @IsArray()
@@ -119,14 +113,8 @@ export class UpdateTravelDto {
   serviceType?: ServiceType;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(255)
-  accesibilitySeal?: string;
-
-  @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
-  reviews?: Partial<Review[]>;
+  accesibilitySeal?: Partial<Image[]>;
 
   @IsOptional()
   @IsArray()

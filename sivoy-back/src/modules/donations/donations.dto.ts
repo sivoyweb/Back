@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
 export class CreateDonationDto {
   @IsNotEmpty({ message: 'El email no puede estar vacío' })
@@ -17,10 +23,33 @@ export class CreateDonationDto {
   description?: string;
 }
 
+export class PaymentDataDto {
+  @IsString()
+  donationId: string;
+}
+
 export class PaymentNotificationDto {
+  @IsString()
+  action: string;
+
+  @IsString()
+  api_version: string;
+
   @IsString()
   id: string;
 
+  @IsObject()
+  data: PaymentDataDto;
+
   @IsString()
-  status: string;
+  date_created: string;
+
+  @IsString()
+  live_mode: boolean;
+
+  @IsString()
+  type: string;
+
+  @IsString()
+  user_id: number;
 }
