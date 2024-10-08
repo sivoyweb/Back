@@ -47,7 +47,7 @@ export class PromotionsController {
     return await this.promotionsService.createPromotion(createPromotionDto);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @UseGuards(RolesGuard)
   @Roles(Role.Admin)
   async updatePromotion(
