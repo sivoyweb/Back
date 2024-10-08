@@ -63,7 +63,7 @@ export class UpdateUserDto {
   @IsOptional()
   @IsArray()
   @IsString({ each: true }) // Cada valor del array debe ser una cadena de texto
-  disabilities?: string[]; // Nombres de las discapacidades
+  disabilities?: string[] | Partial<Disability[]>; // Nombres de las discapacidades
 
   @IsOptional()
   credential: Credential;

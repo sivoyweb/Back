@@ -77,7 +77,7 @@ export const getStructureForHelp = (
       color: #333;
     ">
       <h1 style="background-color: #09253E; color: white; padding: 10px; border-radius: 8px 8px 0 0;">
-        Solicitud de ayuda: ${helpType}
+        Otras colaboraciones: ${helpType}
       </h1>
       <div style="padding: 20px;">
         <p><strong>Nombre:</strong> ${name}</p>

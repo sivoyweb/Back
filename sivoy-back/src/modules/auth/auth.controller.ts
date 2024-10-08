@@ -93,7 +93,7 @@ export class AuthController {
   async sendHelpEmail(@Body() data: SendEmailDto) {
     await sendEmailService(
       CONTACT_EMAIL,
-      'help',
+      'Otras colaboraciones',
       getStructureForHelp(data.email, data.helpType, data.name, data.message),
     );
     return { message: 'email sent' };
