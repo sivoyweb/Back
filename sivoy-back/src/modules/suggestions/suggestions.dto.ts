@@ -78,7 +78,6 @@ export class CreateSuggestionDto {
   openingHours: string;
 }
 export class UpdateSuggestionDto {
-
   @IsString()
   @MinLength(3)
   @MaxLength(255)
