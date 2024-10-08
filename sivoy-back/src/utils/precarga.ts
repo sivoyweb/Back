@@ -437,8 +437,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.LeisureAndRecreation,
 
-    accesibilitySeal:
-      'Estacionamiento accesible, ingreso accesible o asistido, baño adaptado en zona común. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'http://admin.sivoy.com.ar/Images/Lugares/7424/1262021123249PM1.jpg',
@@ -459,12 +457,6 @@ export const travelsMock = [
     address: 'Av. de los Trabajadores 5600, B7600',
     openingHours: 'Lunes a Domingo de 9:00 a 18:00',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/AquariumMardelPlata/',
-      instagram:
-        'https://www.instagram.com/aquariummdp/?fbclid=IwAR2SXvuHajV9weyoWuejd2I7XlPS687ShXsebpg02OBoU9U2QtDh26aTtxw',
-      whatsapp: '+54 223 686-6664',
-    },
   },
 
   {
@@ -477,8 +469,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.LeisureAndRecreation,
 
-    accesibilitySeal:
-      'Estacionamiento accesible, ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común, aro magnético en sala, perros de asistencia. Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
     images: [
       {
         url: 'http://admin.sivoy.com.ar/Images/Lugares/7261/1014202020501PM4.jpg',
@@ -499,10 +489,6 @@ export const travelsMock = [
     address: '25 de Mayo Oeste 1215, J5400AHY',
     openingHours: 'Lunes a Domingo de 9:00 a 18:00',
     available: true,
-    socialMedia: {
-      facebook:
-        'https://www.facebook.com/Auditorio-Juan-Victoria-1523151134656021/',
-    },
   },
 
   {
@@ -514,8 +500,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.LeisureAndRecreation,
 
-    accesibilitySeal:
-      'Ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común, espacio para silla de ruedas, butacas especiales para personas con obesidad, aro magnético en sala. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'http://admin.sivoy.com.ar/Images/Lugares/7582/612021112255AM1.jpg',
@@ -536,9 +520,6 @@ export const travelsMock = [
     address: 'Belgrano 330, U9200 Esquel, Chubut',
     openingHours: 'Lunes a Domingo de 9:00 a 18:00',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/cinemunicipalesquel/',
-    },
   },
 
   {
@@ -551,8 +532,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.LeisureAndRecreation,
 
-    accesibilitySeal:
-      'Ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'http://admin.sivoy.com.ar/Images/Lugares/7425/127202194517AM1.jpg',
@@ -574,9 +553,6 @@ export const travelsMock = [
       'Av. Antártida Argentina Km 16, Estancia Santa Isabel, Chapadmalal, B7600 Mar del Plata, Provincia de Buenos Aires',
     openingHours: 'Lunes a Domingo de 9:00 a 18:00',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/trapichearg/',
-    },
   },
 
   {
@@ -589,8 +565,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.CulturalActivities,
 
-    accesibilitySeal:
-      'Ingreso accesible, baño adaptado en zona común, circuito interior accesible. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOLf_WIWjAuynqCPT45VxbRgfNroNtp6w9SQ&s',
@@ -611,9 +585,6 @@ export const travelsMock = [
     address: 'Av. San Juan 350, Buenos Aires',
     openingHours: 'Martes a Domingo de 10:00 a 18:00',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/museomoderno/',
-    },
   },
 
   {
@@ -626,8 +597,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.CulturalActivities,
 
-    accesibilitySeal:
-      'Ingreso accesible, baño adaptado en zona común, asistencia disponible para personas con movilidad reducida. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk40Rg7UUyMTLyNGbZM3jM2ymWF24Jyc0ocQ&s',
@@ -648,9 +617,6 @@ export const travelsMock = [
     address: 'Cerrito 628, Buenos Aires',
     openingHours: 'Lunes a Sábado de 9:00 a 20:00',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/teatrocolon/',
-    },
   },
 
   {
@@ -663,8 +629,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.CulturalActivities,
 
-    accesibilitySeal:
-      'Ingreso accesible, baños adaptados, circuito accesible para sillas de ruedas. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Buenos_Aires_Centrum_Kirchner.jpg',
@@ -685,9 +649,6 @@ export const travelsMock = [
     address: 'Sarmiento 151, Buenos Aires',
     openingHours: 'Martes a Domingo de 14:00 a 20:00',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/cckbuenosaires/',
-    },
   },
 
   {
@@ -700,8 +661,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.CulturalActivities,
 
-    accesibilitySeal:
-      'Ingreso accesible, baño adaptado, asistencia para personas con movilidad reducida. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Museo_de_Bellas_Artes_de_C%C3%B3rdoba._Fachada.jpg/320px-Museo_de_Bellas_Artes_de_C%C3%B3rdoba._Fachada.jpg',
@@ -722,9 +681,6 @@ export const travelsMock = [
     address: 'Av. Hipólito Yrigoyen 622, Córdoba',
     openingHours: 'Lunes a Viernes de 9:00 a 18:00',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/museobellasartescba/',
-    },
   },
 
   {
@@ -737,8 +693,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.MeanOfTransport,
 
-    accesibilitySeal:
-      'Ingreso accesible, baños adaptados en algunas estaciones, andenes accesibles para personas con movilidad reducida. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTCf3FGtem0-hJ_2WOuBDoUznK_f_lmG2p8w&s',
@@ -759,9 +713,6 @@ export const travelsMock = [
     address: 'Av. Ramos Mejía 1358, Buenos Aires',
     openingHours: 'Lunes a Domingo de 5:00 a 23:00',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/trenmitreoficial/',
-    },
   },
 
   {
@@ -774,8 +725,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.MeanOfTransport,
 
-    accesibilitySeal:
-      'Ingreso accesible, asistencia especial para pasajeros con movilidad reducida, baños adaptados a bordo. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://aviacionline.com/wp-content/uploads/2016/08/Aerolineas-Argentinas-Airbus-A330-200-LV-GHQ-05.jpg',
@@ -796,9 +745,6 @@ export const travelsMock = [
     address: 'Av. Rafael Obligado s/n, Buenos Aires',
     openingHours: 'Lunes a Domingo de 24 horas',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/aerolineas_arg/',
-    },
   },
 
   {
@@ -811,8 +757,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.MeanOfTransport,
 
-    accesibilitySeal:
-      'Ingreso accesible en varias estaciones, ascensores y rampas, baños adaptados en estaciones principales. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-fQuIykJwb0no3kyalIfq5pb6oZCX-LHLwg&s',
@@ -833,9 +777,6 @@ export const travelsMock = [
     address: 'Av. Roque Sáenz Peña 500, Buenos Aires',
     openingHours: 'Lunes a Domingo de 5:00 a 23:30',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/subteBA',
-    },
   },
 
   {
@@ -848,8 +789,6 @@ export const travelsMock = [
 
     serviceType: ServiceType.MeanOfTransport,
 
-    accesibilitySeal:
-      'Ingreso accesible, baños adaptados, andenes accesibles para sillas de ruedas. Información proporcionada por el prestador. Sujeta a verificación.',
     images: [
       {
         url: 'https://www.plataforma10.com.ar/viajes/wp-content/uploads/2022/10/terminal-de-cordoba.webp',
@@ -870,9 +809,6 @@ export const travelsMock = [
     address: 'Bv. Juan Domingo Perón 380, Córdoba',
     openingHours: 'Lunes a Domingo de 24 horas',
     available: true,
-    socialMedia: {
-      facebook: 'https://www.facebook.com/terminalcordoba/',
-    },
   },
 
   {
@@ -884,9 +820,6 @@ export const travelsMock = [
       'Disfruta de una noche de Tango en Buenos Aires en un espacio tradicional con espectáculos en vivo.',
 
     serviceType: ServiceType.Experiences,
-
-    accesibilitySeal:
-      'Ingreso accesible o asistido (80 cm o +), ascensor disponible, parada sonora, silla anfibia a disposición, alimentos sin TACC. Información proporcionada por el prestador. Sujeta a verificación.',
 
     images: [
       {
@@ -908,10 +841,6 @@ export const travelsMock = [
     email: 'info@aljibetango.com',
     address: 'Balcarce 425, C1064AAI, C1064 Cdad. Autónoma de Buenos Aires',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/aljibetango.ba/',
-      whatsapp: '+5491168759015',
-    },
   },
 
   {
@@ -923,9 +852,6 @@ export const travelsMock = [
       'Centro de buceo PADI 5 Star IDC en Puerto Madryn, especializado en buceo adaptado y experiencias submarinas inolvidables.',
 
     serviceType: ServiceType.Experiences,
-
-    accesibilitySeal:
-      'Ingreso accesible o asistido, circuito interior accesible, silla de ruedas a disposición, menú Braille. Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
 
     images: [
       {
@@ -947,10 +873,6 @@ export const travelsMock = [
     email: '',
     address: 'Furnillo 12, U9120 Puerto Madryn, Chubut',
     available: true,
-    socialMedia: {
-      instagram: '',
-      whatsapp: '',
-    },
   },
 
   {
@@ -962,9 +884,6 @@ export const travelsMock = [
       'Descubre el Fin del Mundo en Ushuaia Blanca, donde las tradiciones y aventuras se combinan en un entorno natural único, accesible para todos.',
 
     serviceType: ServiceType.Experiences,
-
-    accesibilitySeal:
-      'Estacionamiento accesible, ingreso accesible o asistido, circuito interior accesible, baño adaptado en zona común. Distinguido por el Programa Directrices de Accesibilidad de la Secretaria de Turismo de la Nación.',
 
     images: [
       {
@@ -986,10 +905,6 @@ export const travelsMock = [
     email: '',
     address: 'RN3 Nº 3 Km. 25, Ushuaia, Tierra del Fuego',
     available: true,
-    socialMedia: {
-      instagram: '',
-      whatsapp: '',
-    },
   },
 
   {
@@ -1001,9 +916,6 @@ export const travelsMock = [
       'Experimenta la majestuosidad de los paisajes fueguinos desde el aire. Disfruta de glaciares colgantes y picos nevados en una emocionante excursión en helicóptero.',
 
     serviceType: ServiceType.Experiences,
-
-    accesibilitySeal:
-      'Excursión con asistencia para recorrido en helicóptero. Información proporcionada por el Instituto Fueguino de Turismo.',
 
     images: [
       {
@@ -1025,11 +937,6 @@ export const travelsMock = [
     email: 'info@heliushuaia.com.ar',
     address: 'BFN, Luis Pedro Fique 119, V9410 Ushuaia, Tierra del Fuego',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/heliushuaia/',
-      whatsapp: '+54 2901 60-0146',
-      facebook: 'https://www.facebook.com/HeliUshuaia',
-    },
   },
 
   {
@@ -1041,9 +948,6 @@ export const travelsMock = [
       'Aprende el arte de la cerámica en un taller accesible para todos. Disfruta de una experiencia creativa mientras moldeas tu propia obra maestra.',
 
     serviceType: ServiceType.PersonalServices,
-
-    accesibilitySeal:
-      'Ingreso accesible o asistido, con herramientas adaptadas para personas con discapacidad.',
 
     images: [
       {
@@ -1065,11 +969,6 @@ export const travelsMock = [
     email: 'info@tallerdeceramica.com',
     address: 'Av. Libertador 1234, CABA, Buenos Aires',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/tallerdeceramica',
-      whatsapp: '+54 11 9876-5432',
-      facebook: 'https://www.facebook.com/tallerdeceramica',
-    },
   },
 
   {
@@ -1081,9 +980,6 @@ export const travelsMock = [
       'Descubre la cocina tradicional argentina con nuestras clases accesibles. Aprende a preparar platos típicos en un ambiente amigable.',
 
     serviceType: ServiceType.PersonalServices,
-
-    accesibilitySeal:
-      'Instalaciones accesibles, con opciones de menú adaptadas para personas con alergias alimentarias.',
 
     images: [
       {
@@ -1105,11 +1001,6 @@ export const travelsMock = [
     email: 'info@clasesdecocinargentina.com',
     address: 'Av. General Paz 5678, Córdoba',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/clasesdecocinargentina',
-      whatsapp: '+54 351 123-4567',
-      facebook: 'https://www.facebook.com/clasesdecocinargentina',
-    },
   },
 
   {
@@ -1121,9 +1012,6 @@ export const travelsMock = [
       'Transforma tu estilo con nuestra asesoría de imagen adaptada para personas con discapacidad. Ofrecemos consultas personalizadas y servicios inclusivos para ayudarte a encontrar tu look ideal.',
 
     serviceType: ServiceType.PersonalServices,
-
-    accesibilitySeal:
-      'Servicios accesibles, incluyendo consultas virtuales y asistencia para personas con discapacidades.',
 
     images: [
       {
@@ -1145,11 +1033,6 @@ export const travelsMock = [
     email: 'info@asesoriadeimagenpersonal.com',
     address: 'Calle Las Tipas 123, Mendoza',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/asesoriadeimagenpersonal',
-      whatsapp: '+54 261 765-4321',
-      facebook: 'https://www.facebook.com/asesoriadeimagenpersonal',
-    },
   },
 
   {
@@ -1161,9 +1044,6 @@ export const travelsMock = [
       'Mejora tu calidad de vida con nuestra consultoría de bienestar adaptada para personas con discapacidades. Ofrecemos servicios de coaching personal y talleres de relajación inclusivos.',
 
     serviceType: ServiceType.PersonalServices,
-
-    accesibilitySeal:
-      'Consultas accesibles para todos, con adaptaciones y recursos según las necesidades del cliente.',
 
     images: [
       {
@@ -1185,11 +1065,6 @@ export const travelsMock = [
     email: 'info@consultoriadebienestar.com',
     address: 'Av. Pellegrini 4567, Rosario',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/consultoriadebienestar',
-      whatsapp: '+54 341 123-4567',
-      facebook: 'https://www.facebook.com/consultoriadebienestar',
-    },
   },
 
   {
@@ -1201,9 +1076,6 @@ export const travelsMock = [
       'Un espacio creativo donde todas las personas, independientemente de sus habilidades, pueden explorar su talento artístico a través de diferentes técnicas y materiales.',
 
     serviceType: ServiceType.Other,
-
-    accesibilitySeal:
-      'Accesibilidad total, con materiales adaptados y asistencia personalizada para cada participante.',
 
     images: [
       {
@@ -1225,11 +1097,6 @@ export const travelsMock = [
     email: 'info@tallerdearteinclusivo.com',
     address: 'Calle Arco Iris 45, Buenos Aires',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/tallerdearteinclusivo',
-      whatsapp: '+54 11 6666-6666',
-      facebook: 'https://www.facebook.com/tallerdearteinclusivo',
-    },
   },
 
   {
@@ -1241,9 +1108,6 @@ export const travelsMock = [
       'Clases de yoga diseñadas especialmente para personas con discapacidades, enfocadas en la relajación, la respiración y el bienestar integral.',
 
     serviceType: ServiceType.Other,
-
-    accesibilitySeal:
-      'Instalaciones accesibles, con adaptaciones en posturas y uso de materiales especializados.',
 
     images: [
       {
@@ -1265,11 +1129,6 @@ export const travelsMock = [
     email: 'info@yogainclusivo.com',
     address: 'Av. Libertador 987, Córdoba',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/yogainclusivo',
-      whatsapp: '+54 351 888-8888',
-      facebook: 'https://www.facebook.com/yogainclusivo',
-    },
   },
 
   {
@@ -1281,9 +1140,6 @@ export const travelsMock = [
       'Explora la naturaleza en paseos ecológicos diseñados para ser accesibles, con guías capacitados para ofrecer una experiencia inclusiva y enriquecedora.',
 
     serviceType: ServiceType.Other,
-
-    accesibilitySeal:
-      'Rutas adaptadas y equipamiento especializado para garantizar la accesibilidad de todos los participantes.',
 
     images: [
       {
@@ -1305,11 +1161,6 @@ export const travelsMock = [
     email: 'info@paseosecologicos.com',
     address: 'Calle de la Naturaleza 12, Salta',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/paseosecologicos',
-      whatsapp: '+54 387 555-5555',
-      facebook: 'https://www.facebook.com/paseosecologicos',
-    },
   },
 
   {
@@ -1321,9 +1172,6 @@ export const travelsMock = [
       'Clases de danza adaptadas que promueven la expresión corporal y la creatividad, con un enfoque inclusivo para todas las personas, sin importar sus habilidades físicas.',
 
     serviceType: ServiceType.Other,
-
-    accesibilitySeal:
-      'Instalaciones accesibles y un entorno amigable donde todos pueden participar y disfrutar.',
 
     images: [
       {
@@ -1345,11 +1193,6 @@ export const travelsMock = [
     email: 'info@danzainclusiva.com',
     address: 'Calle de la Danza 34, Rosario',
     available: true,
-    socialMedia: {
-      instagram: 'https://www.instagram.com/danzainclusiva',
-      whatsapp: '+54 341 222-2222',
-      facebook: 'https://www.facebook.com/danzainclusiva',
-    },
   },
 ];
 
