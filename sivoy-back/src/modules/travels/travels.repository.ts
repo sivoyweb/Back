@@ -284,4 +284,36 @@ export class TravelsRepository {
 
     return review;
   }
+
+  async getPendingReviews() {
+    const reviews = await this.reviewsRepository.find({
+      where: { state: ApprovalState.PENDING },
+      relations: {
+        user: true,    
+        travel: true,  
+      },
+    });
+    return reviews;
+  }
+  
+  async getAllReviews() {
+    const reviews = await this.reviewsRepository.find({
+      relations: {
+        user: true,    
+        travel: true,  
+      },
+    })
+    return reviews
+  }
+
+  async getReviewById(id: string) {
+    const review = await this.reviewsRepository.findOne({
+      where: { id },
+      relations: {
+        user: true,    
+        travel: true,  
+      },
+    })
+    return review
+  }
 }
