@@ -48,19 +48,10 @@ export class CreateSuggestionDto {
   @IsOptional()
   serviceType: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(255)
-  accesibilitySeal: string;
-
   @IsOptional()
   @IsArray()
   @ArrayMinSize(1)
   images: Partial<Image[]>;
-
-  @IsNotEmpty()
-  @IsNumber()
-  stars: number;
 
   @IsNotEmpty()
   @IsString()
@@ -85,4 +76,64 @@ export class CreateSuggestionDto {
   @IsString()
   @MaxLength(255)
   openingHours: string;
+}
+export class UpdateSuggestionDto {
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(255)
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  country?: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  city?: string;
+
+  @IsDateString()
+  @IsOptional()
+  date?: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsOptional()
+  serviceType?: string;
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsOptional()
+  images?: Partial<Image[]>;
+
+  @IsString()
+  @IsUrl()
+  @IsOptional()
+  website?: string;
+
+  @IsString()
+  @IsOptional()
+  phone?: string;
+
+  @IsEmail()
+  @MaxLength(255)
+  @IsOptional()
+  email?: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  address?: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  openingHours?: string;
 }

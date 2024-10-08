@@ -9,7 +9,7 @@ import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 import { Repository } from 'typeorm';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { Travel } from 'src/entities/travel.entity';
-import { CreateSuggestionDto } from './suggestions.dto';
+import { CreateSuggestionDto, UpdateSuggestionDto } from './suggestions.dto';
 
 @Injectable()
 export class SuggestionsRepository {
@@ -68,7 +68,7 @@ export class SuggestionsRepository {
     }
   }
 
-  async updateSuggestion(id: string, suggestion: CreateSuggestionDto) {
+  async updateSuggestion(id: string, suggestion: UpdateSuggestionDto) {
     const updateSuggestion = await this.SuggestionsRepository.findOneBy({ id });
     if (!updateSuggestion)
       throw new NotFoundException(`suggestion whit ${id} not found`);
