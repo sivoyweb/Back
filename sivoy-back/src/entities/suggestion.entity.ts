@@ -42,9 +42,6 @@ export class Suggestion {
   @JoinTable()
   images: Image[];
 
-  @ManyToOne(() => Provider, (provider) => provider.suggestion)
-  provider: Provider;
-
   @Column({ type: 'varchar', length: 255 })
   website: string;
 
