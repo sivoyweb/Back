@@ -14,4 +14,5 @@ export const {
   CONTACT_EMAIL,
   MP_ACCESS_TOKEN,
   MP_PUBLIC_KEY,
+  URL_LOGIN_FRONT,
 } = process.env;
