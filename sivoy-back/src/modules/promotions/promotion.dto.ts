@@ -20,12 +20,13 @@ export class CreatePromotionDto {
   @IsArray()
   images: Image[];
 
-  @IsDate()
+  @IsDateString()
   validFrom: Date;
 
-  @IsDate()
+  @IsDateString()
   validUntil: Date;
 
+  @IsBoolean()
   isActive?: boolean;
 }
 

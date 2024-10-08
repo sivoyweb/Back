@@ -144,4 +144,25 @@ export class TravelsController {
       ApprovalState.REJECTED,
     );
   }
+
+  @Get('/reviews/pending')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getPendingReviews() {
+    return this.travelsService.getPendingReviews();
+  }
+
+  @Get('/reviews/all')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getAllReviews() {
+    return this.travelsService.getAllReviews();
+  }
+
+  @Get('/reviews/:id')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  getReviewById(@Param('id') id: string) {
+    return this.travelsService.getReviewById(id);
+  }
 }
