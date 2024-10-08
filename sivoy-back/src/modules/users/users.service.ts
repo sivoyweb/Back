@@ -79,7 +79,6 @@ export class UsersService {
     return await this.usersRepository.unblockUser(id);
   }
 
-  
   getReviewsByUser(id: string, userId: string, userRole: string) {
     return this.usersRepository.getReviewsByUser(id, userId, userRole);
   }

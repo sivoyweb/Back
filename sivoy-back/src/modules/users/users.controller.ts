@@ -81,6 +81,6 @@ export class UsersController {
     }
     const userId = req.user.id;
     const userRole = req.user.role;
-    return await this.userService.getReviewsByUser(id, userId, userRole );
+    return await this.userService.getReviewsByUser(id, userId, userRole);
   }
 }
