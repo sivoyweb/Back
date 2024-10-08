@@ -25,9 +25,6 @@ export class CreatePromotionDto {
 
   @IsDateString()
   validUntil: Date;
-
-  @IsBoolean()
-  isActive?: boolean;
 }
 
 export class UpdatePromotionDto {
@@ -45,7 +42,4 @@ export class UpdatePromotionDto {
 
   @IsDateString()
   validUntil?: Date;
-
-  @IsBoolean()
-  isActive?: boolean;
 }
