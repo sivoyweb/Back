@@ -125,7 +125,7 @@ export class TravelsController {
     const userRole = req.user.role;
     return this.travelsService.deleteReview(id, userId, userRole);
   }
-  @Patch(':id/approve')
+  @Patch('reviews/:id/approve')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async approveReview(@Param('id') id: string) {
@@ -135,7 +135,7 @@ export class TravelsController {
     );
   }
 
-  @Patch(':id/reject')
+  @Patch('reviews/:id/reject')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async rejectReview(@Param('id') id: string) {
