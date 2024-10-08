@@ -9,10 +9,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { ProvidersService } from './providers.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateProviderDto, UpdateProviderDto } from './providers.dto';
 
 @ApiTags(`Providers`)
+@ApiBearerAuth()
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}

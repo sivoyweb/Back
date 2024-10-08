@@ -14,7 +14,11 @@ import { TeamService } from './team.service';
 import { CreateTeamDto, UpdateTeamDto } from './team.dto';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('team')
+@ApiBearerAuth()
 @Controller('team')
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}

@@ -29,10 +29,11 @@ import { TokenGuard } from 'src/guards/token.guard';
 import { User } from 'src/entities/user.entity';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @ApiTags(`Travels`)
+@ApiBearerAuth()
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
