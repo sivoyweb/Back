@@ -12,7 +12,6 @@ export class CreateAllianceDto {
   @IsNotEmpty()
   @IsUrl()
   url: string;
-
 }
 
 export class UpdateAllianceDto {

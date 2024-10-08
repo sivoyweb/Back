@@ -67,61 +67,60 @@ export const getStructureForHelp = (
   message = '',
 ) => {
   return `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-          }
-          .container {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-          }
-          .header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border-radius: 8px 8px 0 0;
-          }
-          .content {
-            padding: 20px;
-            line-height: 1.6;
-          }
-          .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            text-align: center;
-            color: #777777;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Solicitud de ayuda: ${helpType}</h1>
-          </div>
-          <div class="content">
-            <p><strong>Nombre:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Tipo de ayuda:</strong> ${helpType}</p>
-            ${
-              message
-                ? `<p><strong>Mensaje:</strong> ${message}</p>`
-                : '<p><strong>Mensaje:</strong> No se proporcionó mensaje adicional.</p>'
-            }
-          </div>
-          <div class="footer">
-            <p>Este mensaje fue generado automáticamente. Por favor, no respondas directamente.</p>
-          </div>
-        </div>
-      </body>
-    </html>
+    <div style="
+      font-family: Arial, sans-serif; 
+      max-width: 600px; 
+      margin: auto; 
+      padding: 20px; 
+      background-color: #ffffff; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+      color: #333;
+    ">
+      <h1 style="background-color: #007bff; color: white; padding: 10px; border-radius: 8px 8px 0 0;">
+        Solicitud de ayuda: ${helpType}
+      </h1>
+      <div style="padding: 20px;">
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Tipo de ayuda:</strong> ${helpType}</p>
+        <p><strong>Mensaje:</strong> ${message ? message : 'No se proporcionó mensaje adicional.'}</p>
+      </div>
+      <p style="text-align: center; font-size: 12px; color: #777777; margin-top: 20px;">
+        Este mensaje fue generado automáticamente. Por favor, no respondas directamente.
+      </p>
+    </div>
+  `;
+};
+
+export const getStructureForContact = (
+  name: string,
+  email: string,
+  message: string,
+) => {
+  return `
+    <div style="
+      font-family: Arial, sans-serif; 
+      max-width: 600px; 
+      margin: auto; 
+      padding: 20px; 
+      background-color: #f9f9f9; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+      color: #333;
+    ">
+      <h2 style="background-color: #007bff; color: white; padding: 10px; border-radius: 8px 8px 0 0;">
+        Nuevo mensaje de contacto
+      </h2>
+      <div style="padding: 20px;">
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mensaje:</strong> ${message}</p>
+      </div>
+      <p style="text-align: center; font-size: 12px; color: #777777; margin-top: 20px;">
+        Este es un mensaje generado automáticamente desde el formulario de contacto.
+      </p>
+    </div>
   `;
 };
 

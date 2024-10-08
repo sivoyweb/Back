@@ -19,7 +19,10 @@ import { UsersService } from '../users/users.service';
 import { ApiTags } from '@nestjs/swagger';
 import sendEmailService from 'src/helpers/email.service';
 import { CONTACT_EMAIL } from 'src/config/envConfig';
-import { getStructureForHelp } from 'src/utils/mail.structure';
+import {
+  getStructureForContact,
+  getStructureForHelp,
+} from 'src/utils/mail.structure';
 
 @ApiTags(`Auths`)
 @Controller('auth')
@@ -87,13 +90,22 @@ export class AuthController {
   }
 
   @Post('/send-help-email')
-  async sendEmail(@Body() data: SendEmailDto) {
+  async sendHelpEmail(@Body() data: SendEmailDto) {
     await sendEmailService(
       CONTACT_EMAIL,
       'help',
       getStructureForHelp(data.email, data.helpType, data.name, data.message),
     );
+    return { message: 'email sent' };
+  }
 
+  @Post('/send-contact-email')
+  async sendEmail(@Body() data: SendEmailDto) {
+    await sendEmailService(
+      CONTACT_EMAIL,
+      data.subject,
+      getStructureForContact(data.name, data.email, data.message),
+    );
     return { message: 'email sent' };
   }
 }
