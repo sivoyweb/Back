@@ -14,13 +14,14 @@ import { ProjectsService } from './projects.service';
 import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
 import { CreateProjectDto, UpdateProjectDto } from './project.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags('Projects')
+@ApiBearerAuth()
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}

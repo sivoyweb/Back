@@ -19,9 +19,10 @@ import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/helpers/roles.enum.';
 import { Roles } from 'src/decorators/roles.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Blogs')
+@ApiBearerAuth()
 @Controller('blogs')
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}

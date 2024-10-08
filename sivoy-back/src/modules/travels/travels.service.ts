@@ -61,4 +61,16 @@ export class TravelsService {
   updateApprovalState(id: string, ApprovalState: ApprovalState) {
     return this.travelsRepository.updateApprovalState(id, ApprovalState);
   }
+  
+  getPendingReviews() {
+    return this.travelsRepository.getPendingReviews();
+  }
+
+  getAllReviews() {
+    return this.travelsRepository.getAllReviews();
+  }
+
+  getReviewById(id: string) {
+    return this.travelsRepository.getReviewById(id);
+  }
 }

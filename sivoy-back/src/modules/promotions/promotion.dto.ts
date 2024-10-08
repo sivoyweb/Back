@@ -5,6 +5,7 @@ import {
   IsDate,
   IsDateString,
   IsBoolean,
+  IsOptional,
 } from 'class-validator';
 import { Image } from 'src/entities/images.entity';
 
@@ -17,34 +18,38 @@ export class CreatePromotionDto {
   @IsNotEmpty()
   description: string;
 
+  @IsNotEmpty()
   @IsArray()
   images: Image[];
 
-  @IsDate()
+  @IsNotEmpty()
+  @IsDateString()
   validFrom: Date;
 
-  @IsDate()
+  @IsNotEmpty()
+  @IsDateString()
   validUntil: Date;
-
-  isActive?: boolean;
 }
 
 export class UpdatePromotionDto {
+
+  @IsOptional()
   @IsString()
   name?: string;
 
+  @IsOptional()
   @IsString()
   description?: string;
 
+  @IsOptional()
   @IsArray()
-  images: Image[];
+  images?: Image[];
 
+  @IsOptional()
   @IsDateString()
   validFrom?: Date;
 
+  @IsOptional()
   @IsDateString()
   validUntil?: Date;
-
-  @IsBoolean()
-  isActive?: boolean;
 }

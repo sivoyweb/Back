@@ -29,10 +29,11 @@ import { TokenGuard } from 'src/guards/token.guard';
 import { User } from 'src/entities/user.entity';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 
 @ApiTags(`Travels`)
+@ApiBearerAuth()
 @Controller('travels')
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
@@ -124,7 +125,7 @@ export class TravelsController {
     const userRole = req.user.role;
     return this.travelsService.deleteReview(id, userId, userRole);
   }
-  @Patch(':id/approve')
+  @Patch('reviews/:id/approve')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async approveReview(@Param('id') id: string) {
@@ -134,7 +135,7 @@ export class TravelsController {
     );
   }
 
-  @Patch(':id/reject')
+  @Patch('reviews/:id/reject')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async rejectReview(@Param('id') id: string) {
@@ -142,5 +143,26 @@ export class TravelsController {
       id,
       ApprovalState.REJECTED,
     );
+  }
+
+  @Get('/reviews/pending')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getPendingReviews() {
+    return this.travelsService.getPendingReviews();
+  }
+
+  @Get('/reviews/all')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getAllReviews() {
+    return this.travelsService.getAllReviews();
+  }
+
+  @Get('/reviews/:id')
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  getReviewById(@Param('id') id: string) {
+    return this.travelsService.getReviewById(id);
   }
 }

@@ -92,6 +92,7 @@ export class DonationsRepository {
       // Construir la respuesta personalizada
       const customResponse = {
         id: response.id,
+        preference_id: response.id,
         init_point: initPoint,
         payer: {
           email: preferenceData.email,
@@ -104,7 +105,8 @@ export class DonationsRepository {
           },
         ],
       };
-
+      console.log(preference);
+      console.log(customResponse);
       return customResponse; // Devuelve la respuesta personalizada
     } catch (error) {
       console.error('Error during createDonation:', error);

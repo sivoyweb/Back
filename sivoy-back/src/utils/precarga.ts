@@ -1217,8 +1217,8 @@ export const promotionsMock = [
       { url: 'https://example.com/verano1.jpg', publicId: 'imagen1' },
       { url: 'https://example.com/verano2.jpg', publicId: 'imagen1' },
     ],
-    validFrom: new Date('2024-06-01'),
-    validUntil: new Date('2024-08-31'),
+    validFrom: '2024-06-01', // Cambiado a cadena en formato de fecha
+    validUntil: '2024-08-31', // Cambiado a cadena en formato de fecha
   },
   {
     name: 'Aventura Extrema',
@@ -1228,8 +1228,8 @@ export const promotionsMock = [
       { url: 'https://example.com/aventura1.jpg', publicId: 'imagen1' },
       { url: 'https://example.com/aventura2.jpg', publicId: 'imagen1' },
     ],
-    validFrom: new Date('2024-09-15'),
-    validUntil: new Date('2024-10-15'),
+    validFrom: '2024-09-15', // Cambiado a cadena en formato de fecha
+    validUntil: '2024-10-15', // Cambiado a cadena en formato de fecha
   },
   {
     name: 'Viajes Navideños',
@@ -1239,8 +1239,8 @@ export const promotionsMock = [
       { url: 'https://example.com/navidad1.jpg', publicId: 'imagen1' },
       { url: 'https://example.com/navidad2.jpg', publicId: 'imagen1' },
     ],
-    validFrom: new Date('2024-12-01'),
-    validUntil: new Date('2024-12-25'),
+    validFrom: '2024-12-01', // Cambiado a cadena en formato de fecha
+    validUntil: '2024-12-25', // Cambiado a cadena en formato de fecha
   },
   {
     name: 'Ofertas de Año Nuevo',
@@ -1250,8 +1250,8 @@ export const promotionsMock = [
       { url: 'https://example.com/ano_nuevo1.jpg', publicId: 'imagen1' },
       { url: 'https://example.com/ano_nuevo2.jpg', publicId: 'imagen1' },
     ],
-    validFrom: new Date('2024-12-26'),
-    validUntil: new Date('2025-01-05'),
+    validFrom: '2024-12-26', // Cambiado a cadena en formato de fecha
+    validUntil: '2025-01-05', // Cambiado a cadena en formato de fecha
   },
   {
     name: 'Escapada Romántica',
@@ -1261,8 +1261,7 @@ export const promotionsMock = [
       { url: 'https://example.com/romantica1.jpg', publicId: 'imagen1' },
       { url: 'https://example.com/romantica2.jpg', publicId: 'imagen1' },
     ],
-    validFrom: new Date('2024-02-10'),
-    validUntil: new Date('2024-02-15'),
-    isActive: false, // explicitamente desactivada
+    validFrom: '2024-02-10', // Cambiado a cadena en formato de fecha
+    validUntil: '2024-02-15', // Cambiado a cadena en formato de fecha
   },
 ];

@@ -15,10 +15,12 @@ import { Promotion } from 'src/entities/promotion.entity';
 import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/helpers/roles.enum.';
+import { TokenGuard } from 'src/guards/token.guard';
 
 @ApiTags('Promotions')
+@ApiBearerAuth()
 @Controller('promotions')
 export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
@@ -39,7 +41,7 @@ export class PromotionsController {
   }
 
   @Post()
-  @UseGuards(RolesGuard)
+  @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async createPromotion(
     @Body() createPromotionDto: CreatePromotionDto,
@@ -47,8 +49,8 @@ export class PromotionsController {
     return await this.promotionsService.createPromotion(createPromotionDto);
   }
 
-  @Patch(':id')
-  @UseGuards(RolesGuard)
+  @Put(':id')
+  @UseGuards(TokenGuard,RolesGuard)
   @Roles(Role.Admin)
   async updatePromotion(
     @Param('id') id: string,
@@ -58,12 +60,15 @@ export class PromotionsController {
   }
 
   @Delete(':id')
-  @UseGuards(RolesGuard)
+  @UseGuards(TokenGuard,RolesGuard)
   @Roles(Role.Admin)
   async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
     return await this.promotionsService.deactivatePromotion(id);
   }
+
   @Put('desactivate-expired')
+  @UseGuards(TokenGuard,RolesGuard)
+  @Roles(Role.Admin)
   async desactivateExpiredPromotions(): Promise<void> {
     return await this.promotionsService.desactivateExpiredPromotions();
   }

@@ -8,11 +8,12 @@ import {
   Put,
 } from '@nestjs/common';
 import { DonationsService } from './donations.service';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateDonationDto, PaymentNotificationDto } from './donations.dto';
 import { Donation } from 'src/entities/donation.entity';
 
 @ApiTags('Donations')
+@ApiBearerAuth()
 @Controller('donations')
 export class DonationsController {
   constructor(private readonly donationsService: DonationsService) {}

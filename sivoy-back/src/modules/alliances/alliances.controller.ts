@@ -11,13 +11,14 @@ import {
 } from '@nestjs/common';
 import { AlliancesService } from './alliances.service';
 import { CreateAllianceDto, UpdateAllianceDto } from './alliances.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags('Alliances')
+@ApiBearerAuth()
 @Controller('alliances')
 export class AlliancesController {
   constructor(private readonly alliancesService: AlliancesService) {}
