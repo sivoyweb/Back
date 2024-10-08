@@ -15,7 +15,7 @@ import { Suggestion } from 'src/entities/suggestion.entity';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { ReadGuard } from 'src/guards/read.guard';
 import { Request } from 'express';
-import { CreateSuggestionDto } from './suggestions.dto';
+import { CreateSuggestionDto, UpdateSuggestionDto } from './suggestions.dto';
 import { ApprovalState } from 'src/helpers/ApprovalState.enum';
 import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
@@ -54,7 +54,7 @@ export class SuggestionsController {
   @Put(':id')
   updateSuggestion(
     @Param('id') id: string,
-    @Body() suggestion: CreateSuggestionDto,
+    @Body() suggestion: UpdateSuggestionDto,
   ) {
     return this.suggestionsService.updateSuggestion(id, suggestion);
   }
