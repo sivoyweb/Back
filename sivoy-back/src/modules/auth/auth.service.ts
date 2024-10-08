@@ -10,7 +10,7 @@ import {
   getStructureforWelcome,
 } from 'src/utils/mail.structure';
 import sendEmailService from 'src/helpers/email.service';
-import { JWT_SECRET } from 'src/config/envConfig';
+import { JWT_SECRET, URL_LOGIN_FRONT } from 'src/config/envConfig';
 import { User } from 'src/entities/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { Repository } from 'typeorm';
@@ -149,7 +149,7 @@ export class AuthService {
 
     await this.userRepository.verifyUser(verify.id);
 
-    return 'authenticated user';
+    return `Cuenta verificada, inicie sesión aquí: ${URL_LOGIN_FRONT}`;
   }
 
   async sendResetPasswordCode(email: string) {

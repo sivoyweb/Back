@@ -93,10 +93,6 @@ export class DataController {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-      console.log(workbook);
-      console.log(worksheet);
-      console.log(jsonData);
-
       if (!jsonData.length) {
         throw new BadRequestException('El archivo no contiene datos válidos.');
       }
