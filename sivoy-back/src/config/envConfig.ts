@@ -15,4 +15,6 @@ export const {
   MP_ACCESS_TOKEN,
   MP_PUBLIC_KEY,
   URL_LOGIN_FRONT,
+  AVATAR_DEFAULT,
+  PUBLIC_ID_AVATAR,
 } = process.env;
