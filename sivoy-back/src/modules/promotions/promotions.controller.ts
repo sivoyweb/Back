@@ -15,10 +15,11 @@ import { Promotion } from 'src/entities/promotion.entity';
 import { CreatePromotionDto, UpdatePromotionDto } from './promotion.dto';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Roles } from 'src/decorators/roles.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags('Promotions')
+@ApiBearerAuth()
 @Controller('promotions')
 export class PromotionsController {
   constructor(private readonly promotionsService: PromotionsService) {}
@@ -63,6 +64,7 @@ export class PromotionsController {
   async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
     return await this.promotionsService.deactivatePromotion(id);
   }
+
   @Put('desactivate-expired')
   async desactivateExpiredPromotions(): Promise<void> {
     return await this.promotionsService.desactivateExpiredPromotions();
