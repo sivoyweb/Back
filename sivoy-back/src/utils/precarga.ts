@@ -840,6 +840,7 @@ export const travelsMock = [
     phone: '+5411 3220-3300',
     email: 'info@aljibetango.com',
     address: 'Balcarce 425, C1064AAI, C1064 Cdad. Autónoma de Buenos Aires',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -872,6 +873,7 @@ export const travelsMock = [
     phone: '+54280154601647',
     email: '',
     address: 'Furnillo 12, U9120 Puerto Madryn, Chubut',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -904,6 +906,7 @@ export const travelsMock = [
     phone: '',
     email: '',
     address: 'RN3 Nº 3 Km. 25, Ushuaia, Tierra del Fuego',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -936,6 +939,7 @@ export const travelsMock = [
     phone: '+54 2901 444 444',
     email: 'info@heliushuaia.com.ar',
     address: 'BFN, Luis Pedro Fique 119, V9410 Ushuaia, Tierra del Fuego',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -968,6 +972,7 @@ export const travelsMock = [
     phone: '+54 11 5555-5555',
     email: 'info@tallerdeceramica.com',
     address: 'Av. Libertador 1234, CABA, Buenos Aires',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1000,6 +1005,7 @@ export const travelsMock = [
     phone: '+54 351 444-4444',
     email: 'info@clasesdecocinargentina.com',
     address: 'Av. General Paz 5678, Córdoba',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1032,6 +1038,7 @@ export const travelsMock = [
     phone: '+54 261 555-5555',
     email: 'info@asesoriadeimagenpersonal.com',
     address: 'Calle Las Tipas 123, Mendoza',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1064,6 +1071,7 @@ export const travelsMock = [
     phone: '+54 341 666-6666',
     email: 'info@consultoriadebienestar.com',
     address: 'Av. Pellegrini 4567, Rosario',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1096,6 +1104,7 @@ export const travelsMock = [
     phone: '+54 11 5555-5555',
     email: 'info@tallerdearteinclusivo.com',
     address: 'Calle Arco Iris 45, Buenos Aires',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1128,6 +1137,7 @@ export const travelsMock = [
     phone: '+54 351 777-7777',
     email: 'info@yogainclusivo.com',
     address: 'Av. Libertador 987, Córdoba',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1160,6 +1170,7 @@ export const travelsMock = [
     phone: '+54 387 444-4444',
     email: 'info@paseosecologicos.com',
     address: 'Calle de la Naturaleza 12, Salta',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 
@@ -1192,6 +1203,7 @@ export const travelsMock = [
     phone: '+54 341 999-9999',
     email: 'info@danzainclusiva.com',
     address: 'Calle de la Danza 34, Rosario',
+    openingHours: 'Lunes a Domingo de 11:00 a 23:00',
     available: true,
   },
 ];

@@ -38,15 +38,9 @@ export class Suggestion {
   @Column({ type: 'varchar', length: 255 })
   typeService: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  accesibilitySeal: string;
-
   @OneToMany(() => Image, (image) => image.suggestion)
   @JoinTable()
   images: Image[];
-
-  @Column({ type: 'int' })
-  stars: number;
 
   @ManyToOne(() => Provider, (provider) => provider.suggestion)
   provider: Provider;
