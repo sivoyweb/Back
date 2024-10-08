@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { SuggestionsService } from './suggestions.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Suggestion } from 'src/entities/suggestion.entity';
 import { CreateTravelDto } from '../travels/travels.dto';
 import { ReadGuard } from 'src/guards/read.guard';
@@ -23,6 +23,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags(`Suggestions`)
+@ApiBearerAuth()
 @Controller('suggestions')
 export class SuggestionsController {
   constructor(private readonly suggestionsService: SuggestionsService) {}
