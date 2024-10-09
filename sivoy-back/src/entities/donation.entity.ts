@@ -20,7 +20,11 @@ export class Donation {
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({
+    type: 'enum',
+    enum: DonationStatus,
+    default: DonationStatus.PENDING,
+  })
   status: DonationStatus;
 
   @Column({ type: 'json', nullable: true })
