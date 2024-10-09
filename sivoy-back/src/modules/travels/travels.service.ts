@@ -42,10 +42,6 @@ export class TravelsService {
     return this.travelsRepository.restoreTravel(id);
   }
 
-  getReviewsByTravel(id: string) {
-    return this.travelsRepository.getReviewsByTravel(id);
-  }
-
   createReview(Review: CreateReviewDto, userId) {
     return this.travelsRepository.createReview(Review, userId);
   }
