@@ -32,8 +32,11 @@ export class DonationsService {
 
   // Procesar notificación de pago
   async processPaymentNotification(
+   
     payload: PaymentNotificationDto,
+    
   ): Promise<{ message: string }> {
+    
     console.log('Received payment webhook:', payload);
 
     const { id, data } = payload;
