@@ -40,14 +40,14 @@ export class Travel {
   })
   serviceType: ServiceType;
 
-  @OneToMany(() => Image, (image) => image.accesibilitySeal)
+  @OneToMany(() => Image, (image) => image.accesibilitySeal, { cascade: true })
   @JoinTable()
   accesibilitySeal: Image[];
 
   @OneToMany(() => Review, (review) => review.travel)
   reviews: Review[];
 
-  @OneToMany(() => Image, (image) => image.travel)
+  @OneToMany(() => Image, (image) => image.travel, { cascade: true })
   @JoinTable()
   images: Image[];
 
