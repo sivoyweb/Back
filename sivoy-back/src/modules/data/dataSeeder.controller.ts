@@ -218,7 +218,7 @@ export class DataController {
         // Transforma los datos a un formato que pueda usar xlsx
         data = dataFromDb.map((travel: Travel) => ({
           id: travel.id,
-          accessibilitySeal: travel.accessibilitySeal,
+          accesibilitySeal: travel.accesibilitySeal,
           tula: travel.address,
           available: travel.available,
           city: travel.city,
