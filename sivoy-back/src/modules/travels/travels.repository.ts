@@ -117,9 +117,12 @@ export class TravelsRepository {
     if (!updateTravel)
       throw new NotFoundException(`travel whit ${id} not found`);
     Object.assign(updateTravel, travel);
-    if (updateTravel.images) {
-      travel.images.push(...updateTravel.images);
+    if (!travel.images) {
+      travel.images = [];
     }
+  
+    // Agregamos las imágenes existentes
+    travel.images.push(...updateTravel.images);
     await this.travelsRepository.save(updateTravel);
     return updateTravel;
   }
