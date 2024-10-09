@@ -4,9 +4,11 @@ import {
   FileTypeValidator,
   Get,
   HttpException,
+  HttpStatus,
   Param,
   ParseFilePipe,
   Post,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -53,6 +55,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
 import * as path from 'path';
 import * as fs from 'fs';
+import { Response } from 'express';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -331,5 +334,33 @@ export class DataController {
     } catch (error) {
       return error;
     }
+  }
+
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Get('download/:fileName')
+  async downloadFile(
+    @Param('fileName') fileName: string,
+    @Res() res: Response,
+  ) {
+    const exportFolderPath = path.join(__dirname, '..', 'exports');
+
+    // Construir la ruta completa del archivo
+    const filePath = path.join(exportFolderPath, fileName);
+
+    // Verificar si el archivo existe
+    if (!fs.existsSync(filePath)) {
+      throw new HttpException('File not found', HttpStatus.NOT_FOUND);
+    }
+
+    // Enviar el archivo como una descarga
+    res.download(filePath, fileName, (err) => {
+      if (err) {
+        throw new HttpException(
+          'Error downloading file',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    });
   }
 }
