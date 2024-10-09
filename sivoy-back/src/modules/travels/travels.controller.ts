@@ -91,11 +91,6 @@ export class TravelsController {
     return this.travelsService.restoreTravel(id);
   }
 
-  @Get('/:id/reviews')
-  getReviewsByTravel(@Param('id') id: string) {
-    return this.travelsService.getReviewsByTravel(id);
-  }
-
   @Post('reviews')
   @UseGuards(ReadGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)

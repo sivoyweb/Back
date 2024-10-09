@@ -38,7 +38,6 @@ export class TravelsRepository {
       .where('travel.available = :available', { available: true })
       .getMany();
 
-    // Filtrar reseñas aprobadas o mantener el viaje sin reseñas
     travels.forEach((travel) => {
       travel.reviews = travel.reviews.filter(
         (review) => review.state === ApprovalState.APPROVED,
@@ -142,22 +141,6 @@ export class TravelsRepository {
       throw new BadRequestException('This travel is already available');
     travel.available = true;
     await this.travelsRepository.save(travel);
-    return travel;
-  }
-
-  async getReviewsByTravel(id: string) {
-    const travel = await this.travelsRepository.findOne({
-      where: { id },
-      select: ['id', 'name'],
-      relations: {
-        reviews: {
-          user: true,
-        },
-      },
-    });
-    if (!travel) throw new NotFoundException(`travel whit ${id} not found`);
-    if (travel.available === false)
-      throw new BadRequestException('This travel was no longer available');
     return travel;
   }
 
