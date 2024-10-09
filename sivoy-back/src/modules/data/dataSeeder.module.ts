@@ -24,6 +24,8 @@ import { ProvidersModule } from '../providers/providers.module';
 import { FaqModule } from '../faq/faq.module';
 import { DonationsModule } from '../donations/donations.module';
 import { Donation } from 'src/entities/donation.entity';
+import { Suggestion } from 'src/entities/suggestion.entity';
+import { SuggestionsModule } from '../suggestions/suggestions.module';
 
 @Module({
   imports: [
@@ -41,6 +43,7 @@ import { Donation } from 'src/entities/donation.entity';
       Promotion,
       Faq,
       Donation,
+      Suggestion,
     ]),
     UsersModule,
     DisabilitiesModule,
@@ -53,6 +56,7 @@ import { Donation } from 'src/entities/donation.entity';
     PromotionsModule,
     FaqModule,
     DonationsModule,
+    SuggestionsModule,
   ],
   controllers: [DataController],
   providers: [DataSeederService],

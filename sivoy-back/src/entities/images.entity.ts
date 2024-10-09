@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import { Suggestion } from './suggestion.entity';
 import { v4 as uuid } from 'uuid';
@@ -21,7 +22,12 @@ export class Image {
   @Column({ type: 'varchar', length: 255, default: 'URL default' })
   url: string;
 
-  @Column({ type: 'varchar', length: 255, default: 'public id default' })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    default: 'public id default',
+    unique: false,
+  })
   publicId: string;
 
   @Column({ type: 'varchar', nullable: true })
@@ -39,14 +45,14 @@ export class Image {
   @ManyToOne(() => Travel, (travel) => travel.images)
   travel: Travel;
 
-  @OneToOne(() => Credential, (credential) => credential.avatar)
-  avatarUser: Credential;
-
   @ManyToOne(() => Blog, (blog) => blog.images, { onDelete: 'CASCADE' })
   blog: Blog;
 
   @ManyToOne(() => Promotion, (promotion) => promotion.images)
   promotion: Promotion;
+
+  @OneToMany(() => Credential, (credential) => credential.avatar)
+  avatarUser: Credential;
 
   @OneToOne(() => Team, (team) => team.image)
   team: Team;

@@ -13,6 +13,7 @@ import {
   EmailDto,
   ResetPasswordDto,
   SendEmailDto,
+  UpdateUserDto,
 } from '../users/user.dto';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
@@ -23,6 +24,7 @@ import {
   getStructureForContact,
   getStructureForHelp,
 } from 'src/utils/mail.structure';
+import { Role } from 'src/helpers/roles.enum.';
 
 @ApiTags(`Auths`)
 @Controller('auth')
@@ -34,12 +36,24 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() user: CreateUserDto) {
-    const valid = await this.userService.isEmailInUse(user.email);
+    const userId = await this.userService.isEmailInUse(user.email);
 
-    if (valid !== false) {
-      throw new HttpException(
-        { status: 400, error: 'email already in use' },
-        400,
+    if (userId) {
+      const { userWithoutPassword } = await this.userService.getUserById(
+        userId as string,
+      );
+      if (userWithoutPassword.role !== Role.Disabled) {
+        throw new HttpException(
+          { status: 400, error: 'email already in use' },
+          400,
+        );
+      }
+
+      await this.userService.updateUser(
+        userId as string,
+        {
+          credential: { email: null },
+        } as UpdateUserDto,
       );
     }
 
