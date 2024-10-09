@@ -3,9 +3,12 @@ import {
   Controller,
   FileTypeValidator,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseFilePipe,
   Post,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -35,7 +38,7 @@ import { CreateAllianceDto } from '../alliances/alliances.dto';
 import { CreateFaqDto } from '../faq/faq.dto';
 import { CreateProviderDto } from '../providers/providers.dto';
 import { ProvidersRepository } from '../providers/providers.repository';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Travel } from 'src/entities/travel.entity';
 import { Team } from 'src/entities/team.entity';
 import { Promotion } from 'src/entities/promotion.entity';
@@ -50,6 +53,15 @@ import { RolesGuard } from 'src/guards/roles.guard';
 import { TokenGuard } from 'src/guards/token.guard';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
+import * as path from 'path';
+import * as fs from 'fs';
+import { Response } from 'express';
+import { SuggestionsRepository } from '../suggestions/suggestions.repository';
+import { Suggestion } from 'src/entities/suggestion.entity';
+import { UsersRepository } from '../users/users.repository';
+import { AVATAR_DEFAULT, PUBLIC_ID_AVATAR } from 'src/config/envConfig';
+import { ImagesRepository } from '../images/images.repository';
+import { Image } from 'src/entities/images.entity';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -59,6 +71,8 @@ export class DataController {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Credential)
     private readonly credentialRepo: Repository<Credential>,
+    @InjectRepository(Image)
+    private readonly imageRepo: Repository<Image>,
     private readonly travelsRepo: TravelsRepository,
     private readonly teamRepo: TeamRepository,
     private readonly promotionsRepo: PromotionsRepository,
@@ -68,8 +82,10 @@ export class DataController {
     private readonly faqsRepo: FaqRepository,
     private readonly providersRepo: ProvidersRepository,
     private readonly donatinoRepo: DonationsRepository,
+    private readonly suggestionRepo: SuggestionsRepository,
   ) {}
 
+  @ApiBearerAuth()
   @Post('/import/:entity')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
@@ -101,11 +117,23 @@ export class DataController {
 
       if (entity.toLowerCase() === 'user') {
         jsonData.forEach(async (userData: any) => {
-          console.log(userData);
           const password = await bcrypt.hash(userData?.password, 11);
+          let avatar = await this.imageRepo.findOne({
+            where: { publicId: PUBLIC_ID_AVATAR },
+          });
+
+          if (!avatar) {
+            avatar = await this.imageRepo.create({
+              url: AVATAR_DEFAULT,
+              publicId: PUBLIC_ID_AVATAR,
+            });
+            await this.imageRepo.save(avatar);
+          }
+
           const newCredential: Partial<Credential> = {
             email: userData?.email,
             password,
+            avatar,
           };
 
           const credential = await this.credentialRepo.save(newCredential);
@@ -181,6 +209,7 @@ export class DataController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get('/export/:entity')
@@ -188,10 +217,8 @@ export class DataController {
     try {
       let data = [];
       let dataFromDb = [];
-
       if (entity.toLowerCase() === 'user') {
         dataFromDb = await this.userRepo.find({ relations: ['credential'] });
-        console.log(dataFromDb);
         // Transforma los datos a un formato que pueda usar xlsx
         data = dataFromDb.map((user: User) => ({
           id: user.id,
@@ -296,8 +323,29 @@ export class DataController {
           payer: donation.payer,
           status: donation.status,
         }));
+      } else if (entity.toLowerCase() === 'suggestion') {
+        dataFromDb = await this.suggestionRepo.getPendingSuggestions();
+
+        data = dataFromDb.map((suggestion: Suggestion) => ({
+          id: suggestion.id,
+          address: suggestion.address,
+          city: suggestion.city,
+          country: suggestion.country,
+          date: suggestion.date,
+          description: suggestion.description,
+          email: suggestion.email,
+          name: suggestion.name,
+          openingHours: suggestion.openingHours,
+          phone: suggestion.phone,
+          state: suggestion.state,
+          typeService: suggestion.typeService,
+          website: suggestion.website,
+        }));
       } else {
-        return `entity ${entity} was not found to export`;
+        throw new HttpException(
+          { status: 404, error: `entity ${entity} was not found to export` },
+          404,
+        );
       }
 
       // Crea una hoja de trabajo de Excel a partir de los datos
@@ -307,11 +355,53 @@ export class DataController {
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, `${entity} Data`);
 
-      // Escribe el archivo Excel
-      XLSX.writeFile(workbook, `${entity}_data.xlsx`);
-      console.log('Archivo Excel exportado exitosamente.');
+      // Crea el directorio si no existe
+      const exportDir = path.join(__dirname, '..', 'exports');
+
+      if (!fs.existsSync(exportDir)) {
+        fs.mkdirSync(exportDir);
+      }
+
+      // Genera el archivo Excel en la ruta específica
+      const filePath = path.join(exportDir, `${entity}_data.xlsx`);
+      XLSX.writeFile(workbook, filePath);
+
+      // Retorna la URL del archivo para descargar desde el frontend
+      return {
+        message: 'Archivo exportado exitosamente',
+        fileName: `${entity}_data.xlsx`,
+      };
     } catch (error) {
-      throw error;
+      return error;
     }
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @Get('download/:fileName')
+  async downloadFile(
+    @Param('fileName') fileName: string,
+    @Res() res: Response,
+  ) {
+    const exportFolderPath = path.join(__dirname, '..', 'exports');
+
+    // Construir la ruta completa del archivo
+    const filePath = path.join(exportFolderPath, fileName);
+
+    // Verificar si el archivo existe
+    if (!fs.existsSync(filePath)) {
+      throw new HttpException('File not found', HttpStatus.NOT_FOUND);
+    }
+
+    // Enviar el archivo como una descarga
+    res.download(filePath, fileName, (err) => {
+      if (err) {
+        throw new HttpException(
+          'Error downloading file',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    });
   }
 }

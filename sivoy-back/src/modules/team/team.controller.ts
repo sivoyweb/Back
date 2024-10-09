@@ -16,7 +16,6 @@ import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
 @ApiTags('team')
 @ApiBearerAuth()
 @Controller('team')
@@ -41,7 +40,7 @@ export class TeamController {
   }
 
   @Put(':id')
-  updateMember(@Param('id') id: string, member: UpdateTeamDto) {
+  updateMember(@Param('id') id: string, @Body() member: UpdateTeamDto) {
     return this.teamService.updateMember(id, member);
   }
 

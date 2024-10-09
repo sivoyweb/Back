@@ -35,10 +35,10 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .where('travel.available = :available', { available: true })
       .getMany();
 
-    // Filtrar reseñas aprobadas o mantener el viaje sin reseñas
     travels.forEach((travel) => {
       travel.reviews = travel.reviews.filter(
         (review) => review.state === ApprovalState.APPROVED,
@@ -55,6 +55,7 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .getMany();
     travels.forEach((travel) => {
       travel.reviews = travel.reviews.filter(
@@ -72,6 +73,7 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .where('travel.id = :id', { id })
       .getOne();
 
@@ -111,10 +113,20 @@ export class TravelsRepository {
   }
 
   async updateTravel(id: string, travel: UpdateTravelDto) {
-    const updateTravel = await this.travelsRepository.findOneBy({ id });
+    const updateTravel = await this.travelsRepository.findOne({
+      where: { id },
+      relations: ['images'],
+    });
     if (!updateTravel)
       throw new NotFoundException(`travel whit ${id} not found`);
-    await this.travelsRepository.update(id, travel);
+    Object.assign(updateTravel, travel);
+    if (!travel.images) {
+      travel.images = [];
+    }
+
+    // Agregamos las imágenes existentes
+    travel.images.push(...updateTravel.images);
+    await this.travelsRepository.save(updateTravel);
     return updateTravel;
   }
 
@@ -135,22 +147,6 @@ export class TravelsRepository {
       throw new BadRequestException('This travel is already available');
     travel.available = true;
     await this.travelsRepository.save(travel);
-    return travel;
-  }
-
-  async getReviewsByTravel(id: string) {
-    const travel = await this.travelsRepository.findOne({
-      where: { id },
-      select: ['id', 'name'],
-      relations: {
-        reviews: {
-          user: true,
-        },
-      },
-    });
-    if (!travel) throw new NotFoundException(`travel whit ${id} not found`);
-    if (travel.available === false)
-      throw new BadRequestException('This travel was no longer available');
     return travel;
   }
 
@@ -289,31 +285,31 @@ export class TravelsRepository {
     const reviews = await this.reviewsRepository.find({
       where: { state: ApprovalState.PENDING },
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
     });
     return reviews;
   }
-  
+
   async getAllReviews() {
     const reviews = await this.reviewsRepository.find({
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
-    })
-    return reviews
+    });
+    return reviews;
   }
 
   async getReviewById(id: string) {
     const review = await this.reviewsRepository.findOne({
       where: { id },
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
-    })
-    return review
+    });
+    return review;
   }
 }

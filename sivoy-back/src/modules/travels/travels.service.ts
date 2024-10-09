@@ -42,10 +42,6 @@ export class TravelsService {
     return this.travelsRepository.restoreTravel(id);
   }
 
-  getReviewsByTravel(id: string) {
-    return this.travelsRepository.getReviewsByTravel(id);
-  }
-
   createReview(Review: CreateReviewDto, userId) {
     return this.travelsRepository.createReview(Review, userId);
   }
@@ -61,7 +57,7 @@ export class TravelsService {
   updateApprovalState(id: string, ApprovalState: ApprovalState) {
     return this.travelsRepository.updateApprovalState(id, ApprovalState);
   }
-  
+
   getPendingReviews() {
     return this.travelsRepository.getPendingReviews();
   }

@@ -58,11 +58,13 @@ export class AlliancesRepository {
   }
 
   async updateAlliance(id: string, alliance: UpdateAllianceDto) {
-    const updateAlliance = await this.allianceRepository.findOneBy({ id });
-    if (!updateAlliance)
-      throw new NotFoundException(`alliance whit ${id} not found`);
-    await this.allianceRepository.update(id, alliance);
-    return updateAlliance;
+    const existingAlliance = await this.allianceRepository.findOneBy({ id });
+    if (!existingAlliance) {
+      throw new NotFoundException(`Alliance with id ${id} not found`);
+    }
+    Object.assign(existingAlliance, alliance);
+    await this.allianceRepository.save(existingAlliance);
+    return existingAlliance;
   }
 
   async deleteAlliance(id: string) {

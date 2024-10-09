@@ -32,7 +32,6 @@ export class CreatePromotionDto {
 }
 
 export class UpdatePromotionDto {
-
   @IsOptional()
   @IsString()
   name?: string;

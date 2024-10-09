@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { UpdateUserDto } from './user.dto';
-import { DisabilitiesRepository } from '../disabilities/disabilities.repository';
+import { Role } from 'src/helpers/roles.enum.';
 
 @Injectable()
 export class UsersService {
@@ -25,8 +25,9 @@ export class UsersService {
 
       return usersWithoutPassword;
     } catch (err) {
+      console.log(err);
       throw new HttpException(
-        { status: 500, error: 'internal server error getting users' },
+        { status: 500, error: `internal server error getting users: ${err}` },
         500,
       );
     }
@@ -81,5 +82,9 @@ export class UsersService {
 
   getReviewsByUser(id: string, userId: string, userRole: string) {
     return this.usersRepository.getReviewsByUser(id, userId, userRole);
+  }
+
+  getSuggestionsByUser(id: string, userId: string, userRole: Role) {
+    return this.usersRepository.getSuggestionsByUser(id, userId, userRole);
   }
 }

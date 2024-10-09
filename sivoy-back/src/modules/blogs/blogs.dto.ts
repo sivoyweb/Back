@@ -16,10 +16,9 @@ export class CreateBlogDto {
   @IsNotEmpty()
   content: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsArray()
-  @ArrayMinSize(1)
-  images?: Partial<Image[]>;
+  images: Image[];
 }
 
 export class UpdateBlogDto {
@@ -33,6 +32,5 @@ export class UpdateBlogDto {
 
   @IsOptional()
   @IsArray()
-  @ArrayMinSize(1)
-  images?: Partial<Image[]>;
+  images?: Image[];
 }

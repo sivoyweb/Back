@@ -59,7 +59,9 @@ export class DonationsRepository {
             pending: 'https://front-eta-teal.vercel.app/',
           },
           notification_url:
+
             'https://5e07-190-22-243-221.ngrok-free.app/donations/webhook',
+
           auto_return: 'approved',
         },
       });

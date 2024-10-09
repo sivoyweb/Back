@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -71,11 +72,23 @@ export class BlogsRepository {
     }
   }
 
-  async updateBlog(id: string, blog: UpdateBlogDto) {
-    const updateBlog = await this.blogsRepository.findOneBy({ id });
-    if (!updateBlog) throw new NotFoundException(`Blog whit ${id} not found`);
-    await this.blogsRepository.update(id, blog);
-    return updateBlog;
+  async updateBlog(id: string, updateBlogDto: UpdateBlogDto): Promise<Blog> {
+    const blog = await this.blogsRepository.findOne({
+      where: { id },
+      relations: ['images'],
+    });
+
+    if (!blog) {
+      throw new HttpException(
+        { status: 404, error: `Blog with ID ${id} not found` },
+        404,
+      );
+    }
+    Object.assign(blog, updateBlogDto);
+    if (updateBlogDto.images) {
+      blog.images.push(...updateBlogDto.images);
+    }
+    return await this.blogsRepository.save(blog);
   }
 
   async deleteBlog(id: string) {

@@ -50,23 +50,22 @@ export class UpdateUserDto {
   @IsString()
   @MinLength(3)
   @MaxLength(50)
-  name: string;
+  name?: string;
 
   @IsString()
   @IsOptional()
-  phone: string;
+  phone?: string;
 
   @IsOptional()
   @IsBoolean()
-  isRepresentative: boolean;
+  isRepresentative?: boolean;
 
   @IsOptional()
   @IsArray()
-  @IsString({ each: true }) // Cada valor del array debe ser una cadena de texto
-  disabilities?: string[] | Partial<Disability[]>; // Nombres de las discapacidades
+  disabilities?: Disability[];
 
   @IsOptional()
-  credential: Credential;
+  credential?: Credential;
 }
 
 export class EmailDto extends PickType(CreateUserDto, ['email']) {}
