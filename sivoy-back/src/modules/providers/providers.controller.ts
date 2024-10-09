@@ -34,7 +34,7 @@ export class ProvidersController {
   }
 
   @Put(':id')
-  updateProvider(@Param('id') id: string, provider: UpdateProviderDto) {
+  updateProvider(@Param('id') id: string,@Body() provider: UpdateProviderDto) {
     return this.providersService.updateProvider(id, provider);
   }
 
