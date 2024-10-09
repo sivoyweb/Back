@@ -46,11 +46,11 @@ export class Travel {
     enum: AccessibilitySealName,
     default: AccessibilitySealName.BRONZE,
   })
-  accessibilitySealName: AccessibilitySealName;
+  accesibilitySealName: AccessibilitySealName;
 
-  @OneToMany(() => Image, (image) => image.accessibilitySeal, { cascade: true })
+  @OneToMany(() => Image, (image) => image.accesibilitySeal, { cascade: true })
   @JoinTable()
-  accessibilitySeal: Image[];
+  accesibilitySeal: Image[];
 
   @OneToMany(() => Review, (review) => review.travel)
   reviews: Review[];
