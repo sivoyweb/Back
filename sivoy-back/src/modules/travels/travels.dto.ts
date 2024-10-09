@@ -20,6 +20,7 @@ import {
 } from 'class-validator';
 import { Image } from 'src/entities/images.entity';
 import { Review } from 'src/entities/review.entity';
+import { AccessibilitySealName } from 'src/helpers/accessibilitySealName.enum';
 import { ServiceType } from 'src/helpers/serviceType.enum';
 
 export class CreateTravelDto {
@@ -52,9 +53,13 @@ export class CreateTravelDto {
   @IsEnum(ServiceType)
   serviceType: ServiceType;
 
+  @IsEnum(AccessibilitySealName)
+  @IsNotEmpty() 
+  accessibilitySealName?: AccessibilitySealName;
+
   @IsOptional()
   @IsArray()
-  accesibilitySeal: Image[];
+  accessibilitySeal: Image[];
 
   @IsOptional()
   @IsArray()
@@ -112,9 +117,13 @@ export class UpdateTravelDto {
   @IsEnum(ServiceType)
   serviceType?: ServiceType;
 
+  @IsEnum(AccessibilitySealName)
+  @IsOptional()
+  accessibilitySealName?: AccessibilitySealName;
+
   @IsOptional()
   @IsArray()
-  accesibilitySeal?:Image[];
+  accessibilitySeal?:Image[];
 
   @IsOptional()
   @IsArray()
