@@ -37,8 +37,6 @@ export class DonationsService {
     console.log('Received payment webhook:', payload);
 
     const { id, data } = payload;
-
-    // Usar el ID de data.donationId que hemos renombrado
     const donationId = data.donationId || id;
 
     // Verificar si donationId es un UUID válido
@@ -50,21 +48,15 @@ export class DonationsService {
       // Intentar encontrar la donación en la base de datos
       const donation =
         await this.donationsRepository.getDonationById(donationId);
-
       if (!donation) {
         throw new HttpException('Donation not found', 404);
       }
 
       // Procesar la notificación (actualizar estado, etc.)
-      donation.status = DonationStatus.APPROVED; // Ejemplo: actualizar el estado
+      donation.status = DonationStatus.APPROVED; // Cambiar el estado de la donación
 
-      // Actualizar el estado de la donación
-      await this.donationsRepository.updateDonationStatus(
-        donationId,
-        donation.status,
-      );
-
-      return { message: 'Payment notification processed successfully' };
+      // Responder a Mercado Pago antes de hacer el procesamiento
+      return { message: 'Payment notification received' };
     } catch (error) {
       console.error('Error processing payment notification:', error);
       throw new HttpException(
