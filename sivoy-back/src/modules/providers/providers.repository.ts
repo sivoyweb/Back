@@ -62,12 +62,12 @@ export class ProvidersRepository {
   async updateProvider(id: string, provider: UpdateProviderDto) {
     const existingProvider = await this.providersRepository.findOneBy({ id });
     if (!existingProvider) {
-        throw new NotFoundException(`Provider with id ${id} not found`);
+      throw new NotFoundException(`Provider with id ${id} not found`);
     }
     Object.assign(existingProvider, provider);
     await this.providersRepository.save(existingProvider);
     return existingProvider;
-}
+  }
 
   async deleteProvider(id: string) {
     const provider = await this.providersRepository.findOneBy({ id });

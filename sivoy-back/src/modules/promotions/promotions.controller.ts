@@ -50,7 +50,7 @@ export class PromotionsController {
   }
 
   @Put(':id')
-  @UseGuards(TokenGuard,RolesGuard)
+  @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async updatePromotion(
     @Param('id') id: string,
@@ -60,14 +60,14 @@ export class PromotionsController {
   }
 
   @Delete(':id')
-  @UseGuards(TokenGuard,RolesGuard)
+  @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async deactivatePromotion(@Param('id') id: string): Promise<Promotion> {
     return await this.promotionsService.deactivatePromotion(id);
   }
 
   @Put('desactivate-expired')
-  @UseGuards(TokenGuard,RolesGuard)
+  @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   async desactivateExpiredPromotions(): Promise<void> {
     return await this.promotionsService.desactivateExpiredPromotions();
