@@ -13,6 +13,7 @@ import { Credential } from 'src/entities/credential.entity';
 import * as bcrypt from 'bcrypt';
 import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
+import { AVATAR_DEFAULT, PUBLIC_ID_AVATAR } from 'src/config/envConfig';
 
 @Injectable()
 export class UsersRepository {
@@ -73,7 +74,6 @@ export class UsersRepository {
 
     const { credential } = userFound;
 
-    // Lógica de actualización del avatar
     if (user.credential?.avatar) {
       const existingAvatar = await this.imagesRepository.findOne({
         where: { publicId: user.credential.avatar.publicId },
@@ -87,43 +87,54 @@ export class UsersRepository {
       }
     }
 
-    const disabilities = user.disabilities.map((dis) => {
-      return {
-        name: dis,
-      };
-    });
+    Object.assign(userFound, user);
 
-    // Actualizar campos del usuario con los datos del DTO
-    Object.assign(userFound, { ...user, disabilities });
-
-    // Lógica de actualización de discapacidades
     if (user.disabilities && user.disabilities.length > 0) {
       const updatedDisabilities = await Promise.all(
-        user.disabilities.map(async (disabilityName) => {
-          const existingDisability = await this.disabilitiesRepository.findOne({
-            where: { name: disabilityName }, // Buscar discapacidad por nombre
+        user.disabilities.map(async (disability: Partial<Disability>) => {
+          if (disability.id) {
+            const existingDisability =
+              await this.disabilitiesRepository.findOne({
+                where: { id: disability.id },
+              });
+
+            if (existingDisability) {
+              existingDisability.name =
+                disability.name || existingDisability.name;
+              existingDisability.active =
+                typeof disability.active === 'boolean'
+                  ? disability.active
+                  : existingDisability.active;
+
+              return await this.disabilitiesRepository.save(existingDisability);
+            }
+          }
+
+          let existingDisability = await this.disabilitiesRepository.findOne({
+            where: { name: disability.name },
           });
 
-          if (existingDisability) {
-            return existingDisability; // Retornar si ya existe
-          } else {
-            const newDisability = this.disabilitiesRepository.create({
-              name: disabilityName,
+          if (!existingDisability) {
+            existingDisability = this.disabilitiesRepository.create({
+              name: disability.name,
+              active:
+                typeof disability.active === 'boolean'
+                  ? disability.active
+                  : true,
             });
-            return await this.disabilitiesRepository.save(newDisability); // Crear si no existe
+            await this.disabilitiesRepository.save(existingDisability);
           }
+
+          return existingDisability;
         }),
       );
 
-      // Asignar las discapacidades actualizadas al usuario encontrado
       userFound.disabilities = updatedDisabilities;
     }
 
-    // Actualizar credencial si ha sido modificada
     await this.credentialsRepository.update(credential.id, credential);
     userFound.credential = credential;
 
-    // Guardar los cambios en el usuario
     const newUser = await this.usersRepository.save(userFound);
 
     return { message: 'User Updated', user: newUser };
@@ -133,10 +144,21 @@ export class UsersRepository {
     const { name, email, password, phone } = userDto;
 
     const hashedPassword = await bcrypt.hash(password, 11);
+    let avatar = await this.imagesRepository.findOne({
+      where: { url: AVATAR_DEFAULT },
+    });
+
+    if (!avatar) {
+      avatar = await this.imagesRepository.save({
+        url: AVATAR_DEFAULT,
+        publicId: PUBLIC_ID_AVATAR,
+      });
+    }
 
     const credential = this.credentialsRepository.create({
       email,
       password: hashedPassword,
+      avatar,
     });
 
     await this.credentialsRepository.update(credential.id, credential);
