@@ -15,7 +15,7 @@ import { TokenGuard } from 'src/guards/token.guard';
 import { Roles } from '../../decorators/roles.decorator';
 import { Role } from 'src/helpers/roles.enum.';
 import { RolesGuard } from 'src/guards/roles.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
 
@@ -24,6 +24,7 @@ import { ReadGuard } from 'src/guards/read.guard';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get('/')
@@ -31,12 +32,14 @@ export class UsersController {
     return await this.userService.getAllUsers();
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard)
   @Get(':id')
   async getUserById(@Param('id') id: string) {
     return await this.userService.getUserById(id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put('/make-admin')
@@ -45,6 +48,7 @@ export class UsersController {
     return response;
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Put(':id')
@@ -52,12 +56,15 @@ export class UsersController {
     return await this.userService.updateUser(id, user);
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
   }
+
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put('block/:id')
@@ -65,6 +72,7 @@ export class UsersController {
     return await this.userService.blockUser(id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put('unblock/:id')
@@ -72,6 +80,7 @@ export class UsersController {
     return await this.userService.unblockUser(id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(ReadGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Get(':id/reviews')

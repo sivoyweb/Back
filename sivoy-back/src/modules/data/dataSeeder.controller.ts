@@ -38,7 +38,7 @@ import { CreateAllianceDto } from '../alliances/alliances.dto';
 import { CreateFaqDto } from '../faq/faq.dto';
 import { CreateProviderDto } from '../providers/providers.dto';
 import { ProvidersRepository } from '../providers/providers.repository';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Travel } from 'src/entities/travel.entity';
 import { Team } from 'src/entities/team.entity';
 import { Promotion } from 'src/entities/promotion.entity';
@@ -76,6 +76,7 @@ export class DataController {
     private readonly donatinoRepo: DonationsRepository,
   ) {}
 
+  @ApiBearerAuth()
   @Post('/import/:entity')
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
@@ -187,6 +188,7 @@ export class DataController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get('/export/:entity')
@@ -329,13 +331,17 @@ export class DataController {
       // Retorna la URL del archivo para descargar desde el frontend
       return {
         message: 'Archivo exportado exitosamente',
-        downloadUrl: `exports/${entity}_data.xlsx`,
+        downloadUrl: {
+          message: 'exported successfully',
+          fileName: `${entity}_data.xlsx`,
+        },
       };
     } catch (error) {
       return error;
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Get('download/:fileName')
