@@ -35,7 +35,7 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
-      .leftJoinAndSelect('travel.accessibilitySeal', 'accessibilitySeal')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .where('travel.available = :available', { available: true })
       .getMany();
 
@@ -55,7 +55,7 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
-      .leftJoinAndSelect('travel.accessibilitySeal', 'accessibilitySeal')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .getMany();
     travels.forEach((travel) => {
       travel.reviews = travel.reviews.filter(
@@ -73,7 +73,7 @@ export class TravelsRepository {
       .leftJoinAndSelect('review.user', 'user')
       .leftJoinAndSelect('travel.images', 'image')
       .leftJoinAndSelect('travel.provider', 'provider')
-      .leftJoinAndSelect('travel.accessibilitySeal', 'accessibilitySeal')
+      .leftJoinAndSelect('travel.accesibilitySeal', 'accesibilitySeal')
       .where('travel.id = :id', { id })
       .getOne();
 
