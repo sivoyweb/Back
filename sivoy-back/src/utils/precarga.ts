@@ -1263,7 +1263,6 @@ export const promotionsMock = [
     ],
     validFrom: '2024-02-10', // Cambiado a cadena en formato de fecha
     validUntil: '2024-02-15', // Cambiado a cadena en formato de fecha
-
   },
 ];
 

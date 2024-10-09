@@ -54,7 +54,7 @@ export class CreateTravelDto {
   serviceType: ServiceType;
 
   @IsEnum(AccessibilitySealName)
-  @IsNotEmpty() 
+  @IsNotEmpty()
   accessibilitySealName?: AccessibilitySealName;
 
   @IsOptional()
@@ -123,7 +123,7 @@ export class UpdateTravelDto {
 
   @IsOptional()
   @IsArray()
-  accessibilitySeal?:Image[];
+  accesibilitySeal?: Image[];
 
   @IsOptional()
   @IsArray()

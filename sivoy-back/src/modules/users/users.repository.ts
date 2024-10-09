@@ -256,7 +256,8 @@ export class UsersRepository {
       },
     });
 
-    if (!userSuggestions) throw new NotFoundException(`User with ${id} not found`);
+    if (!userSuggestions)
+      throw new NotFoundException(`User with ${id} not found`);
     return userSuggestions;
   }
 }

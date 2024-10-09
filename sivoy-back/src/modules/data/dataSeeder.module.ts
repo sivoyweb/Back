@@ -26,6 +26,7 @@ import { DonationsModule } from '../donations/donations.module';
 import { Donation } from 'src/entities/donation.entity';
 import { Suggestion } from 'src/entities/suggestion.entity';
 import { SuggestionsModule } from '../suggestions/suggestions.module';
+import { ImagesModule } from '../images/images.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { SuggestionsModule } from '../suggestions/suggestions.module';
     FaqModule,
     DonationsModule,
     SuggestionsModule,
+    ImagesModule,
   ],
   controllers: [DataController],
   providers: [DataSeederService],
