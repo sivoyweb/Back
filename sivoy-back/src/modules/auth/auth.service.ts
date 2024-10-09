@@ -124,13 +124,13 @@ export class AuthService {
 
     const user = await this.userService.getUserById(exist as string);
 
-    const { role, ...userFinal } = user.userWithoutPassword;
+    const { ...userFinal } = user.userWithoutPassword;
 
     const payload = {
       sub: userFinal.id,
       id: userFinal.id,
       email: userFinal.credential.email,
-      role: role,
+      role: userFinal.role,
     };
 
     const token = this.jwtService.sign(payload);

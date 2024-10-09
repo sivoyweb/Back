@@ -16,7 +16,6 @@ import { Request } from 'express';
 import { ReadGuard } from 'src/guards/read.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
 @ApiTags('team')
 @ApiBearerAuth()
 @Controller('team')
