@@ -92,4 +92,17 @@ export class UsersController {
     const userRole = req.user.role;
     return await this.userService.getReviewsByUser(id, userId, userRole);
   }
+
+  @ApiBearerAuth()
+  @UseGuards(TokenGuard, RolesGuard)
+  @Roles(Role.User, Role.Admin)
+  @Get(':id/suggestions')
+  async getSuggestionsByUser(@Param('id') id: string, @Req() req: Request) {
+    if (!req.user) {
+      throw new ForbiddenException('You must be logged in to view reviews');
+    }
+    const userId = req.user.id;
+    const userRole = req.user.role;
+    return await this.userService.getSuggestionsByUser(id, userId, userRole);
+  }
 }

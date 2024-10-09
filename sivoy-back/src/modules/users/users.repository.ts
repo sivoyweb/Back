@@ -242,4 +242,21 @@ export class UsersRepository {
     if (!userReviews) throw new NotFoundException(`User with ${id} not found`);
     return userReviews;
   }
+
+  async getSuggestionsByUser(id: string, userId: string, userRole: Role) {
+    if (userId !== id && userRole !== Role.Admin) {
+      throw new ForbiddenException(
+        'You do not have permission to view these suggestions',
+      );
+    }
+    const userSuggestions = await this.usersRepository.findOne({
+      where: { id },
+      relations: {
+        suggestions: true,
+      },
+    });
+
+    if (!userSuggestions) throw new NotFoundException(`User with ${id} not found`);
+    return userSuggestions;
+  }
 }
