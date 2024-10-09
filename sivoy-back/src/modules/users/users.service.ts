@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { UpdateUserDto } from './user.dto';
+import { Role } from 'src/helpers/roles.enum.';
 
 @Injectable()
 export class UsersService {
@@ -81,5 +82,9 @@ export class UsersService {
 
   getReviewsByUser(id: string, userId: string, userRole: string) {
     return this.usersRepository.getReviewsByUser(id, userId, userRole);
+  }
+
+  getSuggestionsByUser(id: string, userId: string, userRole: Role) {
+    return this.usersRepository.getSuggestionsByUser(id, userId, userRole);
   }
 }
