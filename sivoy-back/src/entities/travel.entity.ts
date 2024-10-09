@@ -12,6 +12,7 @@ import { Image } from './images.entity';
 import { User } from './user.entity';
 import { Provider } from './provider.entity';
 import { ServiceType } from 'src/helpers/serviceType.enum';
+import { AccessibilitySealName } from 'src/helpers/accessibilitySealName.enum';
 
 @Entity('travels')
 export class Travel {
@@ -39,6 +40,13 @@ export class Travel {
     default: ServiceType.Other,
   })
   serviceType: ServiceType;
+
+  @Column({
+    type: 'enum',
+    enum: AccessibilitySealName,
+    default: AccessibilitySealName.BRONZE,
+  })
+  accesibilitySealName: AccessibilitySealName;
 
   @OneToMany(() => Image, (image) => image.accesibilitySeal, { cascade: true })
   @JoinTable()
