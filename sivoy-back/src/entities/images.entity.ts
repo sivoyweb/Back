@@ -39,8 +39,8 @@ export class Image {
   @ManyToOne(() => Suggestion, (suggestion) => suggestion.images)
   suggestion: Suggestion;
 
-  @ManyToOne(() => Travel, (travel) => travel.accessibilitySeal)
-  accessibilitySeal: Travel;
+  @ManyToOne(() => Travel, (travel) => travel.accesibilitySeal)
+  accesibilitySeal: Travel;
 
   @ManyToOne(() => Travel, (travel) => travel.images)
   travel: Travel;
