@@ -56,6 +56,8 @@ import { Role } from 'src/helpers/roles.enum.';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Response } from 'express';
+import { SuggestionsRepository } from '../suggestions/suggestions.repository';
+import { Suggestion } from 'src/entities/suggestion.entity';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -74,6 +76,7 @@ export class DataController {
     private readonly faqsRepo: FaqRepository,
     private readonly providersRepo: ProvidersRepository,
     private readonly donatinoRepo: DonationsRepository,
+    private readonly suggestionRepo: SuggestionsRepository,
   ) {}
 
   @ApiBearerAuth()
@@ -196,7 +199,6 @@ export class DataController {
     try {
       let data = [];
       let dataFromDb = [];
-
       if (entity.toLowerCase() === 'user') {
         dataFromDb = await this.userRepo.find({ relations: ['credential'] });
         // Transforma los datos a un formato que pueda usar xlsx
@@ -303,6 +305,24 @@ export class DataController {
           payer: donation.payer,
           status: donation.status,
         }));
+      } else if (entity.toLowerCase() === 'suggestion') {
+        dataFromDb = await this.suggestionRepo.getPendingSuggestions();
+
+        data = dataFromDb.map((suggestion: Suggestion) => ({
+          id: suggestion.id,
+          address: suggestion.address,
+          city: suggestion.city,
+          country: suggestion.country,
+          date: suggestion.date,
+          description: suggestion.description,
+          email: suggestion.email,
+          name: suggestion.name,
+          openingHours: suggestion.openingHours,
+          phone: suggestion.phone,
+          state: suggestion.state,
+          typeService: suggestion.typeService,
+          website: suggestion.website,
+        }));
       } else {
         throw new HttpException(
           { status: 404, error: `entity ${entity} was not found to export` },
@@ -331,10 +351,7 @@ export class DataController {
       // Retorna la URL del archivo para descargar desde el frontend
       return {
         message: 'Archivo exportado exitosamente',
-        downloadUrl: {
-          message: 'exported successfully',
-          fileName: `${entity}_data.xlsx`,
-        },
+        fileName: `${entity}_data.xlsx`,
       };
     } catch (error) {
       return error;

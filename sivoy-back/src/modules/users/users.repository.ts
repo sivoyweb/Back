@@ -51,7 +51,7 @@ export class UsersRepository {
     const credentialsFound = await this.credentialsRepository.findOne({
       where: { email },
     });
-    console.log(credentialsFound);
+
     if (!credentialsFound) {
       return false;
     }

@@ -13,5 +13,6 @@ import { User } from 'src/entities/user.entity';
   imports: [TypeOrmModule.forFeature([Suggestion, Travel, User]), UsersModule],
   controllers: [SuggestionsController],
   providers: [SuggestionsService, SuggestionsRepository],
+  exports: [SuggestionsRepository],
 })
 export class SuggestionsModule {}
