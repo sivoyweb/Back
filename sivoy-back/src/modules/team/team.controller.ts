@@ -41,7 +41,7 @@ export class TeamController {
   }
 
   @Put(':id')
-  updateMember(@Param('id') id: string, member: UpdateTeamDto) {
+  updateMember(@Param('id') id: string, @Body() member: UpdateTeamDto) {
     return this.teamService.updateMember(id, member);
   }
 
