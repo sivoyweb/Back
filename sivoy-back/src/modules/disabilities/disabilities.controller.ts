@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { DisabilitiesService } from './disabilities.service';
 import { addDisabilityDto, UpdateDisabilityDto } from './disabilities.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { TokenGuard } from 'src/guards/token.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/helpers/roles.enum.';
@@ -33,6 +33,7 @@ export class DisabilitiesController {
     return disability;
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.User, Role.Admin)
   @Post()
@@ -40,6 +41,7 @@ export class DisabilitiesController {
     return await this.disabilitiesService.addDisability(disabilityData);
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put('/:id')
@@ -50,6 +52,7 @@ export class DisabilitiesController {
     return await this.disabilitiesService.modifyDisability(disabilityData, id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(TokenGuard, RolesGuard)
   @Roles(Role.Admin)
   @Delete('/:id')
