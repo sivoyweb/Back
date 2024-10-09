@@ -52,7 +52,8 @@ export class ProjectsRepository {
     const updateProject = await this.projectsRepository.findOneBy({ id });
     if (!updateProject)
       throw new NotFoundException(`project whit ${id} not found`);
-    await this.projectsRepository.update(id, Project);
+    Object.assign(updateProject, Project);
+    await this.projectsRepository.save(updateProject);
     return updateProject;
   }
 
