@@ -5,6 +5,7 @@ import {
   OneToOne,
   OneToMany,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
@@ -15,7 +16,7 @@ export class Credential {
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   email: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -27,7 +28,10 @@ export class Credential {
   @Column({ type: 'varchar', nullable: true })
   resetPasswordCode: string;
 
-  @OneToOne(() => Image, { cascade: true })
+  @ManyToOne(() => Image, (image) => image.avatarUser, {
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn()
   avatar: Image;
 
