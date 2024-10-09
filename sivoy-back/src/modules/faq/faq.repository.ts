@@ -52,7 +52,8 @@ export class FaqRepository {
     const updateQuestion = await this.faqRepository.findOneBy({ id });
     if (!updateQuestion)
       throw new NotFoundException(`Question whit ${id} not found`);
-    await this.faqRepository.update(id, faq);
+    Object.assign(updateQuestion, faq);
+    await this.faqRepository.save(updateQuestion);
     return updateQuestion;
   }
 

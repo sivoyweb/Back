@@ -111,10 +111,17 @@ export class TravelsRepository {
   }
 
   async updateTravel(id: string, travel: UpdateTravelDto) {
-    const updateTravel = await this.travelsRepository.findOneBy({ id });
+    const updateTravel = await this.travelsRepository.findOne({
+      where: { id },
+      relations: ['images']
+    });
     if (!updateTravel)
       throw new NotFoundException(`travel whit ${id} not found`);
-    await this.travelsRepository.update(id, travel);
+    Object.assign(updateTravel, travel);
+    if (updateTravel.images) {
+      travel.images.push(...updateTravel.images);
+    }
+    await this.travelsRepository.save(updateTravel);
     return updateTravel;
   }
 
