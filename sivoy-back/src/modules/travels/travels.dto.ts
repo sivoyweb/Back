@@ -54,12 +54,12 @@ export class CreateTravelDto {
 
   @IsOptional()
   @IsArray()
-  accesibilitySeal: Partial<Image[]>;
+  accesibilitySeal: Image[];
 
   @IsOptional()
   @IsArray()
   @ArrayMinSize(1)
-  images: Partial<Image[]>;
+  images: Image[];
 
   @IsNotEmpty()
   @IsString()
@@ -114,12 +114,12 @@ export class UpdateTravelDto {
 
   @IsOptional()
   @IsArray()
-  accesibilitySeal?: Partial<Image[]>;
+  accesibilitySeal?:Image[];
 
   @IsOptional()
   @IsArray()
   @ArrayMinSize(1)
-  images?: Partial<Image[]>;
+  images?: Image[];
 
   @IsOptional()
   @IsString()

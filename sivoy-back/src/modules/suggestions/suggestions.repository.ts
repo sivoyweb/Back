@@ -72,7 +72,8 @@ export class SuggestionsRepository {
     const updateSuggestion = await this.SuggestionsRepository.findOneBy({ id });
     if (!updateSuggestion)
       throw new NotFoundException(`suggestion whit ${id} not found`);
-    await this.SuggestionsRepository.update(id, suggestion);
+    Object.assign(updateSuggestion, suggestion);
+    await this.SuggestionsRepository.save(updateSuggestion);
     return suggestion;
   }
 
@@ -94,5 +95,5 @@ export class SuggestionsRepository {
     // }
     return suggestion;
   }
-  
+
 }

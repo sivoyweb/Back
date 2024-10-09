@@ -61,7 +61,8 @@ export class TeamRepository {
     const updateMember = await this.teamRepository.findOneBy({ id });
     if (!updateMember)
       throw new NotFoundException(`member whit ${id} not found`);
-    await this.teamRepository.update(id, member);
+    Object.assign(updateMember, member);
+    await this.teamRepository.save(updateMember);
     return updateMember;
   }
 
