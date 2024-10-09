@@ -1266,3 +1266,22 @@ export const promotionsMock = [
     isActive: false, // explícitamente desactivada
   },
 ];
+
+export const providersMock = [
+  {
+    name: 'Viajes Inclusivos SA',
+    description: 'Agencia de viajes especializada en turismo accesible.',
+    visible: true,
+  },
+  {
+    name: 'Aventura Sin Barreras',
+    description:
+      'Organización que ofrece actividades de aventura para personas con discapacidad.',
+    visible: true,
+  },
+  {
+    name: 'Rutas Accesibles SRL',
+    description: 'Empresa de transporte accesible para viajes turísticos.',
+    visible: true,
+  },
+];
