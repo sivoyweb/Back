@@ -33,7 +33,7 @@ export class DonationsRepository {
       console.log('Datos de donación recibidos:', preferenceData);
       // Configuración de la preferencia de MercadoPago
       const preference = new Preference(this.client);
-      console.log('Donación a guardar:', preference);
+
       const response = await preference.create({
         body: {
           payment_methods: {
@@ -58,13 +58,13 @@ export class DonationsRepository {
             failure: 'https://front-eta-teal.vercel.app/',
             pending: 'https://front-eta-teal.vercel.app/',
           },
-          notification_url: 'https://api-sivoy.onrender.com/donations/payment-notification',
+          notification_url:
+            'https://5e07-190-22-243-221.ngrok-free.app/donations/webhook',
           auto_return: 'approved',
         },
       });
-      
-      console.log("ESTO ES RESPONSE",response);
-      console.log("ESTO ES INITPOINT",response.sandbox_init_point);
+
+
       const initPoint = response.sandbox_init_point;
       if (!initPoint) {
         throw new HttpException(
@@ -75,8 +75,7 @@ export class DonationsRepository {
           500,
         );
       }
-      
-    
+
       // Guardar la donación en la base de datos
       const donation = this.donationRepository.create({
         amount: preferenceData.unit_price, // Guardar el unit_price en amount
