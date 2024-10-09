@@ -3,12 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Disability } from 'src/entities/disabilities.entity';
 import { Image } from 'src/entities/images.entity';
 import { Promotion } from 'src/entities/promotion.entity';
+import { Provider } from 'src/entities/provider.entity';
 import { Travel } from 'src/entities/travel.entity';
 import { User } from 'src/entities/user.entity';
 import {
   categorizedDisabilities,
   promotionsMock,
   travelsMock,
+  providersMock,
 } from 'src/utils/precarga';
 import { Repository } from 'typeorm';
 import * as XLSX from 'xlsx';
@@ -24,11 +26,14 @@ export class DataSeederService implements OnModuleInit {
     private readonly imageRepository: Repository<Image>,
     @InjectRepository(Promotion)
     private readonly promotionRepository: Repository<Promotion>,
+    @InjectRepository(Provider)
+    private readonly providerRepository: Repository<Provider>,
   ) {}
   async onModuleInit() {
     await this.dataSeederDiscapacities();
     await this.dataSeederTravels();
     await this.dataSeederPromotions();
+    await this.dataSeederProviders();
   }
 
   async dataSeederDiscapacities() {
@@ -112,6 +117,30 @@ export class DataSeederService implements OnModuleInit {
       } catch (error) {
         console.error(
           `Error precargando la promoción: ${promotion.name}`,
+          error,
+        );
+      }
+    }
+  }
+
+  async dataSeederProviders() {
+    for (const provider of providersMock) {
+      try {
+        const providerFound = await this.providerRepository.findOne({
+          where: { name: provider.name },
+        });
+        if (providerFound) {
+          continue;
+        }
+
+        const newProvider = this.providerRepository.create({
+          ...provider,
+        });
+
+        await this.providerRepository.save(newProvider);
+      } catch (error) {
+        console.error(
+          `Error precargando el proveedor: ${provider.name}`,
           error,
         );
       }
