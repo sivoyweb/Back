@@ -60,7 +60,7 @@ export class DonationsRepository {
           },
           notification_url:
 
-            'https://5e07-190-22-243-221.ngrok-free.app/donations/ipn',
+            'https://api-sivoy.onrender.com/donations/ipn',
 
           auto_return: 'approved',
         },

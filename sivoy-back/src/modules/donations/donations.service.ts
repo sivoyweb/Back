@@ -99,10 +99,6 @@ export class DonationsService {
     // Suponiendo que el data contiene el id del pago
     const donationId = data.donationId || data.id;
   
-    // Verificar si donationId es un UUID válido
-    if (!isUUID(donationId)) {
-      throw new HttpException(`Invalid donation ID: ${donationId}`, 400);
-    }
   
     try {
       // Intentar encontrar la donación en la base de datos
@@ -120,7 +116,7 @@ export class DonationsService {
       // Responder a Mercado Pago
       return { message: 'Payment notification received' };
     } catch (error) {
-      console.error('Error al procesar la notificacion:', error);
+      console.error('Error processing payment notification:', error);
       throw new HttpException(
         'Error processing payment notification: ' + error.message,
         500
@@ -139,7 +135,7 @@ export class DonationsService {
           },
         }
       );
-      console.log('Obteniendo la data directamente del pago:', response.data); // Aquí obtendrás los detalles completos del pago
+      console.log('Payment response data:', response.data); // Aquí obtendrás los detalles completos del pago
   
       return response.data;
     } catch (error) {

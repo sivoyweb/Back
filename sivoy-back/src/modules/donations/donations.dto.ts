@@ -40,8 +40,9 @@ export class PaymentNotificationDto {
   @IsUUID()
   id: string;
 
-  @IsObject()
-  data: PaymentDataDto;
+  data: { 
+    id: string;
+  }
 
   @IsString()
   date_created: string;
