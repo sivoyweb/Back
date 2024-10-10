@@ -19,10 +19,10 @@ export class Promotion {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'date'  })
+  @Column({ type: 'date' })
   validFrom: Date;
 
-  @Column({ type: 'date'  })
+  @Column({ type: 'date' })
   validUntil: Date;
 
   @Column({ default: true })

@@ -95,5 +95,4 @@ export class SuggestionsRepository {
     // }
     return suggestion;
   }
-
 }

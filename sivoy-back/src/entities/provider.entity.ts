@@ -19,5 +19,4 @@ export class Provider {
 
   @OneToMany(() => Travel, (travel) => travel.provider)
   travels: Travel[];
-
 }

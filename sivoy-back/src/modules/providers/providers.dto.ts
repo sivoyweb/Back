@@ -11,7 +11,6 @@ export class CreateProviderDto {
 }
 
 export class UpdateProviderDto {
-
   @IsOptional()
   @IsString()
   name?: string;

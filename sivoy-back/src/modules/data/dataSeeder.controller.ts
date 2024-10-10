@@ -58,6 +58,10 @@ import * as fs from 'fs';
 import { Response } from 'express';
 import { SuggestionsRepository } from '../suggestions/suggestions.repository';
 import { Suggestion } from 'src/entities/suggestion.entity';
+import { UsersRepository } from '../users/users.repository';
+import { AVATAR_DEFAULT, PUBLIC_ID_AVATAR } from 'src/config/envConfig';
+import { ImagesRepository } from '../images/images.repository';
+import { Image } from 'src/entities/images.entity';
 
 @ApiTags('Data')
 @Controller('/data')
@@ -67,6 +71,8 @@ export class DataController {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Credential)
     private readonly credentialRepo: Repository<Credential>,
+    @InjectRepository(Image)
+    private readonly imageRepo: Repository<Image>,
     private readonly travelsRepo: TravelsRepository,
     private readonly teamRepo: TeamRepository,
     private readonly promotionsRepo: PromotionsRepository,
@@ -111,11 +117,23 @@ export class DataController {
 
       if (entity.toLowerCase() === 'user') {
         jsonData.forEach(async (userData: any) => {
-          console.log(userData);
           const password = await bcrypt.hash(userData?.password, 11);
+          let avatar = await this.imageRepo.findOne({
+            where: { publicId: PUBLIC_ID_AVATAR },
+          });
+
+          if (!avatar) {
+            avatar = await this.imageRepo.create({
+              url: AVATAR_DEFAULT,
+              publicId: PUBLIC_ID_AVATAR,
+            });
+            await this.imageRepo.save(avatar);
+          }
+
           const newCredential: Partial<Credential> = {
             email: userData?.email,
             password,
+            avatar,
           };
 
           const credential = await this.credentialRepo.save(newCredential);
