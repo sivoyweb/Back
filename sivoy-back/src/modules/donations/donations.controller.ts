@@ -46,7 +46,7 @@ export class DonationsController {
     return await this.donationsService.getDonationsByUser(userId);
   }
 
-  @Post('webhook')
+  @Post('payment-notification')
   @ApiResponse({
     status: 200,
     description: 'Payment notification processed successfully.',
