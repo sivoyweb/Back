@@ -44,9 +44,9 @@ export class Travel {
   @Column({
     type: 'enum',
     enum: AccessibilitySealName,
-    default: AccessibilitySealName.BRONZE,
+    nullable: true,
   })
-  accesibilitySealName: AccessibilitySealName;
+  accessibilitySealName: AccessibilitySealName;
 
   @OneToMany(() => Image, (image) => image.accesibilitySeal, { cascade: true })
   @JoinTable()
