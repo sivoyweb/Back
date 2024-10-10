@@ -10,8 +10,8 @@ import { PreferenceData } from 'src/utils/interface.donations';
 import sendEmailService from 'src/helpers/email.service';
 import { donationConfirmationEmail } from 'src/utils/mail.structure';
 import { response } from 'express';
+import { MP_ACCESS_TOKEN } from 'src/config/envConfig';
 
-const { MP_ACCESS_TOKEN } = process.env;
 
 config();
 
@@ -44,7 +44,7 @@ export class DonationsRepository {
           items: [
             {
               id: uuidv4(),
-              title: 'Donación para Si, voy', // Título fijo
+              title: 'Donación para Sí, voy', // Título fijo
               unit_price: preferenceData.unit_price, // Se usa el unit_price del body
               quantity: 1, // Cantidad fija
             },
@@ -88,10 +88,11 @@ export class DonationsRepository {
           name: preferenceData.name,
         }, // Asegúrate de que el modelo Donation tenga estos campos
         status: DonationStatus.PENDING,
+        
       });
-
+      
       await this.donationRepository.save(donation);
-
+      
       // Construir la respuesta personalizada
       const customResponse = {
         id: response.id,
@@ -108,8 +109,8 @@ export class DonationsRepository {
           },
         ],
       };
-      console.log(preference);
-      console.log(customResponse);
+
+
       return customResponse; // Devuelve la respuesta personalizada
     } catch (error) {
       console.error('Error during createDonation:', error);

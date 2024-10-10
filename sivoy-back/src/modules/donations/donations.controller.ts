@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -6,6 +7,8 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Req,
 } from '@nestjs/common';
 import { DonationsService } from './donations.service';
 import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
@@ -17,6 +20,54 @@ import { Donation } from 'src/entities/donation.entity';
 @Controller('donations')
 export class DonationsController {
   constructor(private readonly donationsService: DonationsService) {}
+  
+  // @Post('webhook')
+  // @ApiResponse({
+  //   status: 200,
+  //   description: 'Payment notification processed successfully.',
+  // })
+  // async handlePaymentWebhook(
+  //   @Body() payload: PaymentNotificationDto,
+  // ): Promise<{ message: string }> {
+  //   console.log('Received payment webhook:', payload);
+  //   return await this.donationsService.processPaymentNotification(payload);
+  // }
+
+
+  // 
+  
+
+
+  @Post('webhook')
+async handleWebhook(
+  @Req() req: Request,
+  @Query('topic') topic: string,
+  @Query('id') id: string,
+) {
+  console.log('Headers:', req.headers);
+  console.log('Body:', req.body);
+
+  // Verificar que se reciba el topic y id
+  if (!topic || !id) {
+    throw new BadRequestException('Missing topic or id');
+  }
+
+  const dataBody = req.body
+
+  // Verificar que el cuerpo contenga datos
+  if (!dataBody) {
+    throw new BadRequestException('Missing data in the body');
+  }
+
+  console.log('Id que llega desde el webhook:', id);
+  // Obtener detalles del pago
+  // const dataPayment = await this.donationsService.getPaymentDetails(data);
+  //  console.log('Respuesta de mercado pago al id :', dataPayment);
+
+  // Procesar la notificación de pago
+  await this.donationsService.processPaymentNotification(dataBody);
+}
+
 
   @Post()
   @ApiResponse({ status: 201, description: 'Donation created successfully.' })
@@ -45,16 +96,5 @@ export class DonationsController {
   ): Promise<Donation[]> {
     return await this.donationsService.getDonationsByUser(userId);
   }
-
-  @Post('webhook')
-  @ApiResponse({
-    status: 200,
-    description: 'Payment notification processed successfully.',
-  })
-  async handlePaymentWebhook(
-    @Body() payload: PaymentNotificationDto,
-  ): Promise<{ message: string }> {
-    console.log('Received payment webhook:', payload);
-    return await this.donationsService.processPaymentNotification(payload);
-  }
+  
 }
