@@ -43,7 +43,6 @@ export class CreateTravelDto {
 
   @IsString()
   @IsNotEmpty()
-  @MaxLength(255)
   description: string;
 
   @IsNotEmpty()
@@ -52,7 +51,7 @@ export class CreateTravelDto {
 
   @IsEnum(AccessibilitySealName)
   @IsNotEmpty() 
-  accessibilitySealName?: AccessibilitySealName;
+  accessibilitySealName: AccessibilitySealName;
 
   @IsOptional()
   @IsArray()
