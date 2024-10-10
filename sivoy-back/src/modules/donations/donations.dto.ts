@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsObject,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateDonationDto {
@@ -24,7 +25,8 @@ export class CreateDonationDto {
 }
 
 export class PaymentDataDto {
-  @IsString()
+  @IsUUID()
+  @IsNotEmpty()
   donationId: string;
 }
 
@@ -35,11 +37,12 @@ export class PaymentNotificationDto {
   @IsString()
   api_version: string;
 
-  @IsString()
+  @IsUUID()
   id: string;
 
-  @IsObject()
-  data: PaymentDataDto;
+  data: { 
+    id: string;
+  }
 
   @IsString()
   date_created: string;
@@ -51,5 +54,5 @@ export class PaymentNotificationDto {
   type: string;
 
   @IsString()
-  user_id: number;
+  user_id: string;
 }
