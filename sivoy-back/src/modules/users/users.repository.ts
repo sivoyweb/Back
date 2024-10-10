@@ -145,7 +145,7 @@ export class UsersRepository {
 
     const hashedPassword = await bcrypt.hash(password, 11);
     let avatar = await this.imagesRepository.findOne({
-      where: { url: AVATAR_DEFAULT },
+      where: { publicId: PUBLIC_ID_AVATAR },
     });
 
     if (!avatar) {
