@@ -115,7 +115,7 @@ export class TravelsRepository {
   async updateTravel(id: string, travel: UpdateTravelDto) {
     const updateTravel = await this.travelsRepository.findOne({
       where: { id },
-      relations: ['images']
+      relations: ['images'],
     });
     if (!updateTravel)
       throw new NotFoundException(`travel whit ${id} not found`);
@@ -123,7 +123,7 @@ export class TravelsRepository {
     if (!travel.images) {
       travel.images = [];
     }
-  
+
     // Agregamos las imágenes existentes
     travel.images.push(...updateTravel.images);
     await this.travelsRepository.save(updateTravel);
@@ -285,31 +285,31 @@ export class TravelsRepository {
     const reviews = await this.reviewsRepository.find({
       where: { state: ApprovalState.PENDING },
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
     });
     return reviews;
   }
-  
+
   async getAllReviews() {
     const reviews = await this.reviewsRepository.find({
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
-    })
-    return reviews
+    });
+    return reviews;
   }
 
   async getReviewById(id: string) {
     const review = await this.reviewsRepository.findOne({
       where: { id },
       relations: {
-        user: true,    
-        travel: true,  
+        user: true,
+        travel: true,
       },
-    })
-    return review
+    });
+    return review;
   }
 }

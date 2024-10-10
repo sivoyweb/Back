@@ -119,7 +119,7 @@ export class UpdateTravelDto {
 
   @IsOptional()
   @IsArray()
-  accessibilitySeal?:Image[];
+  accesibilitySeal?: Image[];
 
   @IsOptional()
   @IsArray()

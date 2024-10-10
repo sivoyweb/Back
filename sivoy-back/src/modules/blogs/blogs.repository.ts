@@ -75,9 +75,9 @@ export class BlogsRepository {
   async updateBlog(id: string, updateBlogDto: UpdateBlogDto): Promise<Blog> {
     const blog = await this.blogsRepository.findOne({
       where: { id },
-      relations: ['images']
+      relations: ['images'],
     });
-  
+
     if (!blog) {
       throw new HttpException(
         { status: 404, error: `Blog with ID ${id} not found` },
