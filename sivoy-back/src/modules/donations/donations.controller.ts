@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
@@ -61,10 +60,11 @@ async handleWebhook(
 
   console.log('Id que llega desde el webhook:', id);
   // Obtener detalles del pago
-  // const dataPayment = await this.donationsService.getPaymentDetails(data);
+  // const dataPayment = await this.donationsService.getPaymentDetails(id);
   //  console.log('Respuesta de mercado pago al id :', dataPayment);
 
   // Procesar la notificación de pago
+  console.log('Este el el body que me llega del webhook:', dataBody)
   await this.donationsService.processPaymentNotification(dataBody);
 }
 
@@ -96,5 +96,17 @@ async handleWebhook(
   ): Promise<Donation[]> {
     return await this.donationsService.getDonationsByUser(userId);
   }
-  
+
+  @Post('payment-notification')
+  @ApiResponse({
+    status: 200,
+    description: 'Payment notification processed successfully.',
+  })
+  async handlePaymentWebhook(
+    @Body() payload: PaymentNotificationDto,
+  ): Promise<{ message: string }> {
+    console.log('Received payment webhook:', payload);
+    return await this.donationsService.processPaymentNotification(payload);
+  }
 }
+
